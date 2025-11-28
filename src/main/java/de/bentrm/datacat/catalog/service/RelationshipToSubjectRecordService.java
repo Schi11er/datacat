@@ -29,7 +29,7 @@ public interface RelationshipToSubjectRecordService extends SimpleRecordService<
 
     @NotNull XtdSubject getConnectingSubject(@NotNull XtdRelationshipToSubject relationshipToSubject);
 
-    @NotNull XtdRelationshipType getRelationshipType(@NotNull XtdRelationshipToSubject relationshipToSubject);
+    XtdRelationshipType getRelationshipType(@NotNull XtdRelationshipToSubject relationshipToSubject);
 
     XtdRelationshipToSubject addRelationshipType(@NotNull XtdRelationshipToSubject relationshipToSubject, @NotNull XtdRelationshipKindEnum relationshipKind);
 

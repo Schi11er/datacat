@@ -127,9 +127,12 @@ public class RelationshipToSubjectRecordServiceImpl
     }
 
     @Override
-    public @NotNull XtdRelationshipType getRelationshipType(XtdRelationshipToSubject relationshipToSubject) {
+    public XtdRelationshipType getRelationshipType(XtdRelationshipToSubject relationshipToSubject) {
         Assert.notNull(relationshipToSubject.getId(), "RelationshipToSubject must be persistent.");
         final String relationshipTypeId = getRepository().findRelationshipTypeIdAssignedToRelationshipToSubject(relationshipToSubject.getId());
+        if (relationshipTypeId == null) {
+            return null;
+        }
         return relationshipTypeRecordService.findByIdWithDirectRelations(relationshipTypeId).orElseThrow(() -> new IllegalArgumentException("No record with id " + relationshipTypeId + " found."));
     }
 
