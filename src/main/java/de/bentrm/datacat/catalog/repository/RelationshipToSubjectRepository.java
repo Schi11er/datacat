@@ -30,4 +30,9 @@ public interface RelationshipToSubjectRepository extends EntityRepository<XtdRel
             MATCH (n:XtdRelationshipToSubject {id: $relationshiptToSubjectId})-[:RELATIONSHIP_TYPE]->(p:XtdRelationshipType)
             RETURN p.id""")
     String findRelationshipTypeIdAssignedToRelationshipToSubject(String relationshiptToSubjectId);
+
+    @Query("""
+            MATCH (n:XtdRelationshipToSubject)-[:RELATIONSHIP_TYPE]->(p:XtdRelationshipType {id: $relationshipTypeId})
+            RETURN count(n)""")
+    Long countRelationshipsUsingRelationshipType(String relationshipTypeId);
 }
