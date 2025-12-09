@@ -262,19 +262,30 @@ public class ValueListRecordServiceImpl extends AbstractSimpleRecordServiceImpl<
     @Override
     public @NotNull XtdValueList removeRelationship(@NotBlank String recordId, @NotBlank String relatedRecordId,
             @NotNull SimpleRelationType relationType) {
+        log.info("ValueListRecordService.removeRelationship called: recordId={}, relatedRecordId={}, relationType={}", 
+            recordId, relatedRecordId, relationType.getRelationProperty());
         log.trace("Deleting relationship from record with id {}...", recordId);
         final XtdValueList entry = this.getRepository().findByIdWithDirectRelations(recordId)
                 .orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
 
-        Set<XtdOrderedValue> orderedValues = entry.getValues();
-        for (XtdOrderedValue orderedValue : orderedValues) {
-            XtdOrderedValue value = orderedValueRepository.findByIdWithDirectRelations(orderedValue.getId())
-                    .orElseThrow(() -> new IllegalArgumentException(
-                            "No record with id " + orderedValue.getOrderedValue().getId() + " found."));
-            if (value.getOrderedValue().getId().equals(relatedRecordId)) {
-                removeRecord(orderedValue.getId());
+        // Handle Values relationship (via OrderedValue)
+        if (relationType == SimpleRelationType.Values) {
+            Set<XtdOrderedValue> orderedValues = entry.getValues();
+            for (XtdOrderedValue orderedValue : orderedValues) {
+                XtdOrderedValue value = orderedValueRepository.findByIdWithDirectRelations(orderedValue.getId())
+                        .orElseThrow(() -> new IllegalArgumentException(
+                                "No record with id " + orderedValue.getOrderedValue().getId() + " found."));
+                if (value.getOrderedValue().getId().equals(relatedRecordId)) {
+                    removeRecord(orderedValue.getId());
+                }
             }
+        } 
+        // Handle other relationships (Unit, Language, etc.) via standard cleanup
+        else {
+            log.info("Delegating to super.removeRelationship for relationType: {}", relationType.getRelationProperty());
+            super.removeRelationship(recordId, relatedRecordId, relationType);
         }
+        
         return entry;
     }
 }

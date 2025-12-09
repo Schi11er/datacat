@@ -151,6 +151,9 @@ public class RelationshipRecordMutationController {
 
     @MutationMapping
     protected DeleteRelationshipPayload deleteRelationship(@Argument DeleteRelationshipInput input) {
+        log.info("Deleting relationship: type={}, from={}, to={}, name={}", 
+            input.getRelationshipType(), input.getFromId(), input.getToId(), input.getName());
+        
         SimpleRelationType relType = input.getRelationshipType();
         CatalogRecord record;
         final CatalogRecord fromEntity = catalogService.getEntryById(input.getFromId())
@@ -176,8 +179,10 @@ public class RelationshipRecordMutationController {
                 deleteObjectRelationship(relationshipId);
             }
         } else {
+            log.info("Removing simple relationship: relationType={}", relType.getRelationProperty());
             record = simpleRecordService.removeRelationship(input.getFromId(), input.getToId(), relType);
         }
+        log.info("Relationship deleted successfully for record: {}", record.getId());
         return PAYLOAD_MAPPER.toDeleteRelationshipPayload(record);
     }
 }
