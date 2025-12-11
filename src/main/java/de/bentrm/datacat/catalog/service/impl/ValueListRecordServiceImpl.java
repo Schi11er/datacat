@@ -139,12 +139,38 @@ public class ValueListRecordServiceImpl extends AbstractSimpleRecordServiceImpl<
     }
 
     @Override
+    public @NotNull Optional<XtdValueList> findById(@NotNull String id) {
+        // Überschreibe die Standard-Methode, um KEINE Relationen zu laden
+        return getRepository().findByIdWithoutRelations(id);
+    }
+
+    @Override
     public List<XtdOrderedValue> getOrderedValues(XtdValueList valueList) {
         Assert.notNull(valueList.getId(), "ValueList must be persistent.");
         final List<String> valueIds = getRepository().findAllOrderedValueIdsAssignedToValueList(valueList.getId());
         final Iterable<XtdOrderedValue> values = orderedValueRecordService.findAllEntitiesById(valueIds);
 
         return StreamSupport.stream(values.spliterator(), false).collect(Collectors.toList());
+    }
+
+    @Override
+    public @NotNull Page<XtdOrderedValue> getOrderedValues(@NotNull XtdValueList valueList, @NotNull Pageable pageable) {
+        Assert.notNull(valueList.getId(), "ValueList must be persistent.");
+        
+        final List<String> valueIds = getRepository().findOrderedValuesByValueListIdPaginated(
+            valueList.getId(), 
+            (int) pageable.getOffset(), 
+            pageable.getPageSize()
+        );
+        
+        final Iterable<XtdOrderedValue> values = orderedValueRecordService.findAllEntitiesById(valueIds);
+        final List<XtdOrderedValue> valuesList = StreamSupport.stream(values.spliterator(), false)
+            .collect(Collectors.toList());
+        
+        // Get total count for pagination
+        final Long totalCount = getRepository().countOrderedValuesByValueListId(valueList.getId());
+        
+        return PageableExecutionUtils.getPage(valuesList, pageable, () -> totalCount);
     }
 
     @Override
@@ -188,6 +214,11 @@ public class ValueListRecordServiceImpl extends AbstractSimpleRecordServiceImpl<
     @Override
     public Optional<XtdValueList> findByIdWithIncomingAndOutgoingRelations(String id) {
         return getRepository().findByIdWithIncomingAndOutgoingRelations(id);
+    }
+
+    @Override
+    public Optional<XtdValueList> findByIdWithoutRelations(String id) {
+        return getRepository().findByIdWithoutRelations(id);
     }
 
     @Transactional

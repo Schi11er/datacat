@@ -380,7 +380,7 @@ type XtdValueList implements XtdRoot & XtdObject & XtdConcept {
   uri: String
   referenceDocuments: [XtdExternalDocument!]!
   unit: XtdUnit
-  values: [XtdOrderedValue!]!
+  values(pageSize: Int, pageNumber: Int): XtdOrderedValueConnection!
   properties: [XtdProperty!]
 }
 
