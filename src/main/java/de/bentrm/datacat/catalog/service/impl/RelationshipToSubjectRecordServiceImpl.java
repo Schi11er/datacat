@@ -132,7 +132,10 @@ public class RelationshipToSubjectRecordServiceImpl
     public @NotNull XtdSubject getConnectingSubject(XtdRelationshipToSubject relationshipToSubject) {
         Assert.notNull(relationshipToSubject.getId(), "RelationshipToSubject must be persistent.");
         final String subjectId = getRepository().findConnectingSubjectIdAssignedToRelationshipToSubject(relationshipToSubject.getId());
-        return subjectRecordService.findByIdWithDirectRelations(subjectId).orElseThrow(() -> new IllegalArgumentException("No record with id " + subjectId + " found."));
+        if (subjectId == null) {
+            throw new IllegalArgumentException("No connecting subject found for RelationshipToSubject with id " + relationshipToSubject.getId());
+        }
+        return subjectRecordService.findById(subjectId).orElseThrow(() -> new IllegalArgumentException("No record with id " + subjectId + " found."));
     }
 
     @Override

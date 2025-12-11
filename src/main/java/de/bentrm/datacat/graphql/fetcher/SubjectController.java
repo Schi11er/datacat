@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -46,7 +45,7 @@ public class SubjectController {
 
     @QueryMapping
     public Optional<XtdSubject> getSubject(@Argument String id) {
-        return service.findByIdWithIncomingAndOutgoingRelations(id);
+        return service.findById(id);
     }
 
     @QueryMapping
@@ -76,17 +75,10 @@ public class SubjectController {
             XtdSubject subject,
             @Argument RelationshipToSubjectFilterInput filter) {
         
-        Set<XtdRelationshipToSubject> loadedConnectedSubjects = subject.getConnectedSubjects();
-        List<XtdRelationshipToSubject> relationships;
-        
-        if (loadedConnectedSubjects != null && !loadedConnectedSubjects.isEmpty()) {
-            relationships = new ArrayList<>(loadedConnectedSubjects);
-        } else {
-            // Fallback: lade aus DB
-            relationships = service.getConnectedSubjects(subject);
-            if (relationships == null) {
-                relationships = new ArrayList<>();
-            }
+        // Lade connectedSubjects explizit aus der DB
+        List<XtdRelationshipToSubject> relationships = service.getConnectedSubjects(subject);
+        if (relationships == null) {
+            relationships = new ArrayList<>();
         }
         
         return filterRelationshipsByTypeName(relationships, filter);

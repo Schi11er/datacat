@@ -23,7 +23,7 @@ public interface RelationshipToSubjectRepository extends EntityRepository<XtdRel
 
     @Query("""
             MATCH (n:XtdRelationshipToSubject {id: $relationshiptToSubjectId})<-[:CONNECTED_SUBJECTS]-(p:XtdSubject)
-            RETURN p.id""")
+            RETURN p.id LIMIT 1""")
     String findConnectingSubjectIdAssignedToRelationshipToSubject(String relationshiptToSubjectId);
 
     @Query("""

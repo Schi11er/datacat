@@ -33,6 +33,7 @@ public class XtdValueList extends XtdConcept {
     private Set<XtdOrderedValue> values = new HashSet<>();
 
     // @ToString.Include
+    @Lazy
     @Relationship(type = "POSSIBLE_VALUES", direction = Relationship.Direction.INCOMING)
     private Set<XtdProperty> properties = new HashSet<>();
 }
