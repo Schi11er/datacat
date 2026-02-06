@@ -56,6 +56,12 @@ spring:
       max-acquisition-queue-size: 1000  # Größere Queue für parallele GraphQL Requests
     connection-timeout: 90s  # Erhöht für Graph-Queries mit vielen Objekten
     max-transaction-retry-time: 30s
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8091/realms/datacat
+          jwk-set-uri: http://keycloak:8080/realms/datacat/protocol/openid-connect/certs
 
 logging:
   level: 
@@ -63,3 +69,5 @@ logging:
     # org.springframework.data.neo4j.repository.query: DEBUG
     # org.neo4j.driver: DEBUG
     # org.springframework: DEBUG
+
+
