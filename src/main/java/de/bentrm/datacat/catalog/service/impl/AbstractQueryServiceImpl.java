@@ -112,7 +112,9 @@ public abstract class AbstractQueryServiceImpl<T extends Entity, R extends Entit
         String sort = "";
         if (direction != null && properties != null) {
             List<String> prefixedProperties = Arrays.stream(properties)
-                    .map(property -> "n.`" + property + "` " + direction.name()).collect(Collectors.toList());
+                    .map(property -> "toLower(n.`" + property + "`) " + direction.name()
+                            + ", n.`" + property + "` " + direction.name())
+                    .collect(Collectors.toList());
             sort = " ORDER BY " + String.join(", ", prefixedProperties);
         }
 

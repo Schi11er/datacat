@@ -37,6 +37,7 @@ public class AuthController {
             BadCredentialsException.class
     })
     public GraphQLError handleException(Throwable e) {
+        log.warn("AUTH_ERROR error={}", e.getMessage());
         return GraphQLError.newError().errorType(ErrorType.BAD_REQUEST).message(e.getMessage()).build();
     }
 
@@ -48,6 +49,7 @@ public class AuthController {
     @MutationMapping
     public Boolean signup(@Argument SignupInput input) {
         authenticationService.signup(input);
+        log.info("USER_REGISTERED username={}", input.getUsername());
         return true;
     }
 
@@ -59,7 +61,9 @@ public class AuthController {
 
     @MutationMapping
     public String login(@Argument LoginInput input) {
-        return authenticationService.login(input.getUsername(), input.getPassword());
+        String token = authenticationService.login(input.getUsername(), input.getPassword());
+        log.info("USER_LOGIN username={}", input.getUsername());
+         return token;
     }
 
     @MutationMapping

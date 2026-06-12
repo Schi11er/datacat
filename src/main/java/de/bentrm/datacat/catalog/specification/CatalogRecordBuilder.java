@@ -32,7 +32,7 @@ public abstract class CatalogRecordBuilder<B extends CatalogRecordBuilder<B>> ex
                 .collect(Collectors.toList());
         final String filter = labels.stream()
                 .map(label -> "n:" + label)
-                .collect(Collectors.joining(" OR "));
+                .collect(Collectors.joining(" OR ", "(", ")"));
         filters.add(filter);
         return self();
     }
@@ -41,9 +41,9 @@ public abstract class CatalogRecordBuilder<B extends CatalogRecordBuilder<B>> ex
         final List<String> labels = recordTypes.stream()
                 .map(CatalogRecordType::getLabel)
                 .collect(Collectors.toList());
-        final String filter = "NOT " + labels.stream()
+        final String filter = "NOT (" + labels.stream()
                 .map(label -> "n:" + label)
-                .collect(Collectors.joining(" OR "));
+                .collect(Collectors.joining(" OR ")) + ")";
         filters.add(filter);
         return self();
     }
