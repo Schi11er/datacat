@@ -1,0 +1,2 @@
+MERGE (:Tag:Entity { id: "f72aefe1-cb39-4af3-8455-2fd-fe891734c", version: 0, created: toString(datetime()), createdBy: "SYSTEM", lastModified: toString(datetime()), lastModifiedBy: "SYSTEM", scope: "ISO:23387:2025", name: "Datenvorlage" });
+MERGE (:Tag:Entity { id: "b7b1cd0b-b515-4252-a083-bb5d-dee073c8", version: 0, created: toString(datetime()), createdBy: "SYSTEM", lastModified: toString(datetime()), lastModifiedBy: "SYSTEM", scope: "ISO:23387:2025", name: "Objekttyp" });
