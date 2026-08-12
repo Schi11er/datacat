@@ -172,7 +172,10 @@ public class RelationshipToSubjectRecordServiceImpl
         Assert.notNull(relationshipKind, "RelationshipKind must be a valid input.");
 
         // Suche nach bestehendem XtdRelationshipType mit exakt diesem Namen und Kind
-        XtdRelationshipType existingType = findRelationshipTypeByNameAndKind(name, relationshipKind);
+        // XtdRelationshipType existingType = findRelationshipTypeByNameAndKind(name, relationshipKind);
+        XtdRelationshipType existingType = relationshipTypeRepository
+            .findByNameAndKind(name, relationshipKind)
+            .orElse(null);
 
         if (existingType != null) {
             // Bestehendes Objekt verwenden
@@ -206,43 +209,12 @@ public class RelationshipToSubjectRecordServiceImpl
         return relationshipToSubject;
     }
 
-    private XtdRelationshipType findRelationshipTypeByNameAndKind(String name, XtdRelationshipKindEnum kind) {
-        // Lade alle XtdRelationshipType mit dem gegebenen Kind
-        Iterable<XtdRelationshipType> allTypes = relationshipTypeRepository.findAll();
-
-        for (XtdRelationshipType type : allTypes) {
-            // Prüfe ob das Kind übereinstimmt
-            if (type.getKind() != kind) {
-                continue;
-            }
-
-            // Lade vollständig mit Neo4jTemplate um names zu bekommen
-            type = neo4jTemplate.findById(type.getId(), XtdRelationshipType.class).orElse(null);
-            if (type == null || type.getNames() == null) {
-                continue;
-            }
-
-            // Prüfe alle Namen
-            for (de.bentrm.datacat.catalog.domain.XtdMultiLanguageText multiLangText : type.getNames()) {
-                if (multiLangText.getTexts() != null) {
-                    for (de.bentrm.datacat.catalog.domain.XtdText text : multiLangText.getTexts()) {
-                        if (name.equals(text.getText())) {
-                            return type;
-                        }
-                    }
-                }
-            }
-        }
-
-        return null;
-    }
-
     @Transactional
     protected XtdRelationshipToSubject setRelatingRecord(@NotNull XtdRelationshipToSubject relationshipRecord,
                                      @NotBlank String relatingRecordId) {
-        final XtdSubject relatingCatalogRecord = subjectRecordService
-                .findByIdWithDirectRelations(relatingRecordId)
-                .orElseThrow(() -> new IllegalArgumentException("No record with id " + relatingRecordId + " found."));
+        XtdSubject relatingCatalogRecord = new XtdSubject();
+        relatingCatalogRecord.setId(relatingRecordId);
+
         relationshipRecord.setConnectingSubject(relatingCatalogRecord);
         neo4jTemplate.saveAs(relationshipRecord, ConnectingSubjectDtoProjection.class);
         return relationshipRecord;

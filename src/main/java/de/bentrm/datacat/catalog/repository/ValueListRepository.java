@@ -3,6 +3,7 @@ package de.bentrm.datacat.catalog.repository;
 import de.bentrm.datacat.base.repository.EntityRepository;
 import de.bentrm.datacat.catalog.domain.XtdValueList;
 import org.springframework.data.neo4j.repository.query.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -74,4 +75,16 @@ public interface ValueListRepository extends EntityRepository<XtdValueList> {
                         """)
         Optional<XtdValueList> findByIdWithIncomingAndOutgoingRelations(String id);
 
+        @Query("""
+                MATCH (vl:XtdValueList {id: $id})-[:VALUES]->(ov:XtdOrderedValue)
+                RETURN coalesce(max(ov.order), -1)
+                """)
+        Integer findMaxOrderForValueList(@Param("id") String id);
+
+        @Query("""
+                MATCH (vl:XtdValueList {id: $valueListId})
+                MATCH (ov:XtdOrderedValue {id: $orderedValueId})
+                MERGE (vl)-[:VALUES]->(ov)
+                """)
+        void attachOrderedValue(@Param("valueListId") String valueListId, @Param("orderedValueId") String orderedValueId);
 }

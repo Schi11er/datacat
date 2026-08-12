@@ -1,0 +1,16 @@
+CREATE INDEX idx_dictionary_id IF NOT EXISTS FOR (n:XtdDictionary) ON (n.id);
+CREATE INDEX idx_subject_id IF NOT EXISTS FOR (n:XtdSubject) ON (n.id);
+CREATE INDEX idx_referencedocument_id IF NOT EXISTS FOR (n:XtdReferenceDocument) ON (n.id);
+CREATE INDEX idx_property_id IF NOT EXISTS FOR (n:XtdProperty) ON (n.id);
+CREATE INDEX idx_valuelist_id IF NOT EXISTS FOR (n:XtdValueList) ON (n.id);
+CREATE INDEX idx_orderedvalue_id IF NOT EXISTS FOR (n:XtdOrderedValue) ON (n.id);
+CREATE INDEX idx_value_id IF NOT EXISTS FOR (n:XtdValue) ON (n.id);
+CREATE INDEX idx_unit_id IF NOT EXISTS FOR (n:XtdUnit) ON (n.id);
+CREATE INDEX idx_object_id IF NOT EXISTS FOR (n:XtdObject) ON (n.id);
+CREATE INDEX idx_root_id IF NOT EXISTS FOR (n:XtdRoot) ON (n.id);
+CREATE INDEX idx_concept_id IF NOT EXISTS FOR (n:XtdConcept) ON (n.id);
+CREATE INDEX idx_entity_id IF NOT EXISTS FOR (n:Entity) ON (n.id);
+CREATE INDEX idx_language_id IF NOT EXISTS FOR (n:XtdLanguage) ON (n.id);
+CREATE INDEX idx_reltosubject_id IF NOT EXISTS FOR (n:XtdRelationshipToSubject) ON (n.id);
+CREATE INDEX idx_reltype_id IF NOT EXISTS FOR (n:XtdRelationshipType) ON (n.id);
+CREATE INDEX idx_catalogrecord_id IF NOT EXISTS FOR (n:CatalogRecord) ON (n.id);

@@ -108,12 +108,17 @@ public class CatalogServiceImpl implements CatalogService {
     @Transactional
     @Override
     public CatalogRecord addTag(String entryId, String tagId) {
-        CatalogRecord item = catalogRecordRepository.findByIdWithDirectRelations(entryId)
-                .orElseThrow(() -> new IllegalArgumentException("No record with id " + entryId + " found."));
-        final Tag tag = tagRepository.findByIdWithDirectRelations(tagId)
-                .orElseThrow(() -> new IllegalArgumentException("No record with tag " + tagId + " found."));
-        item.addTag(tag);
-        neo4jTemplate.saveAs(item, CatalogRecordDtoProjection.class);
+        if (!catalogRecordRepository.existsById(entryId)) {
+            throw new IllegalArgumentException("No record with id " + entryId + " found.");
+        }
+        if (!tagRepository.existsById(tagId)) {
+            throw new IllegalArgumentException("No record with tag " + tagId + " found.");
+        }
+
+        catalogRecordRepository.attachTag(entryId, tagId);
+
+        CatalogRecord item = new CatalogRecord() {};
+        item.setId(entryId);
         return item;
     }
 

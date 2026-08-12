@@ -255,35 +255,41 @@ public class ValueListRecordServiceImpl extends AbstractSimpleRecordServiceImpl<
             @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType,
             Integer orderNumber) {
 
-        final XtdValueList valueList = getRepository().findByIdWithDirectRelations(recordId)
-                .orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        // final XtdValueList valueList = getRepository().findByIdWithDirectRelations(recordId)
+        //         .orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        XtdValueList valueList = new XtdValueList();
+        valueList.setId(recordId);
 
         final Iterable<XtdValue> items = valueRecordService.findAllEntitiesById(relatedRecordIds);
         final List<XtdValue> related = StreamSupport.stream(items.spliterator(), false).collect(Collectors.toList());
 
-        Set<XtdOrderedValue> orderedValues = new HashSet<>();
+        // Set<XtdOrderedValue> orderedValues = new HashSet<>();
         if (orderNumber == null) {
-            orderNumber = 0;
-            for (XtdOrderedValue orderd : valueList.getValues()) {
-                orderNumber = Math.max(orderNumber, orderd.getOrder());
-            }
+            // orderNumber = 0;
+            // for (XtdOrderedValue orderd : valueList.getValues()) {
+            //     orderNumber = Math.max(orderNumber, orderd.getOrder());
+            // }
+            orderNumber = getRepository().findMaxOrderForValueList(recordId) + 1;
         } else {
             orderNumber -= 1;
         }
+
         for (XtdValue value : related) {
             orderNumber += 1;
             XtdOrderedValue orderedValue = new XtdOrderedValue();
             // orderedValue.setOrderedValue(value);
             orderedValue.setOrder(orderNumber);
             orderedValueRepository.save(orderedValue);
-            orderedValues.add(orderedValue);
+            // orderedValues.add(orderedValue);
 
             orderedValue.setOrderedValue(value);
             neo4jTemplate.saveAs(orderedValue, ValueDtoProjection.class);
+
+            getRepository().attachOrderedValue(recordId, orderedValue.getId());
         }
 
-        valueList.getValues().addAll(orderedValues);
-        neo4jTemplate.saveAs(valueList, ValuesDtoProjection.class);
+        // valueList.getValues().addAll(orderedValues);
+        // neo4jTemplate.saveAs(valueList, ValuesDtoProjection.class);
 
         log.trace("Updated relationship: {}", valueList);
         return valueList;
