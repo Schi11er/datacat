@@ -43,4 +43,7 @@ public interface CatalogRecordRepository extends EntityRepository<CatalogRecord>
             MERGE (item)-[:TAGGED]->(tag)
             """)
     void attachTag(@Param("itemId") String itemId, @Param("tagId") String tagId);
+
+    @Query("MATCH (o {id: $id}) RETURN labels(o)[-1]")
+    String findPrimaryLabelById(@Param("id") String id);
 }

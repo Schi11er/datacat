@@ -89,7 +89,9 @@ public class RelationshipToSubjectRecordServiceImpl
             log.trace("Set relating record with id: {}", relatingRecordId);
 
             log.trace("Setting related records with ids: {}", relatedRecordIds);
-            newRecord = this.setRelatedRecords(newRecord, relatedRecordIds);
+            for (String relatedRecordId : relatedRecordIds) {    
+                getRepository().attachTargetSubject(id, relatedRecordId);
+            }
             log.trace("Set related records with ids: {}", relatedRecordIds);
 
             log.trace("Persisted new relationship record with id: {}", newRecord.getId());
@@ -222,43 +224,30 @@ public class RelationshipToSubjectRecordServiceImpl
 
     @Transactional
     @Override
-    public XtdRelationshipToSubject setRelatedRecords(@NotNull XtdRelationshipToSubject relationshipRecord,
-                                     @NotEmpty List<@NotBlank String> relatedRecordIds) {
-        final Iterable<XtdSubject> items = subjectRecordService.findAllEntitiesById(relatedRecordIds);
-        final List<XtdSubject> related = StreamSupport
-                .stream(items.spliterator(), false)
-                .collect(Collectors.toList());
-
-        relationshipRecord.getTargetSubjects().addAll(related);
-        neo4jTemplate.saveAs(relationshipRecord, TargetSubjectsDtoProjection.class);
-        return relationshipRecord;
-    }
-
-    @Transactional
-    @Override
     public @NotNull XtdRelationshipToSubject setRelatedRecords(@NotBlank String recordId,
                                                     @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        XtdRelationshipToSubject relationship = getRepository().findByIdWithDirectRelations(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         switch (relationType) {
             case ScopeSubjects -> {
-                final Iterable<XtdSubject> subjects = subjectRecordService.findAllEntitiesById(relatedRecordIds);
-                final List<XtdSubject> relatedSubjects = StreamSupport
-                        .stream(subjects.spliterator(), false)
-                        .collect(Collectors.toList());
-
-                relationship.getScopeSubjects().clear();
-                relationship.getScopeSubjects().addAll(relatedSubjects);
-                neo4jTemplate.saveAs(relationship, ScopeSubjectsDtoProjection.class);
+                for (String subjectId : relatedRecordIds) {
+                    getRepository().attachScopeSubject(recordId, subjectId);
+                }
             }
             case TargetSubjects -> {
-                relationship = setRelatedRecords(relationship, relatedRecordIds);
+                for (String subjectId : relatedRecordIds) {
+                    getRepository().attachTargetSubject(recordId, subjectId);
+                }
             }
             default -> objectRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
         }
 
-        log.trace("Updated relationship: {}", relationship);
+        XtdRelationshipToSubject relationship = new XtdRelationshipToSubject();
+        relationship.setId(recordId);
+        log.trace("Updated relationship {} from: {}", relationType, recordId);
         return relationship;
     }
 

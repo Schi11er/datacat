@@ -87,4 +87,14 @@ public interface ValueListRepository extends EntityRepository<XtdValueList> {
                 MERGE (vl)-[:VALUES]->(ov)
                 """)
         void attachOrderedValue(@Param("valueListId") String valueListId, @Param("orderedValueId") String orderedValueId);
+
+        @Query("""
+                MATCH (vl:XtdValueList {id: $valueListId})
+                MATCH (ov:XtdUnit {id: $unitId})
+                MERGE (vl)-[:UNIT]->(ov)
+                """)
+        void attachUnit(@Param("valueListId") String valueListId, @Param("unitId") String unitId);
+
+        @Query("RETURN EXISTS { MATCH (vl {id: $id})-[:UNIT]->() }")
+        Boolean hasUnitAssigned(String id);
 }

@@ -229,33 +229,27 @@ public class ConceptRecordServiceImpl extends AbstractSimpleRecordServiceImpl<Xt
     public @NotNull XtdConcept setRelatedRecords(@NotBlank String recordId,
             @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdConcept concept = getRepository().findByIdWithDirectRelations(recordId)
-                .orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         switch (relationType) {
         case ReferenceDocuments -> {
-            final Iterable<XtdExternalDocument> referenceDocuments = externalDocumentRecordService
-                    .findAllEntitiesById(relatedRecordIds);
-            final List<XtdExternalDocument> relatedReferenceDocuments = StreamSupport
-                    .stream(referenceDocuments.spliterator(), false).collect(Collectors.toList());
-
-            concept.getReferenceDocuments().clear();
-            concept.getReferenceDocuments().addAll(relatedReferenceDocuments);
-            neo4jTemplate.saveAs(concept, ReferenceDocumentsDtoProjection.class);
+            for (String relatedRecordId : relatedRecordIds) {
+                getRepository().attachReferenceDocument(recordId, relatedRecordId);
+            }
         }
         case SimilarTo -> {
-            final Iterable<XtdConcept> similarConcepts = getRepository().findAllEntitiesById(relatedRecordIds);
-            final List<XtdConcept> relatedSimilarConcepts = StreamSupport.stream(similarConcepts.spliterator(), false)
-                    .collect(Collectors.toList());
-
-            concept.getSimilarTo().clear();
-            concept.getSimilarTo().addAll(relatedSimilarConcepts);
-            neo4jTemplate.saveAs(concept, SimilarToDtoProjection.class);
+            for (String relatedRecordId : relatedRecordIds) {
+                getRepository().attachSimilarConcept(recordId, relatedRecordId);
+            }
         }
         default -> objectRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
         }
 
-        log.trace("Updated relationship: {}", concept);
+        XtdConcept concept = new XtdConcept() {};
+        concept.setId(recordId);
+        log.trace("Updated relationship {} from: {}", relationType, recordId);
         return concept;
     }
 

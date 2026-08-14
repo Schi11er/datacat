@@ -67,23 +67,21 @@ public class CountryRecordServiceImpl
     public @NotNull XtdCountry setRelatedRecords(@NotBlank String recordId,
                                                     @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdCountry country = getRepository().findById(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         switch (relationType) {
             case Subdivisions -> {
-                final Iterable<XtdSubdivision> items = subdivisionRecordService.findAllEntitiesById(relatedRecordIds);
-                final List<XtdSubdivision> related = StreamSupport
-                        .stream(items.spliterator(), false)
-                        .collect(Collectors.toList());
-
-                country.getSubdivisions().clear();
-                country.getSubdivisions().addAll(related);
-                    }
-        
+                for (String relatedRecordId : relatedRecordIds) {
+                    getRepository().attachSubdivision(recordId, relatedRecordId);
+                }
+            }
             default -> conceptRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
         }
 
-        neo4jTemplate.saveAs(country, SubdivisionsDtoProjection.class); 
+        XtdCountry country = new XtdCountry();
+        country.setId(recordId);
         log.trace("Updated relationship: {}", country);
         return country;
     }

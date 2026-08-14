@@ -2,7 +2,9 @@ package de.bentrm.datacat.catalog.service.impl;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +56,9 @@ public abstract class AbstractSimpleRecordServiceImpl<T extends CatalogRecord, R
 
     protected final ValueMapper VALUE_MAPPER = ValueMapper.INSTANCE;
     private final CatalogCleanupService cleanupService;
+    private static final Map<String, XtdLanguage> LANGUAGE_CACHE = new ConcurrentHashMap<>();
+    private static final Map<String, XtdCountry> COUNTRY_CACHE = new ConcurrentHashMap<>();
+
 
     @Autowired
     private LanguageRepository languageRepository;
@@ -111,7 +116,7 @@ public abstract class AbstractSimpleRecordServiceImpl<T extends CatalogRecord, R
             setMultiLanguageText(properties.getDescriptions(), xtdConcept.getDescriptions()::add);
             setMultiLanguageText(properties.getDefinition(), xtdConcept::setDefinition);
             setMultiLanguageText(properties.getExamples(), xtdConcept.getExamples()::add);
-            setLanguage(properties.getLanguageOfCreator(), xtdConcept::setLanguageOfCreator);
+            // setLanguage(properties.getLanguageOfCreator(), xtdConcept::setLanguageOfCreator);
         }
         if (newRecord instanceof XtdProperty property) {
             VALUE_MAPPER.setProperties(properties.getPropertyProperties(), property);
@@ -165,11 +170,11 @@ public abstract class AbstractSimpleRecordServiceImpl<T extends CatalogRecord, R
         if (newRecord instanceof XtdRational rational) {
             VALUE_MAPPER.setProperties(properties.getRationalProperties(), rational);
         }
-        if (newRecord instanceof XtdValueList valueList) {
-            if (properties.getValueListProperties() != null) {
-                setLanguage(properties.getValueListProperties().getLanguageTag(), valueList::setLanguage);
-            }
-        }
+        // if (newRecord instanceof XtdValueList valueList) {
+        //     if (properties.getValueListProperties() != null) {
+        //         setLanguage(properties.getValueListProperties().getLanguageTag(), valueList::setLanguage);
+        //     }
+        // }
         if (newRecord instanceof XtdSymbol symbol) {
             if (properties.getSymbolProperties() != null) {
                 XtdText symbolText = createText(properties.getSymbolProperties().getSymbol());
@@ -203,6 +208,20 @@ public abstract class AbstractSimpleRecordServiceImpl<T extends CatalogRecord, R
         if (newRecord instanceof XtdConcept concept) {
             setCountry(properties.getCountryOfOrigin(), concept::setCountryOfOrigin);
             neo4jTemplate.saveAs(concept, CountryOfOriginDtoProjection.class);
+
+            if (properties.getLanguageOfCreator() != null) {
+                XtdLanguage language = getCachedLanguage(properties.getLanguageOfCreator());
+                languageRepository.attachLanguageOfCreator(newRecord.getId(), language.getId());
+                concept.setLanguageOfCreator(language);
+            }
+        }
+
+        if (newRecord instanceof XtdValueList valueList) {
+            if (properties.getValueListProperties() != null) {
+                XtdLanguage language = getCachedLanguage(properties.getValueListProperties().getLanguageTag());
+                languageRepository.attachTextLanguage(valueList.getId(), language.getId());
+                valueList.setLanguage(language);
+            }
         }
 
         log.trace("Persisted new catalog entry: {}", newRecord);
@@ -231,33 +250,42 @@ public abstract class AbstractSimpleRecordServiceImpl<T extends CatalogRecord, R
 
     private void setLanguage(String languageCode, Consumer<XtdLanguage> setter) {
         if (languageCode != null) {
-            XtdLanguage language = languageRepository.findByCode(languageCode).orElseThrow(
-                    () -> new IllegalArgumentException("No language record with code " + languageCode + " found."));
-            setter.accept(language);
+            setter.accept(getCachedLanguage(languageCode));
         }
+    }
+
+    private XtdLanguage getCachedLanguage(String languageCode) {
+        return LANGUAGE_CACHE.computeIfAbsent(languageCode, code ->
+                languageRepository.findByCode(code)
+                        .orElseThrow(() -> new IllegalArgumentException("No language record with code " + code + " found.")));
+    }
+
+    private XtdCountry getCachedCountry(String countryCode) {
+        return COUNTRY_CACHE.computeIfAbsent(countryCode, code ->
+                countryRepository.findByCode(code)
+                        .orElseThrow(() -> new IllegalArgumentException("No country record with code " + code + " found.")));
     }
 
     private void setCountry(String countryCode, Consumer<XtdCountry> setter) {
         if (countryCode != null) {
-            XtdCountry country = countryRepository.findByCode(countryCode).orElseThrow(
-                    () -> new IllegalArgumentException("No country record with code " + countryCode + " found."));
-            setter.accept(country);
+            setter.accept(getCachedCountry(countryCode));
         }
     }
 
     @Transactional
     public XtdText createText(TranslationInput translation) {
-        final XtdLanguage language = languageRepository.findByCode(translation.getLanguageTag())
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "No language record with code " + translation.getLanguageTag() + " found."));
+        final XtdLanguage language = getCachedLanguage(translation.getLanguageTag());
 
         final XtdText text = new XtdText();
         text.setText(translation.getValue());
         if (translation.getId() != null && !translation.getId().isBlank())
             text.setId(translation.getId());
-        text.setLanguage(language);
+        // text.setLanguage(language);
 
-        textRepository.save(text);
+        XtdText saved = textRepository.save(text);
+
+        languageRepository.attachTextLanguage(saved.getId(), language.getId());
+        saved.setLanguage(language);
         return text;
     }
 

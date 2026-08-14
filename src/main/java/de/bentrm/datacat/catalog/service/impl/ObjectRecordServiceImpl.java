@@ -8,6 +8,7 @@ import de.bentrm.datacat.catalog.domain.XtdObject;
 import de.bentrm.datacat.catalog.domain.XtdText;
 import de.bentrm.datacat.catalog.domain.Enums.XtdStatusOfActivationEnum;
 import de.bentrm.datacat.catalog.domain.XtdMultiLanguageText;
+import de.bentrm.datacat.catalog.repository.DictionaryRepository;
 import de.bentrm.datacat.catalog.repository.MultiLanguageTextRepository;
 import de.bentrm.datacat.catalog.repository.ObjectRepository;
 import de.bentrm.datacat.catalog.repository.TextRepository;
@@ -69,6 +70,9 @@ public class ObjectRecordServiceImpl extends AbstractSimpleRecordServiceImpl<Xtd
 
     @Autowired
     private MultiLanguageTextRepository multiLanguageTextRepository;
+
+    @Autowired
+    private DictionaryRepository dictionaryRepository;
 
     public ObjectRecordServiceImpl(Neo4jTemplate neo4jTemplate, ObjectRepository repository,
             CatalogCleanupService cleanupService) {
@@ -208,37 +212,35 @@ public class ObjectRecordServiceImpl extends AbstractSimpleRecordServiceImpl<Xtd
     public @NotNull XtdObject setRelatedRecords(@NotBlank String recordId,
             @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdObject object = getRepository().findById(recordId)
-                .orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         switch (relationType) {
-        case Dictionary -> {
-            if (object.getDictionary() != null) {
-                throw new IllegalArgumentException("Object already has a dictionary assigned.");
-            } else if (relatedRecordIds.size() != 1) {
-                throw new IllegalArgumentException("Exactly one dictionary must be assigned.");
-            } else {
-                final XtdDictionary dictionary = dictionaryRecordService
-                        .findByIdWithDirectRelations(relatedRecordIds.get(0))
-                        .orElseThrow(() -> new IllegalArgumentException(
-                                "No record with id " + relatedRecordIds.get(0) + " found."));
-                object.setDictionary(dictionary);
+            case Dictionary -> {
+                if (getRepository().hasDictionaryAssigned(recordId)) {
+                    throw new IllegalArgumentException("Object already has a dictionary assigned.");
+                }
+                if (relatedRecordIds.size() != 1) {
+                    throw new IllegalArgumentException("Exactly one dictionary must be assigned.");
+                }
+                String dictionaryId = relatedRecordIds.get(0);
+                if (!dictionaryRepository.existsById(dictionaryId)) {
+                    throw new IllegalArgumentException("No record with id " + dictionaryId + " found.");
+                }
+                getRepository().attachDictionary(recordId, dictionaryId);
             }
-            neo4jTemplate.saveAs(object, DictionaryDtoProjection.class);
-        }
-        case ReplacedObjects -> {
-            final Iterable<XtdObject> replacedObjects = getRepository().findAllEntitiesById(relatedRecordIds);
-            final List<XtdObject> relatedObjects = StreamSupport.stream(replacedObjects.spliterator(), false)
-                    .collect(Collectors.toList());
-
-            object.getReplacedObjects().clear();
-            object.getReplacedObjects().addAll(relatedObjects);
-            neo4jTemplate.saveAs(object, ReplacedObjectsDtoProjection.class);
-        }
-        default -> log.error("Unsupported relation type: {}", relationType);
+            case ReplacedObjects -> {
+                for (String replacedObjectId : relatedRecordIds) {
+                    getRepository().attachReplacedObject(recordId, replacedObjectId);
+                }
+            }
+            default -> log.error("Unsupported relation type: {}", relationType);
         }
 
-        log.trace("Updated relationship: {}", object);
+        XtdObject object = new XtdObject() {};
+        object.setId(recordId);
+        log.trace("Updated relationship {} from: {}", relationType, recordId);
         return object;
     }
 

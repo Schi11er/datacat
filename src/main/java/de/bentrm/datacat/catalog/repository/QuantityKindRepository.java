@@ -11,14 +11,30 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QuantityKindRepository extends EntityRepository<XtdQuantityKind> {
 
-    @Query("""
-            MATCH (n:XtdQuantityKind {id: $quantityKindId})-[:UNITS]->(p:XtdUnit)
-            RETURN p.id""")
-    List<String> findAllUnitIdsAssignedToQuantityKind(String quantityKindId);
+        @Query("""
+                        MATCH (n:XtdQuantityKind {id: $quantityKindId})-[:UNITS]->(p:XtdUnit)
+                        RETURN p.id""")
+        List<String> findAllUnitIdsAssignedToQuantityKind(String quantityKindId);
 
-    @Query("""
-            MATCH (n:XtdQuantityKind {id: $quantityKindId})-[:DIMENSION]->(p:XtdDimension)
-            RETURN p.id""")
-    String findDimensionIdAssignedToQuantityKind(String quantityKindId);
+        @Query("""
+                        MATCH (n:XtdQuantityKind {id: $quantityKindId})-[:DIMENSION]->(p:XtdDimension)
+                        RETURN p.id""")
+        String findDimensionIdAssignedToQuantityKind(String quantityKindId);
 
+        @Query("""
+                        MATCH (n:XtdQuantityKind {id: $quantityKindId})
+                        MATCH( unit:XtdUnit {id: $unitId}
+                        MERGE (n)-[:UNITS]->(unit)
+                        """)
+        void attachUnit(String quantityKindId, String unitId);
+
+        @Query("""
+                        MATCH (n:XtdQuantityKind {id: $quantityKindId})
+                        MATCH( dimension:XtdDimension {id: $dimensionId}
+                        MERGE (n)-[:DIMENSION]->(dimension)
+                        """)
+        void attachDimension(String quantityKindId, String dimensionId);
+
+        @Query("RETURN EXISTS { MATCH (o {id: $id})-[:DIMENSION]->() }")
+        boolean hasDimensionAssigned(String id);
 }

@@ -35,7 +35,5 @@ public interface RelationshipToSubjectRecordService extends SimpleRecordService<
 
     XtdRelationshipToSubject addRelationshipTypeByName(@NotNull XtdRelationshipToSubject relationshipToSubject, @NotNull String name, @NotNull XtdRelationshipKindEnum relationshipKind);
 
-    XtdRelationshipToSubject setRelatedRecords(@NotNull XtdRelationshipToSubject relationshipToSubject, @NotEmpty List<@NotBlank String> relatedRecordIds);
-
     Long countRelationshipsUsingRelationshipType(@NotBlank String relationshipTypeId);
 }

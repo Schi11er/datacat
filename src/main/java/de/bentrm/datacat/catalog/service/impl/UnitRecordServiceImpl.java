@@ -8,6 +8,7 @@ import de.bentrm.datacat.catalog.domain.XtdProperty;
 import de.bentrm.datacat.catalog.domain.XtdRational;
 import de.bentrm.datacat.catalog.domain.XtdDimension;
 import de.bentrm.datacat.catalog.domain.XtdMultiLanguageText;
+import de.bentrm.datacat.catalog.repository.DimensionRepository;
 import de.bentrm.datacat.catalog.repository.UnitRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.UnitRecordService;
@@ -67,6 +68,9 @@ public class UnitRecordServiceImpl extends AbstractSimpleRecordServiceImpl<XtdUn
     @Autowired
     @Lazy
     private ValueListRecordService valueListRecordService;
+
+    @Autowired
+    private DimensionRepository dimensionRepository;
 
     public UnitRecordServiceImpl(Neo4jTemplate neo4jTemplate, UnitRepository repository,
             CatalogCleanupService cleanupService) {
@@ -206,28 +210,30 @@ public class UnitRecordServiceImpl extends AbstractSimpleRecordServiceImpl<XtdUn
     public @NotNull XtdUnit setRelatedRecords(@NotBlank String recordId,
             @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdUnit unit = getRepository().findByIdWithDirectRelations(recordId)
-                .orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         switch (relationType) {
         case Dimension -> {
-            if (unit.getDimension() != null) {
+            if (getRepository().hasDimensionAssigned(recordId)) {
                 throw new IllegalArgumentException("Unit already has a dimension.");
-            } else if (relatedRecordIds.size() != 1) {
+            } 
+            if (relatedRecordIds.size() != 1) {
                 throw new IllegalArgumentException("Exactly one dimension must be assigned to a unit.");
-            } else {
-                final XtdDimension dimension = dimensionRecordService
-                        .findByIdWithDirectRelations(relatedRecordIds.get(0))
-                        .orElseThrow(() -> new IllegalArgumentException(
-                                "No record with id " + relatedRecordIds.get(0) + " found."));
-                unit.setDimension(dimension);
+            } 
+            String dimensionId = relatedRecordIds.get(0);
+            if (!dimensionRepository.existsById(dimensionId)) {
+                throw new IllegalArgumentException("No dimension with id " + dimensionId + " found.");
             }
-            neo4jTemplate.saveAs(unit, DimensionDtoProjection.class);
+            getRepository().attachDimension(recordId, dimensionId);
         }
         default -> conceptRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
         }
 
-        log.trace("Updated relationship: {}", unit);
+        XtdUnit unit = new XtdUnit();
+        unit.setId(recordId);
+        log.trace("Updated relationship {} from: {}", relationType, recordId);
         return unit;
     }
 }

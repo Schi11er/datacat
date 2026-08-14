@@ -5,6 +5,7 @@ import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdInterval;
 import de.bentrm.datacat.catalog.domain.XtdValueList;
 import de.bentrm.datacat.catalog.repository.IntervalRepository;
+import de.bentrm.datacat.catalog.repository.ValueListRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.IntervalRecordService;
 import de.bentrm.datacat.catalog.service.ValueListRecordService;
@@ -40,6 +41,9 @@ public class IntervalRecordServiceImpl
 
             @Autowired
             private ValueListRecordService valueListRecordService;
+
+    @Autowired
+    private ValueListRepository valueListRepository;        
 
     public IntervalRecordServiceImpl(Neo4jTemplate neo4jTemplate,
                                      IntervalRepository repository,
@@ -134,35 +138,44 @@ public class IntervalRecordServiceImpl
     @Override
     public @NotNull XtdInterval setRelatedRecords(@NotBlank String recordId,
                                                     @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
-
-        final XtdInterval interval = getRepository().findByIdWithDirectRelations(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         switch (relationType) {
             case Minimum -> {
-                if (interval.getMinimum() != null) {
+                if (getRepository().hasMinimumAssigned(recordId)) {
                     throw new IllegalArgumentException("Minimum already set.");
-                } else if (relatedRecordIds.size() > 1) {
+                }
+                if (relatedRecordIds.size() > 1) {
                     throw new IllegalArgumentException("Maximum one value list must be provided.");
-                } else {
-                    final XtdValueList valueList = valueListRecordService.findByIdWithDirectRelations(relatedRecordIds.get(0)).orElseThrow(() -> new IllegalArgumentException("No record with id " + relatedRecordIds.get(0) + " found."));
-                    interval.setMinimum(valueList);
                 }
+                String minValueListId = relatedRecordIds.get(0);
+                if (!valueListRepository.existsById(minValueListId)) {
+                    throw new IllegalArgumentException("No value list with id " + minValueListId + " found.");
                 }
+                getRepository().attachMinValueList(recordId, minValueListId);
+            }
             case Maximum -> {
-                if (interval.getMaximum() != null) {
+                if (getRepository().hasMaximumAssigned(recordId)) {
                     throw new IllegalArgumentException("Maximum already set.");
-                } else if (relatedRecordIds.size() > 1) {
+                }
+                if (relatedRecordIds.size() > 1) {
                     throw new IllegalArgumentException("Maximum one value list must be provided.");
-                } else {
-                    final XtdValueList valueList = valueListRecordService.findByIdWithDirectRelations(relatedRecordIds.get(0)).orElseThrow(() -> new IllegalArgumentException("No record with id " + relatedRecordIds.get(0) + " found."));
-                    interval.setMaximum(valueList);
                 }
+                String maxValueListId = relatedRecordIds.get(0);
+                if (!valueListRepository.existsById(maxValueListId)) {
+                    throw new IllegalArgumentException("No value list with id " + maxValueListId + " found.");
                 }
+                getRepository().attachMaxValueList(recordId, maxValueListId);
+            }
             default -> log.error("Unsupported relation type: {}", relationType);
         }
         
-        neo4jTemplate.saveAs(interval, IntervallMaxMinDtoProjection.class);
-        log.trace("Updated interval: {}", interval);
+        XtdInterval interval = new XtdInterval();
+        interval.setId(recordId);
+        log.trace("Updated relationship {} from: {}", relationType, recordId);
         return interval;
     }
 }

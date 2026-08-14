@@ -6,6 +6,7 @@ import de.bentrm.datacat.catalog.domain.XtdRelationshipToSubject;
 import java.util.List;
 
 import org.springframework.data.neo4j.repository.query.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -35,4 +36,18 @@ public interface RelationshipToSubjectRepository extends EntityRepository<XtdRel
             MATCH (n:XtdRelationshipToSubject)-[:RELATIONSHIP_TYPE]->(p:XtdRelationshipType {id: $relationshipTypeId})
             RETURN count(n)""")
     Long countRelationshipsUsingRelationshipType(String relationshipTypeId);
+
+    @Query("""
+        MATCH (rel:XtdRelationshipToSubject {id: $relationshipId})
+        MATCH (subject:XtdSubject {id: $subjectId})
+        MERGE (rel)-[:TARGET_SUBJECTS]->(subject)
+        """)
+        void attachTargetSubject(@Param("relationshipId") String relationshipId, @Param("subjectId") String subjectId);
+
+        @Query("""
+        MATCH (rel:XtdRelationshipToSubject {id: $relationshipId})
+        MATCH (subject:XtdSubject {id: $subjectId})
+        MERGE (rel)-[:SCOPE_SUBJECTS]->(subject)
+        """)
+        void attachScopeSubject(@Param("relationshipId") String relationshipId, @Param("subjectId") String subjectId);
 }

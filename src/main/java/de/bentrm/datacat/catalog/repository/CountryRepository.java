@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.neo4j.repository.query.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -19,4 +20,11 @@ public interface CountryRepository extends EntityRepository<XtdCountry> {
 
     @Query("MATCH (n:XtdCountry) WHERE n.code = $countryCode RETURN n")
     Optional<XtdCountry> findByCode(String countryCode);
+
+    @Query("""
+            MATCH (o {id: $countryId})
+            MATCH (subdivision:XtdSubdivision {id: $subdivisionId})
+            MERGE (o)-[:SUBDIVISIONS]->(subdivision)
+            """)
+    void attachSubdivision(@Param("countryId") String countryId, @Param("subdivisionId") String subdivisionId);
 }

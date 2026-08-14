@@ -120,28 +120,51 @@ public class SubjectRecordServiceImpl
         return getRepository().findByIdWithIncomingAndOutgoingRelations(id);
     }
 
+    // @Transactional
+    // @Override
+    // public @NotNull XtdSubject setRelatedRecords(@NotBlank String recordId,
+    //         @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
+
+    //     final XtdSubject subject = getRepository().findByIdWithDirectRelations(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+
+    //     switch (relationType) {
+    //         case Properties -> {
+    //             final Iterable<XtdProperty> items = propertyRecordService.findAllEntitiesById(relatedRecordIds);
+    //             final List<XtdProperty> related = StreamSupport
+    //                     .stream(items.spliterator(), false)
+    //                     .collect(Collectors.toList());
+
+    //             subject.getProperties().clear();
+    //             subject.getProperties().addAll(related);
+    //         }
+    //         default -> conceptRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
+    //     }
+
+    //     neo4jTemplate.saveAs(subject, PropertiesDtoProjection.class);
+    //     log.trace("Updated relationship: {}", subject);
+    //     return subject;
+    // }
     @Transactional
     @Override
     public @NotNull XtdSubject setRelatedRecords(@NotBlank String recordId,
             @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdSubject subject = getRepository().findByIdWithDirectRelations(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         switch (relationType) {
             case Properties -> {
-                final Iterable<XtdProperty> items = propertyRecordService.findAllEntitiesById(relatedRecordIds);
-                final List<XtdProperty> related = StreamSupport
-                        .stream(items.spliterator(), false)
-                        .collect(Collectors.toList());
-
-                subject.getProperties().clear();
-                subject.getProperties().addAll(related);
+                for (String propertyId : relatedRecordIds) {
+                    getRepository().attachProperty(recordId, propertyId);
+                }
             }
             default -> conceptRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
         }
 
-        neo4jTemplate.saveAs(subject, PropertiesDtoProjection.class);
-        log.trace("Updated relationship: {}", subject);
+        XtdSubject subject = new XtdSubject();
+        subject.setId(recordId);
+        log.trace("Updated relationship {} from: {}", relationType, recordId);
         return subject;
     }
 }

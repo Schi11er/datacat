@@ -69,7 +69,9 @@ private ObjectRecordService objectRecordService;
             log.trace("Set relating record with id: {}", relatingRecordId);
 
             log.trace("Setting related records with ids: {}", relatedRecordIds);
-            newRecord = this.setRelatedRecords(newRecord, relatedRecordIds);
+            for (String relatedRecordId : relatedRecordIds) {    
+                getRepository().attachTargetProperty(id, relatedRecordId);
+            }
             log.trace("Set related records with ids: {}", relatedRecordIds);
 
             log.trace("Persisted new relationship record with id: {}", newRecord.getId());
@@ -117,34 +119,26 @@ private ObjectRecordService objectRecordService;
 
     @Transactional
     @Override
-    public @NotNull XtdRelationshipToProperty setRelatedRecords(@NotNull XtdRelationshipToProperty relationshipRecord,
-                                     @NotEmpty List<@NotBlank String> relatedRecordIds) {
-        final Iterable<XtdProperty> items = propertyRecordService.findAllEntitiesById(relatedRecordIds);
-        final List<XtdProperty> related = StreamSupport
-                .stream(items.spliterator(), false)
-                .collect(Collectors.toList());
-
-        relationshipRecord.getTargetProperties().addAll(related);
-        neo4jTemplate.saveAs(relationshipRecord, TargetPropertiesDtoProjection.class);
-        return relationshipRecord;
-    }
-
-    @Transactional
-    @Override
     public @NotNull XtdRelationshipToProperty setRelatedRecords(@NotBlank String recordId,
                                                     @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        XtdRelationshipToProperty relationship = getRepository().findByIdWithDirectRelations(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         switch (relationType) {
 
             case TargetProperties -> {
-                relationship = setRelatedRecords(relationship, relatedRecordIds);
+                for (String propertyId : relatedRecordIds) {
+                    getRepository().attachTargetProperty(recordId, propertyId);
+                }
             }
             default -> objectRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
         }
 
-        log.trace("Updated relationship: {}", relationship);
+        XtdRelationshipToProperty relationship = new XtdRelationshipToProperty();
+        relationship.setId(recordId);
+        log.trace("Updated relationship {} from: {}", relationType, recordId);
         return relationship;
     }  
 

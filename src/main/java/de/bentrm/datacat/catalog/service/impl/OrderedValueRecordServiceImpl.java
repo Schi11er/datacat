@@ -91,10 +91,14 @@ public class OrderedValueRecordServiceImpl extends
     public @NotNull XtdOrderedValue setRelatedRecords(@NotBlank String recordId,
             @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdOrderedValue orderedValue = getRepository().findById(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         objectRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
     
+        XtdOrderedValue orderedValue = new XtdOrderedValue();
+        orderedValue.setId(recordId);
         return orderedValue;
     }
 }

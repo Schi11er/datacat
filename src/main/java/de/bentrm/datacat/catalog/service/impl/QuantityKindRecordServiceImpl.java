@@ -5,6 +5,7 @@ import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdDimension;
 import de.bentrm.datacat.catalog.domain.XtdUnit;
 import de.bentrm.datacat.catalog.domain.XtdQuantityKind;
+import de.bentrm.datacat.catalog.repository.DimensionRepository;
 import de.bentrm.datacat.catalog.repository.QuantityKindRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.ConceptRecordService;
@@ -50,6 +51,9 @@ public class QuantityKindRecordServiceImpl extends
 
     @Autowired
     private ConceptRecordService conceptRecordService;
+
+    @Autowired
+    private DimensionRepository dimensionRepository;
 
     public QuantityKindRecordServiceImpl(Neo4jTemplate neo4jTemplate, QuantityKindRepository repository,
             CatalogCleanupService cleanupService) {
@@ -144,34 +148,35 @@ public class QuantityKindRecordServiceImpl extends
     public @NotNull XtdQuantityKind setRelatedRecords(@NotBlank String recordId,
             @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdQuantityKind quantityKind = getRepository().findById(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         switch (relationType) {
         case Units -> {
-            final Iterable<XtdUnit> units = unitRecordService.findAllEntitiesById(relatedRecordIds);
-            final List<XtdUnit> relatedUnits = StreamSupport.stream(units.spliterator(), false)
-                    .collect(Collectors.toList());
-
-            quantityKind.getUnits().clear();
-            quantityKind.getUnits().addAll(relatedUnits);
-            neo4jTemplate.saveAs(quantityKind, UnitsDtoProjection.class);
+            for (String unitId : relatedRecordIds) {
+                getRepository().attachUnit(recordId, unitId);
+            }
         }
         case Dimension -> {
-            if (quantityKind.getDimension() != null) {
+            if (getRepository().hasDimensionAssigned(recordId)) {
                 throw new IllegalArgumentException("QuantityKind already has a dimension assigned.");
-            } else if (relatedRecordIds.size() != 1) {
+            } 
+            if (relatedRecordIds.size() != 1) {
                 throw new IllegalArgumentException("Exactly one dimension must be assigned.");
-            } else {
-                final XtdDimension dimension = dimensionRecordService
-                        .findByIdWithDirectRelations(relatedRecordIds.get(0)).orElseThrow(() -> new IllegalArgumentException("No record with id " + relatedRecordIds.get(0) + " found."));
-                quantityKind.setDimension(dimension);
+            } 
+            String dimensionId = relatedRecordIds.get(0);
+            if (!dimensionRepository.existsById(dimensionId)) {
+                throw new IllegalArgumentException("No dimension with id " + dimensionId + " found.");
             }
-            neo4jTemplate.saveAs(quantityKind, DimensionDtoProjection.class);
+            getRepository().attachDimension(recordId, dimensionId);
         }
         default -> conceptRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
         }
 
-        log.trace("Updated relationship: {}", quantityKind);
+        XtdQuantityKind quantityKind = new XtdQuantityKind();
+        quantityKind.setId(recordId);
+        log.trace("Updated relationship {} from: {}", relationType, recordId);
         return quantityKind;
     }
 }

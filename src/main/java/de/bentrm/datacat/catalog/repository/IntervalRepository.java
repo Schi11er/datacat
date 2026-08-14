@@ -4,6 +4,7 @@ import de.bentrm.datacat.base.repository.EntityRepository;
 import de.bentrm.datacat.catalog.domain.XtdInterval;
 
 import org.springframework.data.neo4j.repository.query.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,5 +19,25 @@ public interface IntervalRepository extends EntityRepository<XtdInterval> {
             MATCH (n:XtdInterval {id: $intervalId})-[:MINIMUM]->(p:XtdValueList)
             RETURN p.id""")
     String findMinValueListIdAssignedToInterval(String intervalId);
+
+        @Query("RETURN EXISTS { MATCH (o {id: $id})-[:MINIMUM]->() }")
+        boolean hasMinimumAssigned(@Param("id") String id);
+
+        @Query("RETURN EXISTS { MATCH (o {id: $id})-[:MAXIMUM]->() }")
+        boolean hasMaximumAssigned(@Param("id") String id);
+
+        @Query("""
+                MATCH (o {id: $intervalId})
+                MATCH (max:XtdValueList {id: $maxValueListId})
+                MERGE (o)-[:MAXIMUM]->(max)
+                """)
+        void attachMaxValueList(@Param("intervalId") String intervalId, @Param("maxValueListId") String maxValueListId);
+
+        @Query("""
+                MATCH (o {id: $intervalId})
+                MATCH (min:XtdValueList {id: $minValueListId})
+                MERGE (o)-[:MINIMUM]->(min)
+                """)
+        void attachMinValueList(@Param("intervalId") String intervalId, @Param("minValueListId") String minValueListId);
 
 }

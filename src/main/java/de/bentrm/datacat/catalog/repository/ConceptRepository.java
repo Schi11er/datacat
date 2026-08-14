@@ -3,6 +3,7 @@ package de.bentrm.datacat.catalog.repository;
 import de.bentrm.datacat.base.repository.EntityRepository;
 import de.bentrm.datacat.catalog.domain.XtdConcept;
 import org.springframework.data.neo4j.repository.query.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -44,4 +45,18 @@ public interface ConceptRepository extends EntityRepository<XtdConcept> {
             MATCH (n:XtdConcept {id: $conceptId})-[:DESCRIPTIONS]->(p:XtdMultiLanguageText)
             RETURN p.id""")
     List<String> findAllDescriptionIdsAssignedToConcept(String conceptId);
+
+        @Query("""
+                MATCH (o {id: $conceptId})
+                MATCH (doc:XtdExternalDocument {id: $externalDocumentId})
+                MERGE (o)-[:REFERENCE_DOCUMENTS]->(doc)
+                """)
+        void attachReferenceDocument(@Param("conceptId") String conceptId, @Param("externalDocumentId") String externalDocumentId);
+
+        @Query("""
+                MATCH (o {id: $conceptId})
+                MATCH (sim:XtdConcept {id: $similarConceptId})
+                MERGE (o)-[:SIMILAR_TO]->(sim)
+                """)
+        void attachSimilarConcept(@Param("conceptId") String conceptId, @Param("similarConceptId") String similarConceptId);
 }

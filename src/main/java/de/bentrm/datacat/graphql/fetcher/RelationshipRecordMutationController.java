@@ -65,8 +65,8 @@ public class RelationshipRecordMutationController {
             XtdRelationshipToSubject catalogEntry;
             if (s.isPresent()) {
                 catalogEntry = (XtdRelationshipToSubject) s.get();
-                catalogEntry = relationshipToSubjectRecordService.setRelatedRecords(catalogEntry,
-                        input.getToIds());
+                catalogEntry = relationshipToSubjectRecordService.setRelatedRecords(catalogEntry.getId(),
+                        input.getToIds(), SimpleRelationType.TargetSubjects);
             } else {
                 catalogEntry = relationshipToSubjectRecordService.addRecord(relId, input.getFromId(),
                         input.getToIds());
@@ -89,8 +89,8 @@ public class RelationshipRecordMutationController {
             XtdRelationshipToProperty catalogEntry;
             if (s.isPresent()) {
                 catalogEntry = (XtdRelationshipToProperty) s.get();
-                catalogEntry = relationshipToPropertyRecordService.setRelatedRecords(catalogEntry,
-                        input.getToIds());
+                catalogEntry = relationshipToPropertyRecordService.setRelatedRecords(catalogEntry.getId(),
+                        input.getToIds(), SimpleRelationType.TargetProperties);
                 
             } else {
                 catalogEntry = relationshipToPropertyRecordService
@@ -104,10 +104,10 @@ public class RelationshipRecordMutationController {
 
     @MutationMapping
     protected CreateRelationshipPayload createRelationship(@Argument CreateRelationshipInput input) {
-        final CatalogRecord fromEntity = catalogService.getEntryById(input.getFromId())
-                .orElseThrow(() -> new NoSuchElementException("Catalog record for fromId not found"));
+        final CatalogRecordType fromEntityType = catalogService.getEntryTypeById(input.getFromId())
+            .orElseThrow(() -> new NoSuchElementException("Catalog record for fromId not found"));
         final SimpleRecordService<?> simpleRecordService = simpleRecordServiceFactory
-                .getService(CatalogRecordType.getByDomainClass(fromEntity));
+                .getService(fromEntityType);
 
         CatalogRecord record;
         SimpleRelationType relType = input.getRelationshipType();

@@ -87,4 +87,7 @@ public interface CatalogService {
      * @return Map of object ID to localized name (or null if no name found)
      */
     @NotNull Map<String, String> getNamesForMultipleIds(@NotNull List<String> objectIds, String languageCode);
+
+    @PreAuthorize("hasRole('READONLY')")
+    @NotNull Optional<CatalogRecordType> getEntryTypeById(@NotBlank String id);
 }

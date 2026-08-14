@@ -567,4 +567,18 @@ public class CatalogServiceImpl implements CatalogService {
                   namesMap.size(), namesMap.size(), objectIds.size(), duration, languageCode);
         return namesMap;
     }
+
+    @Override
+    public Optional<CatalogRecordType> getEntryTypeById(String id) {
+        String label = catalogRecordRepository.findPrimaryLabelById(id);
+        if (label == null) {
+            return Optional.empty();
+        }
+        for (CatalogRecordType type : CatalogRecordType.values()) {
+            if (type.getLabel().equals(label)) {
+                return Optional.of(type);
+            }
+        }
+        return Optional.empty();
+    }
 }

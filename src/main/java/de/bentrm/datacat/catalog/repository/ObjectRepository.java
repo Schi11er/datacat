@@ -4,6 +4,8 @@ import de.bentrm.datacat.base.repository.EntityRepository;
 import de.bentrm.datacat.catalog.domain.XtdObject;
 import org.springframework.stereotype.Repository;
 import org.springframework.data.neo4j.repository.query.Query;
+import org.springframework.data.repository.query.Param;
+
 import java.util.List;
 
 @Repository
@@ -54,4 +56,21 @@ public interface ObjectRepository extends EntityRepository<XtdObject> {
                         RETURN count(n)
                         """)
         Long countTargetRelationships(String objectId);
+
+        @Query("RETURN EXISTS { MATCH (o {id: $id})-[:DICTIONARY]->() }")
+        boolean hasDictionaryAssigned(@Param("id") String id);
+
+        @Query("""
+                MATCH (o {id: $objectId})
+                MATCH (dict:XtdDictionary {id: $dictionaryId})
+                MERGE (o)-[:DICTIONARY]->(dict)
+                """)
+        void attachDictionary(@Param("objectId") String objectId, @Param("dictionaryId") String dictionaryId);
+
+        @Query("""
+                MATCH (o:XtdObject {id: $objectId})
+                MATCH (replaced:XtdObject {id: $replacedObjectId})
+                MERGE (o)-[:REPLACED_OBJECTS]->(replaced)
+                """)
+        void attachReplacedObject(@Param("objectId") String objectId, @Param("replacedObjectId") String replacedObjectId);
 }

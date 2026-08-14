@@ -5,6 +5,7 @@ import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdSymbol;
 import de.bentrm.datacat.catalog.domain.XtdText;
 import de.bentrm.datacat.catalog.domain.XtdSubject;
+import de.bentrm.datacat.catalog.repository.SubjectRepository;
 import de.bentrm.datacat.catalog.repository.SymbolRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.SubjectRecordService;
@@ -45,6 +46,9 @@ public class SymbolRecordServiceImpl
 
             @Autowired
             private TextRecordService textRecordService;
+
+            @Autowired
+            private SubjectRepository subjectRepository;
 
     public SymbolRecordServiceImpl(Neo4jTemplate neo4jTemplate,
                                      SymbolRepository repository,
@@ -139,24 +143,30 @@ public class SymbolRecordServiceImpl
     public @NotNull XtdSymbol setRelatedRecords(@NotBlank String recordId,
                                                     @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdSymbol symbol = getRepository().findByIdWithDirectRelations(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         switch (relationType) {
             case Subject -> {
-                if (symbol.getSubject() != null) {
+                if (getRepository().hasSubject(recordId)) {
                     throw new IllegalArgumentException("Symbol already has a subject assigned.");
-                } else if (relatedRecordIds.size() != 1) {
+                } 
+                if (relatedRecordIds.size() != 1) {
                     throw new IllegalArgumentException("Exactly one subject must be assigned.");
-                } else {
-                    final XtdSubject subject = subjectRecordService.findByIdWithDirectRelations(relatedRecordIds.get(0)).orElseThrow(() -> new IllegalArgumentException("No record with id " + relatedRecordIds.get(0) + " found."));
-                    symbol.setSubject(subject);
+                } 
+                String subjectId = relatedRecordIds.get(0);
+                if (!subjectRepository.existsById(subjectId)) {
+                    throw new IllegalArgumentException("No subject with id " + subjectId + " found.");
                 }
-                neo4jTemplate.saveAs(symbol, SubjectDtoProjection.class);
+                getRepository().attachSubject(recordId, subjectId);
             }
             default -> log.error("Unsupported relation type: {}", relationType);
         }
 
-        log.trace("Updated relationship: {}", symbol);
+        XtdSymbol symbol = new XtdSymbol();
+        symbol.setId(recordId);
+        log.trace("Updated relationship {} from: {}", relationType, recordId);
         return symbol;
     }
 }

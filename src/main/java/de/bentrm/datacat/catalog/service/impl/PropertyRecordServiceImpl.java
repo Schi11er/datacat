@@ -13,6 +13,7 @@ import de.bentrm.datacat.catalog.domain.XtdDimension;
 import de.bentrm.datacat.catalog.domain.XtdInterval;
 import de.bentrm.datacat.catalog.domain.XtdSymbol;
 import de.bentrm.datacat.catalog.domain.XtdQuantityKind;
+import de.bentrm.datacat.catalog.repository.DimensionRepository;
 import de.bentrm.datacat.catalog.repository.PropertyRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.PropertyRecordService;
@@ -97,6 +98,9 @@ public class PropertyRecordServiceImpl extends AbstractSimpleRecordServiceImpl<X
 
         @Autowired
         private ConceptRecordService conceptRecordService;
+
+        @Autowired
+        private DimensionRepository dimensionRepository;
 
         public PropertyRecordServiceImpl(Neo4jTemplate neo4jTemplate, PropertyRepository repository,
                         CatalogCleanupService cleanupService) {
@@ -302,76 +306,55 @@ public class PropertyRecordServiceImpl extends AbstractSimpleRecordServiceImpl<X
         public @NotNull XtdProperty setRelatedRecords(@NotBlank String recordId,
                         @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-                final XtdProperty property = getRepository().findByIdWithDirectRelations(recordId).orElseThrow(
-                                () -> new IllegalArgumentException("No record with id " + recordId + " found."));
+                if (!getRepository().existsById(recordId)) {
+                throw new IllegalArgumentException("No record with id " + recordId + " found.");
+                }
 
                 switch (relationType) {
                 case Symbols -> {
-                        final Iterable<XtdSymbol> symbols = symbolRecordService.findAllEntitiesById(relatedRecordIds);
-                        final List<XtdSymbol> relatedSymbols = StreamSupport.stream(symbols.spliterator(), false)
-                                        .collect(Collectors.toList());
-
-                        property.getSymbols().clear();
-                        property.getSymbols().addAll(relatedSymbols);
-                        neo4jTemplate.saveAs(property, SymbolsDtoProjection.class);
+                        for (String symbolId : relatedRecordIds) {
+                                getRepository().attachSymbol(recordId, symbolId);
+                        }
                 }
                 case Units -> {
-                        final Iterable<XtdUnit> units = unitRecordService.findAllEntitiesById(relatedRecordIds);
-                        final List<XtdUnit> relatedUnits = StreamSupport.stream(units.spliterator(), false)
-                                        .collect(Collectors.toList());
-
-                        property.getUnits().clear();
-                        property.getUnits().addAll(relatedUnits);
-                        neo4jTemplate.saveAs(property, UnitsDtoProjection.class);
+                        for (String unitId : relatedRecordIds) {
+                                getRepository().attachUnit(recordId, unitId);
+                        }
                 }
                 case Dimension -> {
-                        if (property.getDimension() != null) {
+                        if (getRepository().hasDimensionAssigned(recordId)) {
                                 throw new IllegalArgumentException("Property already has a dimension assigned.");
-                        } else if (relatedRecordIds.size() != 1) {
+                        } 
+                        if (relatedRecordIds.size() != 1) {
                                 throw new IllegalArgumentException("Exactly one dimension must be assigned.");
-                        } else {
-                                final XtdDimension dimension = dimensionRecordService
-                                                .findByIdWithDirectRelations(relatedRecordIds.get(0))
-                                                .orElseThrow(() -> new IllegalArgumentException("No record with id "
-                                                                + relatedRecordIds.get(0) + " found."));
-                                property.setDimension(dimension);
+                        } 
+                        String dimensionId = relatedRecordIds.get(0);
+                       if (!dimensionRepository.existsById(dimensionId)) {
+                                throw new IllegalArgumentException("No dimension with id " + dimensionId + " found.");
                         }
-                        neo4jTemplate.saveAs(property, DimensionDtoProjection.class);
+                        getRepository().attachDimension(recordId, dimensionId);
                 }
                 case BoundaryValues -> {
-                        final Iterable<XtdInterval> intervals = intervalRecordService
-                                        .findAllEntitiesById(relatedRecordIds);
-                        final List<XtdInterval> relatedIntervals = StreamSupport.stream(intervals.spliterator(), false)
-                                        .collect(Collectors.toList());
-
-                        property.getBoundaryValues().clear();
-                        property.getBoundaryValues().addAll(relatedIntervals);
-                        neo4jTemplate.saveAs(property, BoundaryValuesDtoProjection.class);
+                        for (String intervalId : relatedRecordIds) {
+                                getRepository().attachBoundaryValue(recordId, intervalId);
+                        }
                 }
                 case QuantityKinds -> {
-                        final Iterable<XtdQuantityKind> quantityKinds = quantityKindRecordService
-                                        .findAllEntitiesById(relatedRecordIds);
-                        final List<XtdQuantityKind> relatedQuantityKinds = StreamSupport
-                                        .stream(quantityKinds.spliterator(), false).collect(Collectors.toList());
-
-                        property.getQuantityKinds().clear();
-                        property.getQuantityKinds().addAll(relatedQuantityKinds);
-                        neo4jTemplate.saveAs(property, QuantityKindsDtoProjection.class);
+                        for (String quantityKindId : relatedRecordIds) {
+                                getRepository().attachQuantityKind(recordId, quantityKindId);
+                        }
                 }
                 case PossibleValues -> {
-                        final Iterable<XtdValueList> valueLists = valueListRecordService
-                                        .findAllEntitiesById(relatedRecordIds);
-                        final List<XtdValueList> relatedValueLists = StreamSupport
-                                        .stream(valueLists.spliterator(), false).collect(Collectors.toList());
-
-                        property.getPossibleValues().clear();
-                        property.getPossibleValues().addAll(relatedValueLists);
-                        neo4jTemplate.saveAs(property, PossibleValuesDtoProjection.class);
+                        for (String valueListId : relatedRecordIds) {
+                                getRepository().attachValueList(recordId, valueListId);
+                        }
                 }
                 default -> conceptRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
                 }
 
-                log.trace("Updated relationship: {}", property);
+                XtdProperty property = new XtdProperty();
+                property.setId(recordId);
+                log.trace("Updated relationship {} from: {}", relationType, recordId);
                 return property;
         }
 }

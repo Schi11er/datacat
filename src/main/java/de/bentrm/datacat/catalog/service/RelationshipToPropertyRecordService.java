@@ -27,6 +27,4 @@ public interface RelationshipToPropertyRecordService extends SimpleRecordService
     List<XtdProperty> getTargetProperties(@NotNull XtdRelationshipToProperty relationshipToProperty);
 
     XtdRelationshipToProperty addRelationshipType(@NotNull XtdRelationshipToProperty relationshipToProperty, @NotNull XtdPropertyRelationshipTypeEnum relationshipType);
-
-    XtdRelationshipToProperty setRelatedRecords(@NotNull XtdRelationshipToProperty relationshipToProperty, @NotEmpty List<@NotBlank String> relatedRecordIds);
 }

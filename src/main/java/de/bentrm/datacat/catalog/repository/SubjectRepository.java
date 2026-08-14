@@ -3,6 +3,7 @@ package de.bentrm.datacat.catalog.repository;
 import de.bentrm.datacat.base.repository.EntityRepository;
 import de.bentrm.datacat.catalog.domain.XtdSubject;
 import org.springframework.data.neo4j.repository.query.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -48,4 +49,11 @@ public interface SubjectRepository extends EntityRepository<XtdSubject> {
                         RETURN s, relations, relatedNodes
                         """)
         Optional<XtdSubject> findByIdWithIncomingAndOutgoingRelations(String id);
+
+        @Query("""
+                MATCH (subject:XtdSubject {id: $subjectId})
+                MATCH (property:XtdProperty {id: $propertyId})
+                MERGE (subject)-[:PROPERTIES]->(property)
+                """)
+        void attachProperty(@Param("subjectId") String subjectId, @Param("propertyId") String propertyId);
 }

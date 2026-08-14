@@ -191,8 +191,14 @@ public class DimensionRecordServiceImpl
     public @NotNull XtdDimension setRelatedRecords(@NotBlank String recordId,
             @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdDimension dimension = getRepository().findById(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
+        
         conceptRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
+
+        XtdDimension dimension = new XtdDimension();
+        dimension.setId(recordId);
         return dimension;
     }
 }

@@ -9,6 +9,7 @@ import de.bentrm.datacat.catalog.domain.XtdProperty;
 import de.bentrm.datacat.catalog.domain.XtdUnit;
 import de.bentrm.datacat.catalog.domain.XtdValue;
 import de.bentrm.datacat.catalog.repository.OrderedValueRepository;
+import de.bentrm.datacat.catalog.repository.UnitRepository;
 import de.bentrm.datacat.catalog.repository.ValueListRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.ValueListRecordService;
@@ -73,6 +74,9 @@ public class ValueListRecordServiceImpl extends AbstractSimpleRecordServiceImpl<
 
     @Autowired
     private OrderedValueRepository orderedValueRepository;
+
+    @Autowired
+    private UnitRepository unitRepository;
 
     public ValueListRecordServiceImpl(Neo4jTemplate neo4jTemplate, ValueListRepository repository,
             CatalogCleanupService cleanupService) {
@@ -226,26 +230,30 @@ public class ValueListRecordServiceImpl extends AbstractSimpleRecordServiceImpl<
     public @NotNull XtdValueList setRelatedRecords(@NotBlank String recordId,
             @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdValueList valueList = getRepository().findByIdWithDirectRelations(recordId)
-                .orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
 
         switch (relationType) {
         case Unit -> {
-            if (valueList.getUnit() != null) {
+            if (getRepository().hasUnitAssigned(recordId)) {
                 throw new IllegalArgumentException("ValueList already has a Unit assigned.");
-            } else if (relatedRecordIds.size() != 1) {
-                throw new IllegalArgumentException("Exactly one Unit must be assigned to a ValueList.");
-            } else {
-                final XtdUnit unit = unitRecordService.findByIdWithDirectRelations(relatedRecordIds.get(0)).orElseThrow(
-                        () -> new IllegalArgumentException("No record with id " + relatedRecordIds.get(0) + " found."));
-                valueList.setUnit(unit);
             }
-            neo4jTemplate.saveAs(valueList, UnitDtoProjection.class);
+            if (relatedRecordIds.size() != 1) {
+                throw new IllegalArgumentException("Exactly one Unit must be assigned to a ValueList.");
+            } 
+            if (!unitRepository.existsById(relatedRecordIds.get(0))) {
+                throw new IllegalArgumentException("No Unit with id " + relatedRecordIds.get(0) + " found.");
+            }
+            getRepository().attachUnit(recordId, relatedRecordIds.get(0));
+        
         }
         default -> conceptRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
         }
 
-        log.trace("Updated relationship: {}", valueList);
+        XtdValueList valueList = new XtdValueList();
+        valueList.setId(recordId);
+        log.trace("Updated relationship {} from: {}", relationType, recordId);
         return valueList;
     }
 

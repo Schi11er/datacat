@@ -86,9 +86,14 @@ public class ValueRecordServiceImpl extends AbstractSimpleRecordServiceImpl<XtdV
     public @NotNull XtdValue setRelatedRecords(@NotBlank String recordId,
             @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdValue value = getRepository().findByIdWithDirectRelations(recordId)
-                .orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (!getRepository().existsById(recordId)) {
+            throw new IllegalArgumentException("No record with id " + recordId + " found.");
+        }
+
         objectRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
+
+        XtdValue value = new XtdValue();
+        value.setId(recordId);
         return value;
     }
 }
