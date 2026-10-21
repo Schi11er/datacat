@@ -8,12 +8,14 @@ import de.bentrm.datacat.catalog.specification.CatalogRecordSpecification;
 import de.bentrm.datacat.graphql.Connection;
 import de.bentrm.datacat.graphql.dto.FilterInput;
 import de.bentrm.datacat.graphql.dto.SpecificationMapper;
+import de.bentrm.datacat.graphql.input.AttachConceptsToDictionaryInput;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.graphql.data.method.annotation.SchemaMapping;
 import org.springframework.stereotype.Controller;
@@ -44,6 +46,11 @@ public class DictionaryController {
         final CatalogRecordSpecification specification = specificationMapper.toCatalogRecordSpecification(input);
         final Page<XtdDictionary> page = service.findAll(specification);
         return Connection.of(page);
+    }
+
+    @MutationMapping
+    public XtdDictionary attachConceptsToDictionary(@Argument AttachConceptsToDictionaryInput input) {
+        return service.attachConcepts(input.getDictionaryId(), input.getConceptIds());
     }
 
     @BatchMapping(typeName = "XtdDictionary", field = "name")

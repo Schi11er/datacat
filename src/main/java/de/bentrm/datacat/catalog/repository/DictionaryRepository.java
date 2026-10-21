@@ -23,8 +23,16 @@ public interface DictionaryRepository extends EntityRepository<XtdDictionary> {
         List<String> findConceptsByDictionaryId(String dictionaryId);
 
         @Query("""
-                        MATCH (n:XtdDictionary {id: $dictionaryId})<-[:DICTIONARY]-(p:XtdObject)
-                        RETURN p.id
+                            UNWIND $objectIds AS objectId
+                            MATCH (n:XtdDictionary {id: $dictionaryId})
+                            MATCH (p:XtdObject {id: objectId})
+                            MERGE (p)-[:DICTIONARY]->(n)
+                            """)
+        void attachConcepts(@Param("dictionaryId") String dictionaryId, @Param("objectIds") List<String> objectIds);
+
+        @Query("""
+                            MATCH (n:XtdDictionary {id: $dictionaryId})<-[:DICTIONARY]-(p:XtdObject)
+                            RETURN p.id
                         ORDER BY p.`labels.de`
                         SKIP $skip LIMIT $limit""")
         List<String> findConceptsByDictionaryIdPaginated(String dictionaryId, int skip, int limit);

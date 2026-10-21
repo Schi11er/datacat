@@ -74,8 +74,20 @@ public class DictionaryRecordServiceImpl
     public @NotNull XtdDictionary setRelatedRecords(@NotBlank String recordId,
                                                     @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
 
-        final XtdDictionary dictionary = getRepository().findById(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
+        if (relationType != SimpleRelationType.Dictionary) {
+            throw new IllegalArgumentException("Unsupported relation type for a dictionary: " + relationType);
+        }
+        return attachConcepts(recordId, relatedRecordIds);
+    }
 
+    @Transactional
+    @Override
+    public @NotNull XtdDictionary attachConcepts(@NotBlank String dictionaryId,
+                                                 @NotEmpty List<@NotBlank String> conceptIds) {
+        final XtdDictionary dictionary = getRepository().findById(dictionaryId)
+                .orElseThrow(() -> new IllegalArgumentException("No record with id " + dictionaryId + " found."));
+
+        getRepository().attachConcepts(dictionaryId, conceptIds);
         return dictionary;
     }
 

@@ -224,6 +224,11 @@ input CreateRelationshipInput {
     toIds: [ID!]!
 }
 
+input AttachConceptsToDictionaryInput {
+    dictionaryId: ID!
+    conceptIds: [ID!]!
+}
+
 type CreateRelationshipPayload {
     catalogEntry: SimpleRecord
 }
@@ -410,6 +415,9 @@ type Mutation {
 
     # Creates a new catalog entry of the defined entry type.
     createCatalogEntry(input: CreateCatalogEntryInput!): CreateCatalogEntryPayload
+
+    # Attaches all given XtdObjects to a dictionary in one database operation.
+    attachConceptsToDictionary(input: AttachConceptsToDictionaryInput!): XtdDictionary
 
     # Deletes the entry from the catalog.
     deleteCatalogEntry(input: DeleteCatalogEntryInput!): DeleteCatalogEntryPayload
