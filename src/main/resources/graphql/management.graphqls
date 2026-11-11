@@ -163,6 +163,8 @@ input PropertiesInput {
     comments: [TranslationInput!]
     deprecationExplanation: [TranslationInput!]
     definition: [TranslationInput!]
+    # URI to reference catalog entry in external system
+    referenceUri: String
     """ 
     LanguageCode 
     """

@@ -27,6 +27,8 @@ public interface ObjectRecordService extends SimpleRecordService<XtdObject> {
     List<XtdMultiLanguageText> getNames(@NotNull XtdObject object);
 
     List<XtdMultiLanguageText> getComments(@NotNull XtdObject object);
+
+    Optional<String> getReferenceUri(@NotNull XtdObject object);
     
     @PreAuthorize("hasRole('USER')")
     @NotNull XtdObject addComment(@NotNull AddTextInput input);

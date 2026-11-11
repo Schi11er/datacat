@@ -192,6 +192,7 @@ interface XtdObject implements XtdRoot {
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
   uri: String
+  referenceUri: String
 }
 
 interface XtdConcept implements XtdRoot & XtdObject {
@@ -223,6 +224,7 @@ interface XtdConcept implements XtdRoot & XtdObject {
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
   uri: String
+  referenceUri: String
   referenceDocuments: [XtdExternalDocument!]!
 }
 
@@ -260,6 +262,7 @@ type XtdExternalDocument implements XtdRoot & XtdObject & XtdConcept {
   comment(input: LocalizationInput): String
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
+  referenceUri: String
   uri: String
   documents: [XtdConcept!]!
   referenceDocuments: [XtdExternalDocument!]!
@@ -293,6 +296,7 @@ type XtdSubject implements XtdRoot & XtdObject & XtdConcept {
   comment(input: LocalizationInput): String
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
+  referenceUri: String
   uri: String
   referenceDocuments: [XtdExternalDocument!]!
   connectedSubjects(filter: RelationshipToSubjectFilterInput): [XtdRelationshipToSubject!]!
@@ -339,6 +343,7 @@ type XtdProperty implements XtdRoot & XtdObject & XtdConcept {
   comment(input: LocalizationInput): String
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
+  referenceUri: String
   uri: String
   referenceDocuments: [XtdExternalDocument!]!
   connectedProperties: [XtdRelationshipToProperty!]!
@@ -377,6 +382,7 @@ type XtdValueList implements XtdRoot & XtdObject & XtdConcept {
   comment(input: LocalizationInput): String
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
+  referenceUri: String
   uri: String
   referenceDocuments: [XtdExternalDocument!]!
   unit: XtdUnit
@@ -418,6 +424,7 @@ type XtdUnit implements XtdRoot & XtdObject & XtdConcept {
   comment(input: LocalizationInput): String
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
+  referenceUri: String
   uri: String
   referenceDocuments: [XtdExternalDocument!]!
   properties: [XtdProperty!]
@@ -444,6 +451,7 @@ type XtdOrderedValue implements XtdRoot & XtdObject {
   comment(input: LocalizationInput): String
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
+  referenceUri: String
   uri: String
   orderedValue: XtdValue! # should be exact one
   valueLists: [XtdValueList!]!
@@ -470,6 +478,7 @@ type XtdValue implements XtdRoot & XtdObject {
   comment(input: LocalizationInput): String
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
+  referenceUri: String
   uri: String
   orderedValues: [XtdOrderedValue!]
   nominalValue: String
@@ -495,6 +504,7 @@ type XtdRelationshipToSubject implements XtdRoot & XtdObject {
   comment(input: LocalizationInput): String
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
+  referenceUri: String
   uri: String
   connectingSubject: XtdSubject!
   targetSubjects: [XtdSubject!]!
@@ -530,6 +540,7 @@ type XtdRelationshipToProperty implements XtdRoot & XtdObject & XtdConcept {
   comment(input: LocalizationInput): String
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
+  referenceUri: String
   uri: String
   referenceDocuments: [XtdExternalDocument!]!
   connectingProperty: XtdProperty!
@@ -565,6 +576,7 @@ type XtdRelationshipType implements XtdRoot & XtdObject & XtdConcept {
   comment(input: LocalizationInput): String
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
+  referenceUri: String
   uri: String
   referenceDocuments: [XtdExternalDocument!]!
   kind: XtdRelationshipKindEnum!
@@ -612,6 +624,7 @@ type XtdDimension implements XtdRoot & XtdObject & XtdConcept {
   comment(input: LocalizationInput): String
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
+  referenceUri: String
   uri: String
   referenceDocuments: [XtdExternalDocument!]!
   thermodynamicTemperatureExponent: XtdRational # required
@@ -725,6 +738,7 @@ type XtdSubdivision implements XtdRoot & XtdObject & XtdConcept {
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
   uri: String
+  referenceUri: String
   referenceDocuments: [XtdExternalDocument!]!
   code: String!
   subdivisions: [XtdSubdivision]
@@ -759,6 +773,7 @@ type XtdCountry implements XtdRoot & XtdObject & XtdConcept {
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
   uri: String
+  referenceUri: String
   referenceDocuments: [XtdExternalDocument!]!
   code: String!
   subdivisions: [XtdSubdivision]
@@ -793,6 +808,7 @@ type XtdQuantityKind implements XtdRoot & XtdObject & XtdConcept {
   comments: [XtdMultiLanguageText!]!
   tags: [Tag!]!
   uri: String
+  referenceUri: String
   referenceDocuments: [XtdExternalDocument!]!
   units: [XtdUnit]
   dimension: XtdDimension

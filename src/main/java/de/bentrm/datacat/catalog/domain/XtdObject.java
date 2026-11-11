@@ -68,6 +68,10 @@ public abstract class XtdObject extends XtdRoot {
     @ToString.Include
     private String uri;
 
+    // URI to a reference entry in another catalog, e.g. to IFC entries in bSDD
+    @ToString.Include
+    private String referenceUri;
+
     // List of objects replaced by the current object.
     @ToString.Include
     @Relationship(type = XtdObject.REPLACE_OBJECT_TYPE, direction = Relationship.Direction.OUTGOING)

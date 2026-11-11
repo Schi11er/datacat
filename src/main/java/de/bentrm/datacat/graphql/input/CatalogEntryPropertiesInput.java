@@ -24,6 +24,7 @@ public class CatalogEntryPropertiesInput {
     List<@NotNull @Valid TranslationInput> examples;
     String languageOfCreator;
     String countryOfOrigin;
+    String referenceUri;
 
     @Valid PropertyInput propertyProperties;
 

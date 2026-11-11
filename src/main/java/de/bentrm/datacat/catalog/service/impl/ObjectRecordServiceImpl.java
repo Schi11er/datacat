@@ -207,6 +207,17 @@ public class ObjectRecordServiceImpl extends AbstractSimpleRecordServiceImpl<Xtd
         return StreamSupport.stream(comments.spliterator(), false).collect(Collectors.toList());
     }
 
+    @Override
+    public Optional<String> getReferenceUri(XtdObject object) {
+        Assert.notNull(object.getId(), "Object must be persistent.");
+        final Optional<XtdObject> xtdObject = getRepository().findByIdWithDirectRelations(object.getId());
+        if (xtdObject.isPresent()) {
+            return Optional.ofNullable(xtdObject.get().getReferenceUri());
+        } else {
+            return Optional.empty();
+        }
+    }
+
     @Transactional
     @Override
     public @NotNull XtdObject setRelatedRecords(@NotBlank String recordId,

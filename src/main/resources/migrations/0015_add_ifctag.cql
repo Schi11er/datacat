@@ -1,0 +1,1 @@
+MERGE (:Tag:Entity { id: "e7c376e9-da92-4cd9-9b28-7ae8086834fb", version: 0, created: toString(datetime()), createdBy: "SYSTEM", lastModified: toString(datetime()), lastModifiedBy: "SYSTEM", scope: "IFC", name: "IFC" });

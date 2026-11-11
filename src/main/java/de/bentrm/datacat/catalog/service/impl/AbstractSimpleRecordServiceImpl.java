@@ -111,6 +111,10 @@ public abstract class AbstractSimpleRecordServiceImpl<T extends CatalogRecord, R
             xtdObject.setMinorVersion(properties.getMinorVersion());
             xtdObject.setDateOfCreation(properties.getDateOfCreation());
             xtdObject.setStatus(properties.getStatus());
+
+            if (properties.getReferenceUri() != null && !properties.getReferenceUri().isBlank()) {
+                xtdObject.setReferenceUri(properties.getReferenceUri());
+            }
         }
         if (newRecord instanceof XtdConcept xtdConcept) {
             setMultiLanguageText(properties.getDescriptions(), xtdConcept.getDescriptions()::add);

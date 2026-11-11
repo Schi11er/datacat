@@ -1,0 +1,1188 @@
+2026-11-11 08:18:52 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-11-11 08:18:52 INFO  de.bentrm.datacat.Application - Starting Application v2.0.0 using Java 21.0.8 with PID 1 (/application/BOOT-INF/classes started by root in /application)
+2026-11-11 08:18:52 INFO  de.bentrm.datacat.Application - No active profile set, falling back to 1 default profile: "default"
+2026-11-11 08:18:56 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:18:57 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 441 ms. Found 31 Neo4j repository interfaces.
+2026-11-11 08:18:59 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:18:59 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 147 ms. Found 0 Neo4j repository interfaces.
+2026-11-11 08:19:02 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-11-11 08:19:02 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:19:02 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-11 08:19:02 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-11-11 08:19:02 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-11 08:19:02 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 10272 ms
+2026-11-11 08:19:05 INFO  o.n.driver.internal.DriverFactory - Direct driver instance 154128529 created for server address db:7687
+2026-11-11 08:19:13 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'simpleRecordServiceFactory' defined in file [/application/BOOT-INF/classes/de/bentrm/datacat/catalog/service/SimpleRecordServiceFactory.class]: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+2026-11-11 08:19:13 INFO  o.n.driver.internal.InternalDriver - Closing driver instance 154128529
+2026-11-11 08:19:13 INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-11-11 08:19:13 INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-11-11 08:19:13 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'simpleRecordServiceFactory' defined in file [/application/BOOT-INF/classes/de/bentrm/datacat/catalog/service/SimpleRecordServiceFactory.class]: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:321)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:309)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:990)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at de.bentrm.datacat.Application.main(Application.java:21)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:106)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:223)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:318)
+	... 26 common frames omitted
+Caused by: org.springframework.transaction.TransactionSystemException: Could not open a new Neo4j session: The client is unauthorized due to authentication failure.
+	at org.springframework.data.neo4j.core.transaction.Neo4jTransactionManager.doBegin(Neo4jTransactionManager.java:317)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at de.bentrm.datacat.catalog.service.impl.ConceptRecordServiceImpl$$SpringCGLIB$$0.getSupportedCatalogRecordType(<generated>)
+	at java.base/java.util.stream.Collectors.lambda$uniqKeysMapAccumulator$1(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$3ReducingSink.accept(Unknown Source)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.collect(Unknown Source)
+	at de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory.<init>(SimpleRecordServiceFactory.java:20)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(Unknown Source)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Unknown Source)
+	at java.base/java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:210)
+	... 28 common frames omitted
+Caused by: org.neo4j.driver.exceptions.AuthenticationException: The client is unauthorized due to authentication failure.
+	at org.neo4j.driver.internal.util.Futures.blockingGet(Futures.java:63)
+	at org.neo4j.driver.internal.InternalSession.beginTransaction(InternalSession.java:95)
+	at org.neo4j.driver.internal.InternalSession.beginTransaction(InternalSession.java:91)
+	at org.springframework.data.neo4j.core.transaction.Neo4jTransactionManager.doBegin(Neo4jTransactionManager.java:308)
+	... 49 common frames omitted
+	Suppressed: org.neo4j.driver.internal.util.ErrorUtil$InternalExceptionCause
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapToNeo4jException(ErrorMapper.java:224)
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapBoltFailureException(ErrorMapper.java:127)
+		at org.neo4j.driver.internal.adaptedbolt.BoltAuthTokenManager.handleBoltFailureException(BoltAuthTokenManager.java:54)
+		at org.neo4j.bolt.connection.pooled.PooledBoltConnectionSource.lambda$connect$16(PooledBoltConnectionSource.java:355)
+		at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.postComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(Unknown Source)
+		at org.neo4j.bolt.connection.netty.impl.handlers.LogonResponseHandler.lambda$onFailure$0(LogonResponseHandler.java:55)
+		at io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:604)
+		at io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:571)
+		at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:506)
+		at io.netty.util.concurrent.DefaultPromise.addListener(DefaultPromise.java:199)
+		at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:95)
+		at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:30)
+		at org.neo4j.bolt.connection.netty.impl.handlers.LogonResponseHandler.onFailure(LogonResponseHandler.java:55)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageDispatcher.handleFailureMessage(InboundMessageDispatcher.java:108)
+		at org.neo4j.bolt.connection.netty.impl.messaging.v57.MessageReaderV57.unpackFailureMessage(MessageReaderV57.java:46)
+		at org.neo4j.bolt.connection.netty.impl.messaging.common.CommonMessageReader.read(CommonMessageReader.java:53)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageHandler.channelRead0(InboundMessageHandler.java:81)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageHandler.channelRead0(InboundMessageHandler.java:34)
+		at io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.MessageDecoder.channelRead(MessageDecoder.java:40)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:796)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:732)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-11 08:19:19 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-11-11 08:19:19 INFO  de.bentrm.datacat.Application - Starting Application v2.0.0 using Java 21.0.8 with PID 1 (/application/BOOT-INF/classes started by root in /application)
+2026-11-11 08:19:19 INFO  de.bentrm.datacat.Application - No active profile set, falling back to 1 default profile: "default"
+2026-11-11 08:19:22 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:19:23 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 700 ms. Found 31 Neo4j repository interfaces.
+2026-11-11 08:19:25 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:19:25 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 181 ms. Found 0 Neo4j repository interfaces.
+2026-11-11 08:19:29 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-11-11 08:19:29 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:19:29 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-11 08:19:29 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-11-11 08:19:29 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-11 08:19:29 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 9913 ms
+2026-11-11 08:19:31 INFO  o.n.driver.internal.DriverFactory - Direct driver instance 801922889 created for server address db:7687
+2026-11-11 08:19:38 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'simpleRecordServiceFactory' defined in file [/application/BOOT-INF/classes/de/bentrm/datacat/catalog/service/SimpleRecordServiceFactory.class]: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+2026-11-11 08:19:38 INFO  o.n.driver.internal.InternalDriver - Closing driver instance 801922889
+2026-11-11 08:19:39 INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-11-11 08:19:39 INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-11-11 08:19:39 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'simpleRecordServiceFactory' defined in file [/application/BOOT-INF/classes/de/bentrm/datacat/catalog/service/SimpleRecordServiceFactory.class]: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:321)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:309)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:990)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at de.bentrm.datacat.Application.main(Application.java:21)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:106)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:223)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:318)
+	... 26 common frames omitted
+Caused by: org.springframework.transaction.TransactionSystemException: Could not open a new Neo4j session: The client is unauthorized due to authentication failure.
+	at org.springframework.data.neo4j.core.transaction.Neo4jTransactionManager.doBegin(Neo4jTransactionManager.java:317)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at de.bentrm.datacat.catalog.service.impl.ConceptRecordServiceImpl$$SpringCGLIB$$0.getSupportedCatalogRecordType(<generated>)
+	at java.base/java.util.stream.Collectors.lambda$uniqKeysMapAccumulator$1(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$3ReducingSink.accept(Unknown Source)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.collect(Unknown Source)
+	at de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory.<init>(SimpleRecordServiceFactory.java:20)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(Unknown Source)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Unknown Source)
+	at java.base/java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:210)
+	... 28 common frames omitted
+Caused by: org.neo4j.driver.exceptions.AuthenticationException: The client is unauthorized due to authentication failure.
+	at org.neo4j.driver.internal.util.Futures.blockingGet(Futures.java:63)
+	at org.neo4j.driver.internal.InternalSession.beginTransaction(InternalSession.java:95)
+	at org.neo4j.driver.internal.InternalSession.beginTransaction(InternalSession.java:91)
+	at org.springframework.data.neo4j.core.transaction.Neo4jTransactionManager.doBegin(Neo4jTransactionManager.java:308)
+	... 49 common frames omitted
+	Suppressed: org.neo4j.driver.internal.util.ErrorUtil$InternalExceptionCause
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapToNeo4jException(ErrorMapper.java:224)
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapBoltFailureException(ErrorMapper.java:127)
+		at org.neo4j.driver.internal.adaptedbolt.BoltAuthTokenManager.handleBoltFailureException(BoltAuthTokenManager.java:54)
+		at org.neo4j.bolt.connection.pooled.PooledBoltConnectionSource.lambda$connect$16(PooledBoltConnectionSource.java:355)
+		at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.postComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(Unknown Source)
+		at org.neo4j.bolt.connection.netty.impl.handlers.LogonResponseHandler.lambda$onFailure$0(LogonResponseHandler.java:55)
+		at io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:604)
+		at io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:571)
+		at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:506)
+		at io.netty.util.concurrent.DefaultPromise.addListener(DefaultPromise.java:199)
+		at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:95)
+		at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:30)
+		at org.neo4j.bolt.connection.netty.impl.handlers.LogonResponseHandler.onFailure(LogonResponseHandler.java:55)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageDispatcher.handleFailureMessage(InboundMessageDispatcher.java:108)
+		at org.neo4j.bolt.connection.netty.impl.messaging.v57.MessageReaderV57.unpackFailureMessage(MessageReaderV57.java:46)
+		at org.neo4j.bolt.connection.netty.impl.messaging.common.CommonMessageReader.read(CommonMessageReader.java:53)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageHandler.channelRead0(InboundMessageHandler.java:81)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageHandler.channelRead0(InboundMessageHandler.java:34)
+		at io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.MessageDecoder.channelRead(MessageDecoder.java:40)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:796)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:732)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-11 08:20:58 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-11-11 08:20:58 INFO  de.bentrm.datacat.Application - Starting Application v2.0.0 using Java 21.0.8 with PID 1 (/application/BOOT-INF/classes started by root in /application)
+2026-11-11 08:20:58 INFO  de.bentrm.datacat.Application - No active profile set, falling back to 1 default profile: "default"
+2026-11-11 08:20:59 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:20:59 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 284 ms. Found 31 Neo4j repository interfaces.
+2026-11-11 08:21:00 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:21:00 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 56 ms. Found 0 Neo4j repository interfaces.
+2026-11-11 08:21:01 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-11-11 08:21:01 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:21:01 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-11 08:21:01 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-11-11 08:21:01 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-11 08:21:01 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3518 ms
+2026-11-11 08:21:02 INFO  o.n.driver.internal.DriverFactory - Direct driver instance 1998603857 created for server address db:7687
+2026-11-11 08:21:04 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'simpleRecordServiceFactory' defined in file [/application/BOOT-INF/classes/de/bentrm/datacat/catalog/service/SimpleRecordServiceFactory.class]: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+2026-11-11 08:21:04 INFO  o.n.driver.internal.InternalDriver - Closing driver instance 1998603857
+2026-11-11 08:21:05 INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-11-11 08:21:05 INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-11-11 08:21:05 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'simpleRecordServiceFactory' defined in file [/application/BOOT-INF/classes/de/bentrm/datacat/catalog/service/SimpleRecordServiceFactory.class]: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:321)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:309)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:990)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at de.bentrm.datacat.Application.main(Application.java:21)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:106)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:223)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:318)
+	... 26 common frames omitted
+Caused by: org.springframework.transaction.TransactionSystemException: Could not open a new Neo4j session: The client is unauthorized due to authentication failure.
+	at org.springframework.data.neo4j.core.transaction.Neo4jTransactionManager.doBegin(Neo4jTransactionManager.java:317)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at de.bentrm.datacat.catalog.service.impl.ConceptRecordServiceImpl$$SpringCGLIB$$0.getSupportedCatalogRecordType(<generated>)
+	at java.base/java.util.stream.Collectors.lambda$uniqKeysMapAccumulator$1(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$3ReducingSink.accept(Unknown Source)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.collect(Unknown Source)
+	at de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory.<init>(SimpleRecordServiceFactory.java:20)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(Unknown Source)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Unknown Source)
+	at java.base/java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:210)
+	... 28 common frames omitted
+Caused by: org.neo4j.driver.exceptions.AuthenticationException: The client is unauthorized due to authentication failure.
+	at org.neo4j.driver.internal.util.Futures.blockingGet(Futures.java:63)
+	at org.neo4j.driver.internal.InternalSession.beginTransaction(InternalSession.java:95)
+	at org.neo4j.driver.internal.InternalSession.beginTransaction(InternalSession.java:91)
+	at org.springframework.data.neo4j.core.transaction.Neo4jTransactionManager.doBegin(Neo4jTransactionManager.java:308)
+	... 49 common frames omitted
+	Suppressed: org.neo4j.driver.internal.util.ErrorUtil$InternalExceptionCause
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapToNeo4jException(ErrorMapper.java:224)
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapBoltFailureException(ErrorMapper.java:127)
+		at org.neo4j.driver.internal.adaptedbolt.BoltAuthTokenManager.handleBoltFailureException(BoltAuthTokenManager.java:54)
+		at org.neo4j.bolt.connection.pooled.PooledBoltConnectionSource.lambda$connect$16(PooledBoltConnectionSource.java:355)
+		at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.postComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(Unknown Source)
+		at org.neo4j.bolt.connection.netty.impl.handlers.LogonResponseHandler.lambda$onFailure$0(LogonResponseHandler.java:55)
+		at io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:604)
+		at io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:571)
+		at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:506)
+		at io.netty.util.concurrent.DefaultPromise.addListener(DefaultPromise.java:199)
+		at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:95)
+		at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:30)
+		at org.neo4j.bolt.connection.netty.impl.handlers.LogonResponseHandler.onFailure(LogonResponseHandler.java:55)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageDispatcher.handleFailureMessage(InboundMessageDispatcher.java:108)
+		at org.neo4j.bolt.connection.netty.impl.messaging.v57.MessageReaderV57.unpackFailureMessage(MessageReaderV57.java:46)
+		at org.neo4j.bolt.connection.netty.impl.messaging.common.CommonMessageReader.read(CommonMessageReader.java:53)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageHandler.channelRead0(InboundMessageHandler.java:81)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageHandler.channelRead0(InboundMessageHandler.java:34)
+		at io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.MessageDecoder.channelRead(MessageDecoder.java:40)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:796)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:732)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-11 08:21:08 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-11-11 08:21:08 INFO  de.bentrm.datacat.Application - Starting Application v2.0.0 using Java 21.0.8 with PID 1 (/application/BOOT-INF/classes started by root in /application)
+2026-11-11 08:21:08 INFO  de.bentrm.datacat.Application - No active profile set, falling back to 1 default profile: "default"
+2026-11-11 08:21:10 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:21:10 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 366 ms. Found 31 Neo4j repository interfaces.
+2026-11-11 08:21:11 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:21:11 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 162 ms. Found 0 Neo4j repository interfaces.
+2026-11-11 08:21:13 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-11-11 08:21:13 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:21:13 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-11 08:21:13 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-11-11 08:21:13 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-11 08:21:13 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5416 ms
+2026-11-11 08:21:14 INFO  o.n.driver.internal.DriverFactory - Direct driver instance 983306747 created for server address db:7687
+2026-11-11 08:21:17 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'simpleRecordServiceFactory' defined in file [/application/BOOT-INF/classes/de/bentrm/datacat/catalog/service/SimpleRecordServiceFactory.class]: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+2026-11-11 08:21:17 INFO  o.n.driver.internal.InternalDriver - Closing driver instance 983306747
+2026-11-11 08:21:18 INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-11-11 08:21:18 INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-11-11 08:21:18 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'simpleRecordServiceFactory' defined in file [/application/BOOT-INF/classes/de/bentrm/datacat/catalog/service/SimpleRecordServiceFactory.class]: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:321)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:309)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:990)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at de.bentrm.datacat.Application.main(Application.java:21)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:106)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:223)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:318)
+	... 26 common frames omitted
+Caused by: org.springframework.transaction.TransactionSystemException: Could not open a new Neo4j session: The client is unauthorized due to authentication failure.
+	at org.springframework.data.neo4j.core.transaction.Neo4jTransactionManager.doBegin(Neo4jTransactionManager.java:317)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at de.bentrm.datacat.catalog.service.impl.ConceptRecordServiceImpl$$SpringCGLIB$$0.getSupportedCatalogRecordType(<generated>)
+	at java.base/java.util.stream.Collectors.lambda$uniqKeysMapAccumulator$1(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$3ReducingSink.accept(Unknown Source)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.collect(Unknown Source)
+	at de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory.<init>(SimpleRecordServiceFactory.java:20)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(Unknown Source)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Unknown Source)
+	at java.base/java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:210)
+	... 28 common frames omitted
+Caused by: org.neo4j.driver.exceptions.AuthenticationException: The client is unauthorized due to authentication failure.
+	at org.neo4j.driver.internal.util.Futures.blockingGet(Futures.java:63)
+	at org.neo4j.driver.internal.InternalSession.beginTransaction(InternalSession.java:95)
+	at org.neo4j.driver.internal.InternalSession.beginTransaction(InternalSession.java:91)
+	at org.springframework.data.neo4j.core.transaction.Neo4jTransactionManager.doBegin(Neo4jTransactionManager.java:308)
+	... 49 common frames omitted
+	Suppressed: org.neo4j.driver.internal.util.ErrorUtil$InternalExceptionCause
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapToNeo4jException(ErrorMapper.java:224)
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapBoltFailureException(ErrorMapper.java:127)
+		at org.neo4j.driver.internal.adaptedbolt.BoltAuthTokenManager.handleBoltFailureException(BoltAuthTokenManager.java:54)
+		at org.neo4j.bolt.connection.pooled.PooledBoltConnectionSource.lambda$connect$16(PooledBoltConnectionSource.java:355)
+		at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.postComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(Unknown Source)
+		at org.neo4j.bolt.connection.netty.impl.handlers.LogonResponseHandler.lambda$onFailure$0(LogonResponseHandler.java:55)
+		at io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:604)
+		at io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:571)
+		at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:506)
+		at io.netty.util.concurrent.DefaultPromise.addListener(DefaultPromise.java:199)
+		at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:95)
+		at io.netty.channel.DefaultChannelPromise.addListener(DefaultChannelPromise.java:30)
+		at org.neo4j.bolt.connection.netty.impl.handlers.LogonResponseHandler.onFailure(LogonResponseHandler.java:55)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageDispatcher.handleFailureMessage(InboundMessageDispatcher.java:108)
+		at org.neo4j.bolt.connection.netty.impl.messaging.v57.MessageReaderV57.unpackFailureMessage(MessageReaderV57.java:46)
+		at org.neo4j.bolt.connection.netty.impl.messaging.common.CommonMessageReader.read(CommonMessageReader.java:53)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageHandler.channelRead0(InboundMessageHandler.java:81)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageHandler.channelRead0(InboundMessageHandler.java:34)
+		at io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.MessageDecoder.channelRead(MessageDecoder.java:40)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:796)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:732)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-11 08:31:18 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-11-11 08:31:18 INFO  de.bentrm.datacat.Application - Starting Application v2.0.0 using Java 21.0.8 with PID 1 (/application/BOOT-INF/classes started by root in /application)
+2026-11-11 08:31:18 INFO  de.bentrm.datacat.Application - No active profile set, falling back to 1 default profile: "default"
+2026-11-11 08:31:19 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:31:20 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 320 ms. Found 31 Neo4j repository interfaces.
+2026-11-11 08:31:20 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:31:20 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 54 ms. Found 0 Neo4j repository interfaces.
+2026-11-11 08:31:21 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-11-11 08:31:21 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:31:21 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-11 08:31:21 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-11-11 08:31:22 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-11 08:31:22 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3408 ms
+2026-11-11 08:31:22 INFO  o.n.driver.internal.DriverFactory - Direct driver instance 1998603857 created for server address db:7687
+2026-11-11 08:31:28 WARN  o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'simpleRecordServiceFactory' defined in file [/application/BOOT-INF/classes/de/bentrm/datacat/catalog/service/SimpleRecordServiceFactory.class]: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+2026-11-11 08:31:28 INFO  o.n.driver.internal.InternalDriver - Closing driver instance 1998603857
+2026-11-11 08:31:28 INFO  o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2026-11-11 08:31:28 INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-11-11 08:31:28 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'simpleRecordServiceFactory' defined in file [/application/BOOT-INF/classes/de/bentrm/datacat/catalog/service/SimpleRecordServiceFactory.class]: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:321)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:309)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1395)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1232)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:569)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:529)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:339)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:373)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:337)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:202)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1228)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1130)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:990)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at de.bentrm.datacat.Application.main(Application.java:21)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:106)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:223)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:146)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:318)
+	... 26 common frames omitted
+Caused by: org.springframework.transaction.TransactionSystemException: Could not open a new Neo4j session: Unable to connect to db:7687, ensure the database is running and that there is a working network connection to it.
+	at org.springframework.data.neo4j.core.transaction.Neo4jTransactionManager.doBegin(Neo4jTransactionManager.java:317)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.startTransaction(AbstractPlatformTransactionManager.java:532)
+	at org.springframework.transaction.support.AbstractPlatformTransactionManager.getTransaction(AbstractPlatformTransactionManager.java:405)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.createTransactionIfNecessary(TransactionAspectSupport.java:639)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:374)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+	at de.bentrm.datacat.catalog.service.impl.ConceptRecordServiceImpl$$SpringCGLIB$$0.getSupportedCatalogRecordType(<generated>)
+	at java.base/java.util.stream.Collectors.lambda$uniqKeysMapAccumulator$1(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$3ReducingSink.accept(Unknown Source)
+	at java.base/java.util.ArrayList$ArrayListSpliterator.forEachRemaining(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.collect(Unknown Source)
+	at de.bentrm.datacat.catalog.service.SimpleRecordServiceFactory.<init>(SimpleRecordServiceFactory.java:20)
+	at java.base/jdk.internal.reflect.DirectConstructorHandleAccessor.newInstance(Unknown Source)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Unknown Source)
+	at java.base/java.lang.reflect.Constructor.newInstance(Unknown Source)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:210)
+	... 28 common frames omitted
+Caused by: org.neo4j.driver.exceptions.ServiceUnavailableException: Unable to connect to db:7687, ensure the database is running and that there is a working network connection to it.
+	at org.neo4j.driver.internal.util.Futures.blockingGet(Futures.java:63)
+	at org.neo4j.driver.internal.InternalSession.beginTransaction(InternalSession.java:95)
+	at org.neo4j.driver.internal.InternalSession.beginTransaction(InternalSession.java:91)
+	at org.springframework.data.neo4j.core.transaction.Neo4jTransactionManager.doBegin(Neo4jTransactionManager.java:308)
+	... 49 common frames omitted
+	Suppressed: org.neo4j.driver.internal.util.ErrorUtil$InternalExceptionCause
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapServiceUnavailable(ErrorMapper.java:200)
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.map(ErrorMapper.java:87)
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapAndThrow(ErrorMapper.java:66)
+		at java.base/java.util.concurrent.CompletableFuture.uniExceptionally(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture$UniExceptionally.tryFire(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.postComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(Unknown Source)
+		at org.neo4j.bolt.connection.pooled.PooledBoltConnectionSource.lambda$connect$16(PooledBoltConnectionSource.java:359)
+		at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.postComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(Unknown Source)
+		at org.neo4j.bolt.connection.netty.impl.async.connection.ChannelConnectedListener.operationComplete(ChannelConnectedListener.java:80)
+		at org.neo4j.bolt.connection.netty.impl.async.connection.ChannelConnectedListener.operationComplete(ChannelConnectedListener.java:35)
+		at io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:604)
+		at io.netty.util.concurrent.DefaultPromise.notifyListeners0(DefaultPromise.java:597)
+		at io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:573)
+		at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:506)
+		at io.netty.util.concurrent.DefaultPromise.setValue0(DefaultPromise.java:650)
+		at io.netty.util.concurrent.DefaultPromise.setFailure0(DefaultPromise.java:643)
+		at io.netty.util.concurrent.DefaultPromise.setFailure(DefaultPromise.java:124)
+		at io.netty.channel.DefaultChannelPromise.setFailure(DefaultChannelPromise.java:89)
+		at io.netty.bootstrap.Bootstrap.doResolveAndConnect0(Bootstrap.java:228)
+		at io.netty.bootstrap.Bootstrap.access$000(Bootstrap.java:47)
+		at io.netty.bootstrap.Bootstrap$1.operationComplete(Bootstrap.java:189)
+		at io.netty.bootstrap.Bootstrap$1.operationComplete(Bootstrap.java:175)
+		at io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:604)
+		at io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:571)
+		at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:506)
+		at io.netty.util.concurrent.DefaultPromise.setValue0(DefaultPromise.java:650)
+		at io.netty.util.concurrent.DefaultPromise.setSuccess0(DefaultPromise.java:639)
+		at io.netty.util.concurrent.DefaultPromise.trySuccess(DefaultPromise.java:119)
+		at io.netty.channel.DefaultChannelPromise.trySuccess(DefaultChannelPromise.java:84)
+		at io.netty.channel.AbstractChannel$AbstractUnsafe.safeSetSuccess(AbstractChannel.java:988)
+		at io.netty.channel.AbstractChannel$AbstractUnsafe.register0(AbstractChannel.java:515)
+		at io.netty.channel.AbstractChannel$AbstractUnsafe.access$200(AbstractChannel.java:428)
+		at io.netty.channel.AbstractChannel$AbstractUnsafe$1.run(AbstractChannel.java:485)
+		at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:173)
+		at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:166)
+		at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:472)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: org.neo4j.bolt.connection.exception.BoltServiceUnavailableException: Unable to connect to db:7687, ensure the database is running and that there is a working network connection to it.
+	at org.neo4j.bolt.connection.netty.impl.async.connection.ChannelConnectedListener.databaseUnavailableError(ChannelConnectedListener.java:86)
+	at org.neo4j.bolt.connection.netty.impl.async.connection.ChannelConnectedListener.operationComplete(ChannelConnectedListener.java:80)
+	at org.neo4j.bolt.connection.netty.impl.async.connection.ChannelConnectedListener.operationComplete(ChannelConnectedListener.java:35)
+	at io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:604)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners0(DefaultPromise.java:597)
+	at io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:573)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:506)
+	at io.netty.util.concurrent.DefaultPromise.setValue0(DefaultPromise.java:650)
+	at io.netty.util.concurrent.DefaultPromise.setFailure0(DefaultPromise.java:643)
+	at io.netty.util.concurrent.DefaultPromise.setFailure(DefaultPromise.java:124)
+	at io.netty.channel.DefaultChannelPromise.setFailure(DefaultChannelPromise.java:89)
+	at io.netty.bootstrap.Bootstrap.doResolveAndConnect0(Bootstrap.java:228)
+	at io.netty.bootstrap.Bootstrap.access$000(Bootstrap.java:47)
+	at io.netty.bootstrap.Bootstrap$1.operationComplete(Bootstrap.java:189)
+	at io.netty.bootstrap.Bootstrap$1.operationComplete(Bootstrap.java:175)
+	at io.netty.util.concurrent.DefaultPromise.notifyListener0(DefaultPromise.java:604)
+	at io.netty.util.concurrent.DefaultPromise.notifyListenersNow(DefaultPromise.java:571)
+	at io.netty.util.concurrent.DefaultPromise.notifyListeners(DefaultPromise.java:506)
+	at io.netty.util.concurrent.DefaultPromise.setValue0(DefaultPromise.java:650)
+	at io.netty.util.concurrent.DefaultPromise.setSuccess0(DefaultPromise.java:639)
+	at io.netty.util.concurrent.DefaultPromise.trySuccess(DefaultPromise.java:119)
+	at io.netty.channel.DefaultChannelPromise.trySuccess(DefaultChannelPromise.java:84)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.safeSetSuccess(AbstractChannel.java:988)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.register0(AbstractChannel.java:515)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe.access$200(AbstractChannel.java:428)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$1.run(AbstractChannel.java:485)
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:173)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:166)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:472)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: java.net.UnknownHostException: db
+	at java.base/java.net.InetAddress$CachedLookup.get(Unknown Source)
+	at java.base/java.net.InetAddress.getAllByName0(Unknown Source)
+	at java.base/java.net.InetAddress.getAllByName(Unknown Source)
+	at org.neo4j.bolt.connection.DefaultDomainNameResolver.resolve(DefaultDomainNameResolver.java:33)
+	at org.neo4j.bolt.connection.netty.impl.async.connection.NettyDomainNameResolver.doResolve(NettyDomainNameResolver.java:39)
+	at io.netty.resolver.SimpleNameResolver.resolve(SimpleNameResolver.java:61)
+	at io.netty.resolver.SimpleNameResolver.resolve(SimpleNameResolver.java:53)
+	at io.netty.resolver.InetSocketAddressResolver.doResolve(InetSocketAddressResolver.java:55)
+	at io.netty.resolver.InetSocketAddressResolver.doResolve(InetSocketAddressResolver.java:31)
+	at io.netty.resolver.AbstractAddressResolver.resolve(AbstractAddressResolver.java:106)
+	at io.netty.bootstrap.Bootstrap.doResolveAndConnect0(Bootstrap.java:220)
+	... 22 common frames omitted
+2026-11-11 08:33:38 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-11-11 08:33:38 INFO  de.bentrm.datacat.Application - Starting Application v2.0.0 using Java 21.0.8 with PID 1 (/application/BOOT-INF/classes started by root in /application)
+2026-11-11 08:33:38 INFO  de.bentrm.datacat.Application - No active profile set, falling back to 1 default profile: "default"
+2026-11-11 08:33:40 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:33:41 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 314 ms. Found 31 Neo4j repository interfaces.
+2026-11-11 08:33:42 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:33:42 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 74 ms. Found 0 Neo4j repository interfaces.
+2026-11-11 08:33:43 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-11-11 08:33:43 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:33:43 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-11 08:33:43 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-11-11 08:33:43 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-11 08:33:43 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 4932 ms
+2026-11-11 08:33:44 INFO  o.n.driver.internal.DriverFactory - Direct driver instance 1998603857 created for server address db:7687
+2026-11-11 08:33:49 INFO  o.s.g.e.DefaultSchemaResourceGraphQlSourceBuilder - Loaded 4 resource(s) in the GraphQL schema.
+2026-11-11 08:33:50 INFO  o.s.b.a.g.GraphQlAutoConfiguration - GraphQL schema inspection:
+	Unmapped fields: {XtdDictionary=[id, created, createdBy, lastModified, lastModifiedBy], XtdRational=[id, created, createdBy, lastModified, lastModifiedBy, numerator, denominator]}
+	Unmapped registrations: {}
+	Unmapped arguments: {}
+	Skipped types: [[ID!]]
+2026-11-11 08:33:50 INFO  o.s.b.a.g.s.GraphQlWebMvcAutoConfiguration - GraphQL endpoint HTTP POST /graphql
+2026-11-11 08:33:50 INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-11-11 08:33:50 INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-11-11 08:33:51 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:33:51 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-11-11 08:33:51 INFO  de.bentrm.datacat.Application - Started Application in 13.752 seconds (process running for 14.551)
+2026-11-11 08:33:51 INFO  d.b.datacat.auth.AccountInitializer - Running account initialization...
+2026-11-11 08:33:53 INFO  d.b.datacat.auth.AccountInitializer - Account with username admin found... skipping account creation.
+2026-11-11 08:33:53 INFO  d.b.d.DataStoreMigrationService - Starting database migration (synchronized execution)...
+2026-11-11 08:33:53 INFO  d.b.d.DataStoreMigrationService - Importing migration resources...
+2026-11-11 08:33:55 INFO  d.b.d.DataStoreMigrationService - Imported new migration resource 0000_add_tags.cql
+2026-11-11 08:33:55 INFO  d.b.d.DataStoreMigrationService - Imported new migration resource 0010_add_languages.cql
+2026-11-11 08:33:55 INFO  d.b.d.DataStoreMigrationService - Imported new migration resource 0011_add_countries.cql
+2026-11-11 08:33:55 INFO  d.b.d.DataStoreMigrationService - Imported new migration resource 0012_add_units.cql
+2026-11-11 08:33:55 INFO  d.b.d.DataStoreMigrationService - Imported new migration resource 0013_add_tags2.cql
+2026-11-11 08:33:55 INFO  d.b.d.DataStoreMigrationService - Imported new migration resource 0014_add_index.cql
+2026-11-11 08:33:55 INFO  d.b.d.DataStoreMigrationService - Finished importing migration resources.
+2026-11-11 08:33:56 INFO  d.b.d.DataStoreMigrationService - Starting execution of graph schema migration.
+2026-11-11 08:33:56 INFO  d.b.d.DataStoreMigrationService - Applying migration with id 0000_add_tags.cql
+2026-11-11 08:33:56 INFO  d.b.d.DataStoreMigrationService - Applied migration command: MERGE (:Tag:Entity { id: "c1c7016b-f85c-43c7-a696-71e75555062b", version: 0, created: toString(datetime()), createdBy: "SYSTEM", lastModified: toString(datetime()), lastModifiedBy: "SYSTEM", scope: "bS", name: "Dictionary" });
+2026-11-11 08:33:56 INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-11-11 08:33:56 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.dao.DataIntegrityViolationException: Node(1189) already exists with label `Entity` and property `id` = '5997da9b-a716-45ae-84a9-e2a7d186bcf9'; Error code 'Neo.ClientError.Schema.ConstraintValidationFailed'
+	at org.springframework.data.neo4j.core.Neo4jPersistenceExceptionTranslator.translateImpl(Neo4jPersistenceExceptionTranslator.java:107)
+	at org.springframework.data.neo4j.core.Neo4jPersistenceExceptionTranslator.translateExceptionIfPossible(Neo4jPersistenceExceptionTranslator.java:91)
+	at org.springframework.data.neo4j.core.DefaultNeo4jClient.potentiallyConvertRuntimeException(DefaultNeo4jClient.java:222)
+	at org.springframework.data.neo4j.core.DefaultNeo4jClient$DefaultRunnableSpec.run(DefaultNeo4jClient.java:309)
+	at de.bentrm.datacat.DataStoreMigrationService.runMigrations(DataStoreMigrationService.java:117)
+	at de.bentrm.datacat.DataStoreMigrationService.run(DataStoreMigrationService.java:54)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:724)
+	at de.bentrm.datacat.DataStoreMigrationService$$SpringCGLIB$$0.run(<generated>)
+	at org.springframework.boot.SpringApplication.lambda$callRunner$4(SpringApplication.java:784)
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:82)
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60)
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:86)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:796)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:784)
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:772)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source)
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.forEach(Unknown Source)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:772)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at de.bentrm.datacat.Application.main(Application.java:21)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:106)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40)
+Caused by: org.neo4j.driver.exceptions.ClientException: Node(1189) already exists with label `Entity` and property `id` = '5997da9b-a716-45ae-84a9-e2a7d186bcf9'
+	at org.neo4j.driver.internal.util.Futures.blockingGet(Futures.java:63)
+	at org.neo4j.driver.internal.InternalSession.run(InternalSession.java:63)
+	at org.neo4j.driver.internal.InternalSession.run(InternalSession.java:48)
+	at org.neo4j.driver.internal.AbstractQueryRunner.run(AbstractQueryRunner.java:32)
+	at org.neo4j.driver.internal.AbstractQueryRunner.run(AbstractQueryRunner.java:37)
+	at org.springframework.data.neo4j.core.DefaultNeo4jClient$DelegatingQueryRunner.run(DefaultNeo4jClient.java:136)
+	at org.springframework.data.neo4j.core.DefaultNeo4jClient$RunnableStatement.runWith(DefaultNeo4jClient.java:208)
+	at org.springframework.data.neo4j.core.DefaultNeo4jClient$DefaultRunnableSpec.run(DefaultNeo4jClient.java:306)
+	... 32 common frames omitted
+	Suppressed: org.neo4j.driver.internal.util.ErrorUtil$InternalExceptionCause
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapToNeo4jException(ErrorMapper.java:224)
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapBoltFailureException(ErrorMapper.java:141)
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.map(ErrorMapper.java:81)
+		at org.neo4j.driver.internal.adaptedbolt.AdaptingDriverResponseHandler.onError(AdaptingDriverResponseHandler.java:51)
+		at org.neo4j.bolt.connection.pooled.impl.PooledBoltConnection$PooledResponseHandler.onError(PooledBoltConnection.java:189)
+		at org.neo4j.bolt.connection.netty.impl.BoltConnectionImpl$ResponseHandleImpl.lambda$onError$1(BoltConnectionImpl.java:617)
+		at org.neo4j.bolt.connection.netty.impl.BoltConnectionImpl$ResponseHandleImpl.runIgnoringError(BoltConnectionImpl.java:748)
+		at org.neo4j.bolt.connection.netty.impl.BoltConnectionImpl$ResponseHandleImpl.onError(BoltConnectionImpl.java:617)
+		at org.neo4j.bolt.connection.netty.impl.BoltConnectionImpl$4.onError(BoltConnectionImpl.java:307)
+		at org.neo4j.bolt.connection.netty.impl.messaging.v3.BoltProtocolV3.lambda$runAuto$9(BoltProtocolV3.java:372)
+		at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.postComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(Unknown Source)
+		at org.neo4j.bolt.connection.netty.impl.handlers.RunResponseHandler.onFailure(RunResponseHandler.java:50)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageDispatcher.handleFailureMessage(InboundMessageDispatcher.java:108)
+		at org.neo4j.bolt.connection.netty.impl.messaging.v57.MessageReaderV57.unpackFailureMessage(MessageReaderV57.java:46)
+		at org.neo4j.bolt.connection.netty.impl.messaging.common.CommonMessageReader.read(CommonMessageReader.java:53)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageHandler.channelRead0(InboundMessageHandler.java:81)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageHandler.channelRead0(InboundMessageHandler.java:34)
+		at io.netty.channel.SimpleChannelInboundHandler.channelRead(SimpleChannelInboundHandler.java:99)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.MessageDecoder.channelRead(MessageDecoder.java:40)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.handler.codec.ByteToMessageDecoder.fireChannelRead(ByteToMessageDecoder.java:361)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelRead(ByteToMessageDecoder.java:325)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:444)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.handler.timeout.IdleStateHandler.channelRead(IdleStateHandler.java:289)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:442)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:412)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1357)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:440)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:420)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:868)
+		at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:166)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:796)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:732)
+		at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:658)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:562)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-11 08:33:56 INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-11 08:33:56 INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-11-11 08:33:56 INFO  o.n.driver.internal.InternalDriver - Closing driver instance 1998603857
+2026-11-11 08:33:59 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-11-11 08:33:59 INFO  de.bentrm.datacat.Application - Starting Application v2.0.0 using Java 21.0.8 with PID 1 (/application/BOOT-INF/classes started by root in /application)
+2026-11-11 08:33:59 INFO  de.bentrm.datacat.Application - No active profile set, falling back to 1 default profile: "default"
+2026-11-11 08:34:01 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:34:02 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 336 ms. Found 31 Neo4j repository interfaces.
+2026-11-11 08:34:03 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:34:03 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 112 ms. Found 0 Neo4j repository interfaces.
+2026-11-11 08:34:04 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-11-11 08:34:04 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:34:04 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-11 08:34:04 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-11-11 08:34:04 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-11 08:34:04 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5016 ms
+2026-11-11 08:34:05 INFO  o.n.driver.internal.DriverFactory - Direct driver instance 1571476890 created for server address db:7687
+2026-11-11 08:34:10 INFO  o.s.g.e.DefaultSchemaResourceGraphQlSourceBuilder - Loaded 4 resource(s) in the GraphQL schema.
+2026-11-11 08:34:11 INFO  o.s.b.a.g.GraphQlAutoConfiguration - GraphQL schema inspection:
+	Unmapped fields: {XtdDictionary=[id, created, createdBy, lastModified, lastModifiedBy], XtdRational=[id, created, createdBy, lastModified, lastModifiedBy, numerator, denominator]}
+	Unmapped registrations: {}
+	Unmapped arguments: {}
+	Skipped types: [[ID!]]
+2026-11-11 08:34:11 INFO  o.s.b.a.g.s.GraphQlWebMvcAutoConfiguration - GraphQL endpoint HTTP POST /graphql
+2026-11-11 08:34:11 INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-11-11 08:34:11 INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-11-11 08:34:12 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:34:12 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-11-11 08:34:12 INFO  de.bentrm.datacat.Application - Started Application in 13.784 seconds (process running for 14.442)
+2026-11-11 08:34:12 INFO  d.b.datacat.auth.AccountInitializer - Running account initialization...
+2026-11-11 08:34:12 INFO  d.b.datacat.auth.AccountInitializer - Account with username admin found... skipping account creation.
+2026-11-11 08:34:12 INFO  d.b.d.DataStoreMigrationService - Starting database migration (synchronized execution)...
+2026-11-11 08:34:12 INFO  d.b.d.DataStoreMigrationService - Importing migration resources...
+2026-11-11 08:34:12 INFO  d.b.d.DataStoreMigrationService - Finished importing migration resources.
+2026-11-11 08:34:12 INFO  d.b.d.DataStoreMigrationService - Starting execution of graph schema migration.
+2026-11-11 08:34:12 INFO  d.b.d.DataStoreMigrationService - Applying migration with id 0010_add_languages.cql
+2026-11-11 08:34:13 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-11 08:34:13 INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-11-11 08:34:13 INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 5 ms
+2026-11-11 08:34:13 INFO  d.b.d.DataStoreMigrationService - Applied migration command: UNWIND [ ["en-AU","English (AU)","AU English"], ["fa-IR","Persian","فارسی"], ["pl-PL","Polish","Polski"], ["lv-LV","Latvian","Latviešu"], ["en-NZ","English (NZ)","NZ English"], ["sr-SP","Serbian","српски језик"], ["zh-CN","Chinese","中文"], ["it-IT","Italian","Italiano"], ["ru-RU","Russian","Русско"], ["vi-VN","Vietnamese","Tiếng Việt"], ["bg-BG","Bulgarian","български език"], ["kr-KR","Korean","한국어"], ["ar-SA","Arabic","العربي"], ["el-GR","Greek","ελληνικά"], ["es-ES","Spanish","Español"], ["de-AT","German","Deutsch, Österreich"], ["mn-MN","Mongolean","Монгол хэл"], ["en-GB","English","British English"], ["en-CA","English (CA)","Canadian English"], ["lt-LT","Lithuanian","Lietuvos"], ["da-DK","Danish","Dansk"], ["de-CH","German (CH)","Deutsch, Schweiz"], ["et-EE","Estonian","Eesti"], ["cs-CZ","Czech","čeština"], ["nb-NO","Norwegian (Bokmål)","Norsk Bokmål"], ["nn-NO","Norwegian (Nynorsk)","Norsk Nynorsk"], ["en","English","International English"], ["de","German","Deutsch, Deutschland"], ["nl-NL","Dutch","Nederlands"], ["fr-FR","French","Français"], ["sv-SE","Swedish","Svenska"], ["en-US","English (US)","US English"], ["pt-BR","Portuguese (BR)","Português do Brasil"], ["fi-FI","Finnish","Suomi"], ["ja-JP","Japanese","日本語"], ["no-NO","Norwegian","Norsk"], ["pt-PT","Portuguese","Português"], ["nl-BE","Dutch (BE)","Belgian Dutch"], ["fr-BE","French (BE)","Belgian French"] ] AS row MERGE (x:XtdLanguage:XtdRoot:CatalogRecord:Entity {id: randomUUID(), code: row[0], englishName: row[1], nativeName: row[2], created: toString(datetime()), createdBy: "SYSTEM", lastModified: toString(datetime()), lastModifiedBy: "SYSTEM"}) RETURN x;
+2026-11-11 08:34:13 INFO  d.b.d.DataStoreMigrationService - Applying migration with id 0011_add_countries.cql
+2026-11-11 08:34:14 INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-11 08:34:14 INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-11-11 08:34:14 INFO  o.n.driver.internal.InternalDriver - Closing driver instance 1571476890
+2026-11-11 08:34:14 WARN  o.n.d.i.metrics.InternalMetrics - Failed to find pool metrics with id `db:7687-967828895` in {}.
+2026-11-11 08:34:15 WARN  o.n.d.i.metrics.InternalMetrics - Failed to find pool metrics with id `db:7687-967828895` in {}.
+2026-11-11 08:34:15 INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-11-11 08:34:15 ERROR o.s.boot.SpringApplication - Application run failed
+org.springframework.dao.TransientDataAccessResourceException: Connection to the database terminated. Please ensure that your database is listening on the correct host and port and that you have compatible encryption settings both on Neo4j server and driver. Note that the default encryption setting has changed in Neo4j 4.0.; Error code 'N/A'
+	at org.springframework.data.neo4j.core.Neo4jPersistenceExceptionTranslator.translateImpl(Neo4jPersistenceExceptionTranslator.java:107)
+	at org.springframework.data.neo4j.core.Neo4jPersistenceExceptionTranslator.translateExceptionIfPossible(Neo4jPersistenceExceptionTranslator.java:73)
+	at org.springframework.data.neo4j.core.DefaultNeo4jClient.potentiallyConvertRuntimeException(DefaultNeo4jClient.java:222)
+	at org.springframework.data.neo4j.core.DefaultNeo4jClient$DefaultRunnableSpec.run(DefaultNeo4jClient.java:309)
+	at de.bentrm.datacat.DataStoreMigrationService.runMigrations(DataStoreMigrationService.java:117)
+	at de.bentrm.datacat.DataStoreMigrationService.run(DataStoreMigrationService.java:54)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:724)
+	at de.bentrm.datacat.DataStoreMigrationService$$SpringCGLIB$$0.run(<generated>)
+	at org.springframework.boot.SpringApplication.lambda$callRunner$4(SpringApplication.java:784)
+	at org.springframework.util.function.ThrowingConsumer$1.acceptWithException(ThrowingConsumer.java:82)
+	at org.springframework.util.function.ThrowingConsumer.accept(ThrowingConsumer.java:60)
+	at org.springframework.util.function.ThrowingConsumer$1.accept(ThrowingConsumer.java:86)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:796)
+	at org.springframework.boot.SpringApplication.callRunner(SpringApplication.java:784)
+	at org.springframework.boot.SpringApplication.lambda$callRunners$3(SpringApplication.java:772)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.accept(Unknown Source)
+	at java.base/java.util.stream.SortedOps$SizedRefSortingSink.end(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.ForEachOps$ForEachOp$OfRef.evaluateSequential(Unknown Source)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(Unknown Source)
+	at java.base/java.util.stream.ReferencePipeline.forEach(Unknown Source)
+	at org.springframework.boot.SpringApplication.callRunners(SpringApplication.java:772)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:325)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at de.bentrm.datacat.Application.main(Application.java:21)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(Unknown Source)
+	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:106)
+	at org.springframework.boot.loader.launch.Launcher.launch(Launcher.java:64)
+	at org.springframework.boot.loader.launch.JarLauncher.main(JarLauncher.java:40)
+Caused by: org.neo4j.driver.exceptions.ServiceUnavailableException: Connection to the database terminated. Please ensure that your database is listening on the correct host and port and that you have compatible encryption settings both on Neo4j server and driver. Note that the default encryption setting has changed in Neo4j 4.0.
+	at org.neo4j.driver.internal.util.Futures.blockingGet(Futures.java:63)
+	at org.neo4j.driver.internal.InternalSession.run(InternalSession.java:63)
+	at org.neo4j.driver.internal.InternalSession.run(InternalSession.java:48)
+	at org.neo4j.driver.internal.AbstractQueryRunner.run(AbstractQueryRunner.java:32)
+	at org.neo4j.driver.internal.AbstractQueryRunner.run(AbstractQueryRunner.java:37)
+	at org.springframework.data.neo4j.core.DefaultNeo4jClient$DelegatingQueryRunner.run(DefaultNeo4jClient.java:136)
+	at org.springframework.data.neo4j.core.DefaultNeo4jClient$RunnableStatement.runWith(DefaultNeo4jClient.java:208)
+	at org.springframework.data.neo4j.core.DefaultNeo4jClient$DefaultRunnableSpec.run(DefaultNeo4jClient.java:306)
+	... 32 common frames omitted
+	Suppressed: org.neo4j.driver.internal.util.ErrorUtil$InternalExceptionCause
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.mapServiceUnavailable(ErrorMapper.java:200)
+		at org.neo4j.driver.internal.adaptedbolt.ErrorMapper.map(ErrorMapper.java:87)
+		at org.neo4j.driver.internal.adaptedbolt.AdaptingDriverResponseHandler.onError(AdaptingDriverResponseHandler.java:51)
+		at org.neo4j.bolt.connection.pooled.impl.PooledBoltConnection$PooledResponseHandler.onError(PooledBoltConnection.java:189)
+		at org.neo4j.bolt.connection.netty.impl.BoltConnectionImpl$ResponseHandleImpl.lambda$onError$1(BoltConnectionImpl.java:617)
+		at org.neo4j.bolt.connection.netty.impl.BoltConnectionImpl$ResponseHandleImpl.runIgnoringError(BoltConnectionImpl.java:748)
+		at org.neo4j.bolt.connection.netty.impl.BoltConnectionImpl$ResponseHandleImpl.onError(BoltConnectionImpl.java:617)
+		at org.neo4j.bolt.connection.netty.impl.BoltConnectionImpl$4.onError(BoltConnectionImpl.java:307)
+		at org.neo4j.bolt.connection.netty.impl.messaging.v3.BoltProtocolV3.lambda$runAuto$9(BoltProtocolV3.java:372)
+		at java.base/java.util.concurrent.CompletableFuture.uniWhenComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture$UniWhenComplete.tryFire(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.postComplete(Unknown Source)
+		at java.base/java.util.concurrent.CompletableFuture.completeExceptionally(Unknown Source)
+		at org.neo4j.bolt.connection.netty.impl.handlers.RunResponseHandler.onFailure(RunResponseHandler.java:50)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageDispatcher.handleChannelError(InboundMessageDispatcher.java:174)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.InboundMessageDispatcher.handleChannelInactive(InboundMessageDispatcher.java:159)
+		at org.neo4j.bolt.connection.netty.impl.async.inbound.ChannelErrorHandler.channelInactive(ChannelErrorHandler.java:73)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelInputClosed(ByteToMessageDecoder.java:427)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelInactive(ByteToMessageDecoder.java:392)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelInputClosed(ByteToMessageDecoder.java:427)
+		at io.netty.handler.codec.ByteToMessageDecoder.channelInactive(ByteToMessageDecoder.java:392)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+		at io.netty.channel.ChannelInboundHandlerAdapter.channelInactive(ChannelInboundHandlerAdapter.java:81)
+		at io.netty.handler.timeout.IdleStateHandler.channelInactive(IdleStateHandler.java:280)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+		at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+		at io.netty.channel.DefaultChannelPipeline$HeadContext.channelInactive(DefaultChannelPipeline.java:1352)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:301)
+		at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+		at io.netty.channel.DefaultChannelPipeline.fireChannelInactive(DefaultChannelPipeline.java:850)
+		at io.netty.channel.AbstractChannel$AbstractUnsafe$7.run(AbstractChannel.java:811)
+		at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:173)
+		at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:166)
+		at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:472)
+		at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569)
+		at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+		at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+		at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+		at java.base/java.lang.Thread.run(Unknown Source)
+Caused by: org.neo4j.bolt.connection.exception.BoltServiceUnavailableException: Connection to the database terminated. Please ensure that your database is listening on the correct host and port and that you have compatible encryption settings both on Neo4j server and driver. Note that the default encryption setting has changed in Neo4j 4.0.
+	at org.neo4j.bolt.connection.netty.impl.async.inbound.ChannelErrorHandler.channelInactive(ChannelErrorHandler.java:64)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelInputClosed(ByteToMessageDecoder.java:427)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelInactive(ByteToMessageDecoder.java:392)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelInputClosed(ByteToMessageDecoder.java:427)
+	at io.netty.handler.codec.ByteToMessageDecoder.channelInactive(ByteToMessageDecoder.java:392)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.channel.ChannelInboundHandlerAdapter.channelInactive(ChannelInboundHandlerAdapter.java:81)
+	at io.netty.handler.timeout.IdleStateHandler.channelInactive(IdleStateHandler.java:280)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:303)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelInactive(AbstractChannelHandlerContext.java:274)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelInactive(DefaultChannelPipeline.java:1352)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:301)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelInactive(AbstractChannelHandlerContext.java:281)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelInactive(DefaultChannelPipeline.java:850)
+	at io.netty.channel.AbstractChannel$AbstractUnsafe$7.run(AbstractChannel.java:811)
+	at io.netty.util.concurrent.AbstractEventExecutor.runTask(AbstractEventExecutor.java:173)
+	at io.netty.util.concurrent.AbstractEventExecutor.safeExecute(AbstractEventExecutor.java:166)
+	at io.netty.util.concurrent.SingleThreadEventExecutor.runAllTasks(SingleThreadEventExecutor.java:472)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:569)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$4.run(SingleThreadEventExecutor.java:998)
+	at io.netty.util.internal.ThreadExecutorMap$2.run(ThreadExecutorMap.java:74)
+	at io.netty.util.concurrent.FastThreadLocalRunnable.run(FastThreadLocalRunnable.java:30)
+	at java.base/java.lang.Thread.run(Unknown Source)
+2026-11-11 08:34:50 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-11-11 08:34:50 INFO  de.bentrm.datacat.Application - Starting Application v2.0.0 using Java 21.0.8 with PID 1 (/application/BOOT-INF/classes started by root in /application)
+2026-11-11 08:34:50 INFO  de.bentrm.datacat.Application - No active profile set, falling back to 1 default profile: "default"
+2026-11-11 08:34:51 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:34:52 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 275 ms. Found 31 Neo4j repository interfaces.
+2026-11-11 08:34:52 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:34:53 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 66 ms. Found 0 Neo4j repository interfaces.
+2026-11-11 08:34:54 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-11-11 08:34:54 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:34:54 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-11 08:34:54 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-11-11 08:34:54 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-11 08:34:54 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3989 ms
+2026-11-11 08:34:54 INFO  o.n.driver.internal.DriverFactory - Direct driver instance 1452943019 created for server address db:7687
+2026-11-11 08:34:58 INFO  o.s.g.e.DefaultSchemaResourceGraphQlSourceBuilder - Loaded 4 resource(s) in the GraphQL schema.
+2026-11-11 08:34:59 INFO  o.s.b.a.g.GraphQlAutoConfiguration - GraphQL schema inspection:
+	Unmapped fields: {XtdDictionary=[id, created, createdBy, lastModified, lastModifiedBy], XtdRational=[id, created, createdBy, lastModified, lastModifiedBy, numerator, denominator]}
+	Unmapped registrations: {}
+	Unmapped arguments: {}
+	Skipped types: [[ID!]]
+2026-11-11 08:34:59 INFO  o.s.b.a.g.s.GraphQlWebMvcAutoConfiguration - GraphQL endpoint HTTP POST /graphql
+2026-11-11 08:34:59 INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-11-11 08:34:59 INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-11-11 08:35:00 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:35:00 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-11-11 08:35:00 INFO  de.bentrm.datacat.Application - Started Application in 11.521 seconds (process running for 12.036)
+2026-11-11 08:35:00 INFO  d.b.d.g.GraphQLCacheInitializer - GraphQL PropertyDataFetcher cache has been cleared..
+2026-11-11 08:35:00 INFO  d.b.datacat.auth.AccountInitializer - Running account initialization...
+2026-11-11 08:35:00 INFO  d.b.datacat.auth.AccountInitializer - Account with username admin found... skipping account creation.
+2026-11-11 08:35:00 INFO  d.b.d.DataStoreMigrationService - Starting database migration (synchronized execution)...
+2026-11-11 08:35:01 INFO  d.b.d.DataStoreMigrationService - Importing migration resources...
+2026-11-11 08:35:01 INFO  d.b.d.DataStoreMigrationService - Finished importing migration resources.
+2026-11-11 08:35:01 INFO  d.b.d.DataStoreMigrationService - Starting execution of graph schema migration.
+2026-11-11 08:35:01 INFO  d.b.d.DataStoreMigrationService - Applying migration with id 0011_add_countries.cql
+2026-11-11 08:35:03 INFO  d.b.d.DataStoreMigrationService - Applied migration command: UNWIND [ ["Afghanistan","AF","4"], ["Åland Islands","AX","248"], ["Albania","AL","8"], ["Algeria","DZ","12"], ["American Samoa","AS","16"], ["Andorra","AD","20"], ["Angola","AO","24"], ["Anguilla","AI","660"], ["Antarctica","AQ","10"], ["Antigua and Barbuda","AG","28"], ["Argentina","AR","32"], ["Armenia","AM","51"], ["Aruba","AW","533"], ["Australia","AU","36"], ["Austria","AT","40"], ["Azerbaijan","AZ","31"], ["Bahamas","BS","44"], ["Bahrain","BH","48"], ["Bangladesh","BD","50"], ["Barbados","BB","52"], ["Belarus","BY","112"], ["Belgium","BE","56"], ["Belize","BZ","84"], ["Benin","BJ","204"], ["Bermuda","BM","60"], ["Bhutan","BT","64"], ["Bolivia, Plurinational State of","BO","68"], ["Bosnia and Herzegovina","BA","70"], ["Botswana","BW","72"], ["Bouvet Island","BV","74"], ["Brazil","BR","76"], ["British Indian Ocean Territory","IO","86"], ["Brunei Darussalam","BN","96"], ["Bulgaria","BG","100"], ["Burkina Faso","BF","854"], ["Burundi","BI","108"], ["Cambodia","KH","116"], ["Cameroon","CM","120"], ["Canada","CA","124"], ["Cape Verde","CV","132"], ["Cayman Islands","KY","136"], ["Central African Republic","CF","140"], ["Chad","TD","148"], ["Chile","CL","152"], ["China","CN","156"], ["Christmas Island","CX","162"], ["Cocos (Keeling) Islands","CC","166"], ["Colombia","CO","170"], ["Comoros","KM","174"], ["Congo","CG","178"], ["Congo, the Democratic Republic of the","CD","180"], ["Cook Islands","CK","184"], ["Costa Rica","CR","188"], ["Côte d'Ivoire","CI","384"], ["Croatia","HR","191"], ["Cuba","CU","192"], ["Cyprus","CY","196"], ["Czech Republic","CZ","203"], ["Denmark","DK","208"], ["Djibouti","DJ","262"], ["Dominica","DM","212"], ["Dominican Republic","DO","214"], ["Ecuador","EC","218"], ["Egypt","EG","818"], ["El Salvador","SV","222"], ["Equatorial Guinea","GQ","226"], ["Eritrea","ER","232"], ["Estonia","EE","233"], ["Ethiopia","ET","231"], ["European Union","EU","0"], ["Falkland Islands (Malvinas)","FK","238"], ["Faroe Islands","FO","234"], ["Fiji","FJ","242"], ["Finland","FI","246"], ["France","FR","250"], ["French Guiana","GF","254"], ["French Polynesia","PF","258"], ["French Southern Territories","TF","260"], ["Gabon","GA","266"], ["Gambia","GM","270"], ["Georgia","GE","268"], ["Germany","DE","276"], ["Ghana","GH","288"], ["Gibraltar","GI","292"], ["Greece","GR","300"], ["Greenland","GL","304"], ["Grenada","GD","308"], ["Guadeloupe","GP","312"], ["Guam","GU","316"], ["Guatemala","GT","320"], ["Guernsey","GG","831"], ["Guinea","GN","324"], ["Guinea-Bissau","GW","624"], ["Guyana","GY","328"], ["Haiti","HT","332"], ["Heard Island and McDonald Islands","HM","334"], ["Holy See (Vatican City State)","VA","336"], ["Honduras","HN","340"], ["Hong Kong","HK","344"], ["Hungary","HU","348"], ["Iceland","IS","352"], ["India","IN","356"], ["Indonesia","ID","360"], ["Iran, Islamic Republic of","IR","364"], ["Iraq","IQ","368"], ["Ireland","IE","372"], ["Isle of Man","IM","833"], ["Israel","IL","376"], ["Italy","IT","380"], ["Jamaica","JM","388"], ["Japan","JP","392"], ["Jersey","JE","832"], ["Jordan","JO","400"], ["Kazakhstan","KZ","398"], ["Kenya","KE","404"], ["Kiribati","KI","296"], ["Korea, Democratic People's Republic of","KP","408"], ["Korea, Republic of","KR","410"], ["Kuwait","KW","414"], ["Kyrgyzstan","KG","417"], ["Lao People's Democratic Republic","LA","418"], ["Latvia","LV","428"], ["Lebanon","LB","422"], ["Lesotho","LS","426"], ["Liberia","LR","430"], ["Libyan Arab Jamahiriya","LY","434"], ["Liechtenstein","LI","438"], ["Lithuania","LT","440"], ["Luxembourg","LU","442"], ["Macao","MO","446"], ["Macedonia, the former Yugoslav Republic of","MK","807"], ["Madagascar","MG","450"], ["Malawi","MW","454"], ["Malaysia","MY","458"], ["Maldives","MV","462"], ["Mali","ML","466"], ["Malta","MT","470"], ["Marshall Islands","MH","584"], ["Martinique","MQ","474"], ["Mauritania","MR","478"], ["Mauritius","MU","480"], ["Mayotte","YT","175"], ["Mexico","MX","484"], ["Micronesia, Federated States of","FM","583"], ["Moldova, Republic of","MD","498"], ["Monaco","MC","492"], ["Mongolia","MN","496"], ["Montenegro","ME","499"], ["Montserrat","MS","500"], ["Morocco","MA","504"], ["Mozambique","MZ","508"], ["Myanmar","MM","104"], ["Namibia","NA","516"], ["Nauru","NR","520"], ["Nepal","NP","524"], ["Netherlands","NL","528"], ["Netherlands Antilles","AN","530"], ["New Caledonia","NC","540"], ["New Zealand","NZ","554"], ["Nicaragua","NI","558"], ["Niger","NE","562"], ["Nigeria","NG","566"], ["Niue","NU","570"], ["Norfolk Island","NF","574"], ["Northern Mariana Islands","MP","580"], ["Norway","NO","578"], ["Oman","OM","512"], ["Pakistan","PK","586"], ["Palau","PW","585"], ["Palestinian Territory, Occupied","PS","275"], ["Panama","PA","591"], ["Papua New Guinea","PG","598"], ["Paraguay","PY","600"], ["Peru","PE","604"], ["Philippines","PH","608"], ["Pitcairn","PN","612"], ["Poland","PL","616"], ["Portugal","PT","620"], ["Puerto Rico","PR","630"], ["Qatar","QA","634"], ["Réunion","RE","638"], ["Romania","RO","642"], ["Russian Federation","RU","643"], ["Rwanda","RW","646"], ["Saint Barthélemy","BL","652"], ["Saint Helena, Ascension and Tristan da Cunha","SH","654"], ["Saint Kitts and Nevis","KN","659"], ["Saint Lucia","LC","662"], ["Saint Martin (French part)","MF","663"], ["Saint Pierre and Miquelon","PM","666"], ["Saint Vincent and the Grenadines","VC","670"], ["Samoa","WS","882"], ["San Marino","SM","674"], ["Sao Tome and Principe","ST","678"], ["Saudi Arabia","SA","682"], ["Senegal","SN","686"], ["Serbia","RS","688"], ["Seychelles","SC","690"], ["Sierra Leone","SL","694"], ["Singapore","SG","702"], ["Slovakia","SK","703"], ["Slovenia","SI","705"], ["Solomon Islands","SB","90"], ["Somalia","SO","706"], ["South Africa","ZA","710"], ["South Georgia and the South Sandwich Islands","GS","239"], ["Spain","ES","724"], ["Sri Lanka","LK","144"], ["Sudan","SD","736"], ["Suriname","SR","740"], ["Svalbard and Jan Mayen","SJ","744"], ["Swaziland","SZ","748"], ["Sweden","SE","752"], ["Switzerland","CH","756"], ["Syrian Arab Republic","SY","760"], ["Taiwan, Province of China","TW","158"], ["Tajikistan","TJ","762"], ["Tanzania, United Republic of","TZ","834"], ["Thailand","TH","764"], ["Timor-Leste","TL","626"], ["Togo","TG","768"], ["Tokelau","TK","772"], ["Tonga","TO","776"], ["Trinidad and Tobago","TT","780"], ["Tunisia","TN","788"], ["Turkey","TR","792"], ["Turkmenistan","TM","795"], ["Turks and Caicos Islands","TC","796"], ["Tuvalu","TV","798"], ["Uganda","UG","800"], ["Ukraine","UA","804"], ["United Arab Emirates","AE","784"], ["United Kingdom","GB","826"], ["United States","US","840"], ["United States Minor Outlying Islands","UM","581"], ["Uruguay","UY","858"], ["Uzbekistan","UZ","860"], ["Vanuatu","VU","548"], ["Venezuela, Bolivarian Republic of","VE","862"], ["Viet Nam","VN","704"], ["Virgin Islands, British","VG","92"], ["Virgin Islands, U.S.","VI","850"], ["Wallis and Futuna","WF","876"], ["Western Sahara","EH","732"], ["Yemen","YE","887"], ["Zambia","ZM","894"], ["Zimbabwe","ZW","716"] ] as row MERGE (x:XtdCountry:XtdConcept:XtdObject:XtdRoot:CatalogRecord:Entity {id: row[2]})  ON CREATE SET      x.code = row[1],     x.`labels.en` = row[0],      x.created = toString(datetime()),      x.createdBy = "SYSTEM",      x.lastModified = toString(datetime()),      x.lastModifiedBy = "SYSTEM",     x.majorVersion = 1,     x.minorVersion = 0,     x.status = "XTD_ACTIVE" MERGE (y:XtdText:XtdRoot:CatalogRecord:Entity {id: randomUUID()}) ON CREATE SET      y.text = row[0],      y.created = toString(datetime()),      y.createdBy = "SYSTEM",      y.lastModified = toString(datetime()),      y.lastModifiedBy = "SYSTEM" MERGE (z:XtdMultiLanguageText:XtdRoot:CatalogRecord:Entity {id: randomUUID()}) ON CREATE SET      z.created = toString(datetime()),      z.createdBy = "SYSTEM",      z.lastModified = toString(datetime()),      z.lastModifiedBy = "SYSTEM" MERGE (x)-[:NAMES]->(z) MERGE (z)-[:TEXTS]->(y) WITH x, y MATCH (l:XtdLanguage {code: "en"}) MERGE (y)-[:LANGUAGE]->(l) RETURN x;
+2026-11-11 08:35:03 INFO  d.b.d.DataStoreMigrationService - Applying migration with id 0012_add_units.cql
+2026-11-11 08:35:04 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-11 08:35:04 INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-11-11 08:35:04 INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2026-11-11 08:35:05 INFO  d.b.d.DataStoreMigrationService - Applied migration command: UNWIND [ ["Second","Sekunde","s"], ["Minute","Minute","min"], ["Hour","Stunde","h"], ["Day","Tag","d"], ["Hertz","Hertz","Hz"], ["Baud","Baud","Bd"], ["Meter","Meter","m"], ["Liter","Liter","L"], ["Radian","Radiant","rad"], ["Steradian","Steradiant","sr"], ["Revolution","Umdrehung","r"], ["Degree","Grad","o"], ["Bit","Bit","bit"], ["Byte","Octet","Byte"," Oktett","B"], ["Gram","Gramm","g"], ["Ton","Tonne","t"], ["Unified Atomic Mass Unit","Einheitliche Atomare Masseneinheit","u"], ["Mole","Mol","mol"], ["Katal","Katal","kat"], ["Kelvin","Kelvin","K"], ["Degree Celsius","Grad Celsius","oC"], ["Candela","Candela","cd"], ["Lumen","Lumen","lm"], ["Lux","Lux","lx"], ["Newton","Newton","N"], ["Pascal","Pascal","Pa"], ["Joule","Joule","J"], ["Electronvolt","Elektronvolt","eV"], ["Watt","Watt","W"], ["Neper","Neper","Np"], ["Decibel","Dezibel","dB"], ["Ampere","Ampere","A"], ["Coulomb","Coulomb","C"], ["Volt","Volt","V"], ["Farad","Farad","F"], ["Ohm","Ohm","Ohm"], ["Siemens","Siemens","S"], ["Weber","Weber","Wb"], ["Tesla","Tesla","T"], ["Henry","Henry","H"], ["Becquerel","Becquerel","Bq"], ["Gray","Gray","Gy"], ["Sievert","Sievert","Sv"], ["Square Meter","Quadratmeter","m^2"], ["Cubic Meter","Kubikmeter","m^3"], ["Meter Per Second","Meter pro Sekunde","m/s"], ["Meter Per Second Squared","Meter pro Sekunde zum Quadrat","m/s^2"], ["Reciprocal Meter","Reziproker Meter","m^-1"], ["Kilogram Per Cubic Meter","Kilogramm pro Kubikmeter","kg/m^3"], ["Cubic Meter Per Kilogram","Kubikmeter pro Kilogramm","m^3/kg"], ["Ampere Per Square Meter","Ampere pro Quadratmeter","A/m^2"], ["Ampere Per Meter","Ampere pro Meter","A/m"], ["Mole Per Cubic Meter","Mol pro Kubikmeter","mol/m^3"], ["Candela Per Square Meter","Candela pro Quadratmeter","cd/m^2"], ["Radian Per Second","Radiant pro Sekunde","rad/s"], ["Radian Per Second Squared","Radiant pro Sekunde zum Quadrat","rad/s^2"], ["Pascal Second","Pascal Sekunde","Pa.s"], ["Newton Meter","Newtonmeter","N.m"], ["Newton Per Meter","Newton pro Meter","N/m"], ["Watt Per Square Meter","Watt pro Quadratmeter","W/m^2"], ["Watt Per Steradian","Watt pro Steradiant","W/sr"], ["Watt Per Square Meter Steradian","Watt pro Quadratmeter Steradiant","W/(m^2.sr)"], ["Joule Per Kelvin","Joule pro Kelvin","J/K"], ["Joule Per Kilogram Kelvin","Joule pro Kilogramm Kelvin","J/(kg.K)"], ["Joule Per Kilogram","Joule pro Kilogramm","J/kg"], ["Watt Per Meter Kelvin","Watt pro Meter Kelvin","W/(m.K)"], ["Joule Per Cubic Meter","Joule pro Kubikmeter","J/m^3"], ["Volt Per Meter","Volt pro Meter","V/m"], ["Coulomb Per Cubic Meter","Coulomb pro Kubikmeter","C/m^3"], ["Coulomb Per Square Meter","Coulomb pro Quadratmeter","C/m^2"], ["Farad Per Meter","Farad pro Meter","F/m"], ["Henry Per Meter","Henry pro Meter","H/m"], ["Joule Per Mole","Joule pro Mol","J/mol"], ["Joule Per Mole Kelvin","Joule pro Mol Kelvin","J/(mol.K)"], ["Coulomb Per Kilogram","Coulomb pro Kilogramm","C/kg"], ["Revolution Per Minute","Umdrehungen pro Minute","r/min"], ["Katal Per Cubic Meter","Katal pro Kubikmeter","kat/m^3"], ["Mebibit Per Second","Mebibit pro Sekunde","Mib/s"], ["Nanovolt Per Root Hertz","Nanovolt pro Quadratwurzel Hertz","nV/Hz^(1/2)"] ] AS row  MERGE (x:XtdUnit:XtdConcept:XtdObject:XtdRoot:CatalogRecord:Entity {id: randomUUID()}) ON CREATE SET      x.`labels.en` = row[0],      x.`labels.de` = row[1],      x.created = toString(datetime()),      x.createdBy = "SYSTEM",      x.lastModified = toString(datetime()),      x.lastModifiedBy = "SYSTEM",     x.majorVersion = 1,     x.minorVersion = 0,     x.status = "XTD_ACTIVE" MERGE (y:XtdText:XtdRoot:CatalogRecord:Entity {id: randomUUID()}) ON CREATE SET      y.text = row[2],      y.created = toString(datetime()),      y.createdBy = "SYSTEM",      y.lastModified = toString(datetime()),      y.lastModifiedBy = "SYSTEM" MERGE (z:XtdMultiLanguageText:XtdRoot:CatalogRecord:Entity {id: randomUUID()}) ON CREATE SET      z.created = toString(datetime()),      z.createdBy = "SYSTEM",      z.lastModified = toString(datetime()),      z.lastModifiedBy = "SYSTEM" MERGE (a:XtdText:XtdRoot:CatalogRecord:Entity {id: randomUUID()}) ON CREATE SET      a.text = row[1],      a.created = toString(datetime()),      a.createdBy = "SYSTEM",      a.lastModified = toString(datetime()),      a.lastModifiedBy = "SYSTEM" MERGE (b:XtdMultiLanguageText:XtdRoot:CatalogRecord:Entity {id: randomUUID()}) ON CREATE SET      b.created = toString(datetime()),      b.createdBy = "SYSTEM",      b.lastModified = toString(datetime()),      b.lastModifiedBy = "SYSTEM" MERGE (c:XtdText:XtdRoot:CatalogRecord:Entity {id: randomUUID()}) ON CREATE SET      c.text = row[0],      c.created = toString(datetime()),      c.createdBy = "SYSTEM",      c.lastModified = toString(datetime()),      c.lastModifiedBy = "SYSTEM" MERGE (x)-[:SYMBOL]->(z) MERGE (z)-[:TEXTS]->(y) MERGE (x)-[:NAMES]->(b) MERGE (b)-[:TEXTS]->(a) MERGE (b)-[:TEXTS]->(c) WITH x, y, a, c MATCH (l:XtdLanguage {code: "en"}) MATCH (ll:XtdLanguage {code: "de"}) MATCH (t:Tag {id:"09da1ebb-8641-47fa-b82e-8588c7fef09e"}) MERGE (y)-[:LANGUAGE]->(l) MERGE (c)-[:LANGUAGE]->(l) MERGE (a)-[:LANGUAGE]->(ll) MERGE (x)-[:TAGGED]->(t) RETURN x;
+2026-11-11 08:35:05 INFO  d.b.d.DataStoreMigrationService - Applying migration with id 0013_add_tags2.cql
+2026-11-11 08:35:05 INFO  d.b.d.DataStoreMigrationService - Applied migration command: MERGE (:Tag:Entity { id: "f72aefe1-cb39-4af3-8455-2fd-fe891734c", version: 0, created: toString(datetime()), createdBy: "SYSTEM", lastModified: toString(datetime()), lastModifiedBy: "SYSTEM", scope: "ISO:23387:2025", name: "Datenvorlage" });
+2026-11-11 08:35:05 INFO  d.b.d.DataStoreMigrationService - Applied migration command: MERGE (:Tag:Entity { id: "b7b1cd0b-b515-4252-a083-bb5d-dee073c8", version: 0, created: toString(datetime()), createdBy: "SYSTEM", lastModified: toString(datetime()), lastModifiedBy: "SYSTEM", scope: "ISO:23387:2025", name: "Objekttyp" });
+2026-11-11 08:35:05 INFO  d.b.d.DataStoreMigrationService - Applying migration with id 0014_add_index.cql
+2026-11-11 08:35:05 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_dictionary_id IF NOT EXISTS FOR (n:XtdDictionary) ON (n.id);
+2026-11-11 08:35:05 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_subject_id IF NOT EXISTS FOR (n:XtdSubject) ON (n.id);
+2026-11-11 08:35:06 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_referencedocument_id IF NOT EXISTS FOR (n:XtdReferenceDocument) ON (n.id);
+2026-11-11 08:35:06 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_property_id IF NOT EXISTS FOR (n:XtdProperty) ON (n.id);
+2026-11-11 08:35:06 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_valuelist_id IF NOT EXISTS FOR (n:XtdValueList) ON (n.id);
+2026-11-11 08:35:07 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_orderedvalue_id IF NOT EXISTS FOR (n:XtdOrderedValue) ON (n.id);
+2026-11-11 08:35:07 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_value_id IF NOT EXISTS FOR (n:XtdValue) ON (n.id);
+2026-11-11 08:35:07 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_unit_id IF NOT EXISTS FOR (n:XtdUnit) ON (n.id);
+2026-11-11 08:35:07 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_object_id IF NOT EXISTS FOR (n:XtdObject) ON (n.id);
+2026-11-11 08:35:07 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_root_id IF NOT EXISTS FOR (n:XtdRoot) ON (n.id);
+2026-11-11 08:35:07 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_concept_id IF NOT EXISTS FOR (n:XtdConcept) ON (n.id);
+2026-11-11 08:35:08 INFO  o.springframework.data.neo4j.cypher - Neo.ClientNotification.Schema.IndexOrConstraintAlreadyExists: `CREATE RANGE INDEX idx_entity_id IF NOT EXISTS FOR (e:Entity) ON (e.id)` has no effect.
+	CREATE INDEX idx_entity_id IF NOT EXISTS FOR (n:Entity) ON (n.id);
+`RANGE INDEX constraint_ea922423 FOR (e:Entity) ON (e.id)` already exists.
+2026-11-11 08:35:08 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_entity_id IF NOT EXISTS FOR (n:Entity) ON (n.id);
+2026-11-11 08:35:08 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_language_id IF NOT EXISTS FOR (n:XtdLanguage) ON (n.id);
+2026-11-11 08:35:08 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_reltosubject_id IF NOT EXISTS FOR (n:XtdRelationshipToSubject) ON (n.id);
+2026-11-11 08:35:09 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_reltype_id IF NOT EXISTS FOR (n:XtdRelationshipType) ON (n.id);
+2026-11-11 08:35:09 INFO  d.b.d.DataStoreMigrationService - Applied migration command: CREATE INDEX idx_catalogrecord_id IF NOT EXISTS FOR (n:CatalogRecord) ON (n.id);
+2026-11-11 08:35:09 INFO  d.b.d.DataStoreMigrationService - Finished execution of graph schema migration.
+2026-11-11 08:35:09 INFO  d.b.d.DataStoreMigrationService - Database migration completed.
+2026-11-11 08:43:53 INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-11 08:43:53 INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-11-11 08:43:53 INFO  o.n.driver.internal.InternalDriver - Closing driver instance 1452943019
+2026-11-11 08:43:56 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-11-11 08:43:56 INFO  de.bentrm.datacat.Application - Starting Application v2.0.0 using Java 21.0.8 with PID 1 (/application/BOOT-INF/classes started by root in /application)
+2026-11-11 08:43:56 INFO  de.bentrm.datacat.Application - No active profile set, falling back to 1 default profile: "default"
+2026-11-11 08:43:58 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:43:58 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 311 ms. Found 31 Neo4j repository interfaces.
+2026-11-11 08:43:59 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:43:59 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 56 ms. Found 0 Neo4j repository interfaces.
+2026-11-11 08:44:00 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-11-11 08:44:00 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:44:00 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-11 08:44:00 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-11-11 08:44:00 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-11 08:44:00 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 3749 ms
+2026-11-11 08:44:01 INFO  o.n.driver.internal.DriverFactory - Direct driver instance 1923298070 created for server address db:7687
+2026-11-11 08:44:06 INFO  o.s.g.e.DefaultSchemaResourceGraphQlSourceBuilder - Loaded 4 resource(s) in the GraphQL schema.
+2026-11-11 08:44:06 INFO  o.s.b.a.g.GraphQlAutoConfiguration - GraphQL schema inspection:
+	Unmapped fields: {XtdDictionary=[id, created, createdBy, lastModified, lastModifiedBy], XtdRational=[id, created, createdBy, lastModified, lastModifiedBy, numerator, denominator]}
+	Unmapped registrations: {}
+	Unmapped arguments: {}
+	Skipped types: [[ID!]]
+2026-11-11 08:44:06 INFO  o.s.b.a.g.s.GraphQlWebMvcAutoConfiguration - GraphQL endpoint HTTP POST /graphql
+2026-11-11 08:44:07 INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-11-11 08:44:07 INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-11-11 08:44:08 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:44:08 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-11-11 08:44:08 INFO  de.bentrm.datacat.Application - Started Application in 12.043 seconds (process running for 12.85)
+2026-11-11 08:44:08 INFO  d.b.d.DataStoreMigrationService - Starting database migration (synchronized execution)...
+2026-11-11 08:44:08 INFO  d.b.d.DataStoreMigrationService - Importing migration resources...
+2026-11-11 08:44:08 INFO  d.b.d.DataStoreMigrationService - Finished importing migration resources.
+2026-11-11 08:44:08 INFO  d.b.d.DataStoreMigrationService - Starting execution of graph schema migration.
+2026-11-11 08:44:08 INFO  d.b.d.DataStoreMigrationService - Finished execution of graph schema migration.
+2026-11-11 08:44:08 INFO  d.b.d.DataStoreMigrationService - Database migration completed.
+2026-11-11 08:44:08 INFO  d.b.datacat.auth.AccountInitializer - Running account initialization...
+2026-11-11 08:44:08 INFO  d.b.datacat.auth.AccountInitializer - Account with username admin found... skipping account creation.
+2026-11-11 08:44:08 INFO  d.b.d.g.GraphQLCacheInitializer - GraphQL PropertyDataFetcher cache has been cleared..
+2026-11-11 08:44:10 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-11 08:44:10 INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-11-11 08:44:10 INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2026-11-11 08:45:21 INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-11 08:45:21 INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-11-11 08:45:21 INFO  o.n.driver.internal.InternalDriver - Closing driver instance 1923298070
+2026-11-11 08:46:18 INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.3.Final
+2026-11-11 08:46:18 INFO  de.bentrm.datacat.Application - Starting Application v2.0.0 using Java 21.0.8 with PID 1 (/application/BOOT-INF/classes started by root in /application)
+2026-11-11 08:46:18 INFO  de.bentrm.datacat.Application - No active profile set, falling back to 1 default profile: "default"
+2026-11-11 08:46:20 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:46:21 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 309 ms. Found 31 Neo4j repository interfaces.
+2026-11-11 08:46:22 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data Neo4j repositories in DEFAULT mode.
+2026-11-11 08:46:22 INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 244 ms. Found 0 Neo4j repository interfaces.
+2026-11-11 08:46:23 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-11-11 08:46:24 INFO  o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:46:24 INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-11-11 08:46:24 INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.50]
+2026-11-11 08:46:24 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-11-11 08:46:24 INFO  o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 5703 ms
+2026-11-11 08:46:25 INFO  o.n.driver.internal.DriverFactory - Direct driver instance 1998603857 created for server address db:7687
+2026-11-11 08:46:31 INFO  o.s.g.e.DefaultSchemaResourceGraphQlSourceBuilder - Loaded 4 resource(s) in the GraphQL schema.
+2026-11-11 08:46:31 INFO  o.s.b.a.g.GraphQlAutoConfiguration - GraphQL schema inspection:
+	Unmapped fields: {XtdDictionary=[id, created, createdBy, lastModified, lastModifiedBy], XtdRational=[id, created, createdBy, lastModified, lastModifiedBy, numerator, denominator]}
+	Unmapped registrations: {}
+	Unmapped arguments: {}
+	Skipped types: [[ID!]]
+2026-11-11 08:46:31 INFO  o.s.b.a.g.s.GraphQlWebMvcAutoConfiguration - GraphQL endpoint HTTP POST /graphql
+2026-11-11 08:46:32 INFO  o.s.b.a.e.web.EndpointLinksResolver - Exposing 1 endpoint beneath base path '/actuator'
+2026-11-11 08:46:32 INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name userDetailsServiceImpl
+2026-11-11 08:46:33 INFO  o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2026-11-11 08:46:33 INFO  o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-11-11 08:46:33 INFO  de.bentrm.datacat.Application - Started Application in 15.676 seconds (process running for 16.294)
+2026-11-11 08:46:33 INFO  d.b.d.g.GraphQLCacheInitializer - GraphQL PropertyDataFetcher cache has been cleared..
+2026-11-11 08:46:33 INFO  d.b.d.DataStoreMigrationService - Starting database migration (synchronized execution)...
+2026-11-11 08:46:33 INFO  d.b.d.DataStoreMigrationService - Importing migration resources...
+2026-11-11 08:46:33 INFO  d.b.d.DataStoreMigrationService - Finished importing migration resources.
+2026-11-11 08:46:33 INFO  d.b.d.DataStoreMigrationService - Starting execution of graph schema migration.
+2026-11-11 08:46:33 INFO  d.b.d.DataStoreMigrationService - Finished execution of graph schema migration.
+2026-11-11 08:46:33 INFO  d.b.d.DataStoreMigrationService - Database migration completed.
+2026-11-11 08:46:33 INFO  d.b.datacat.auth.AccountInitializer - Running account initialization...
+2026-11-11 08:46:33 INFO  d.b.datacat.auth.AccountInitializer - Account with username admin found... skipping account creation.
+2026-11-11 08:46:37 INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-11-11 08:46:37 INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-11-11 08:46:37 INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 8 ms
+2026-11-11 08:50:00 INFO  o.s.d.p.DefaultProjectionInformation$PropertyDescriptorSource - Couldn't read class metadata for void. Input property calculation might fail
+2026-11-11 08:55:08 INFO  o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-11-11 08:55:08 INFO  o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-11-11 08:55:08 INFO  o.n.driver.internal.InternalDriver - Closing driver instance 1998603857
