@@ -45,3 +45,5 @@ buildNumber.properties
 volumes/
 volumes_test/
 docker-compose-dev.yml
+
+logs/
