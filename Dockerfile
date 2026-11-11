@@ -1,4 +1,4 @@
-FROM maven:3.9.6-eclipse-temurin-21 AS builder
+FROM maven:3.9.15-eclipse-temurin-25 AS builder
 WORKDIR /application
 
 COPY pom.xml .
@@ -6,9 +6,8 @@ RUN mvn dependency:go-offline -B
 
 COPY src/ ./src
 RUN mvn package && cp target/*.jar application.jar
-RUN java -Djarmode=layertools -jar application.jar extract
 
-FROM eclipse-temurin:21-jre
+FROM eclipse-temurin:25-jre
 
 RUN apt-get update && \
     apt-get -y --no-install-recommends install wait-for-it jq && \
@@ -18,10 +17,7 @@ RUN apt-get update && \
 
 WORKDIR /application
 COPY LICENSE .
-COPY --from=builder application/dependencies/ ./
-COPY --from=builder application/spring-boot-loader/ ./
-COPY --from=builder application/snapshot-dependencies/ ./
-COPY --from=builder application/application/ ./
+COPY --from=builder application/application.jar ./
 
 EXPOSE 8080
 
@@ -39,4 +35,4 @@ ENV JAVA_OPTS="-XX:+UseG1GC \
     -XX:MaxMetaspaceSize=256m \
     -XX:MaxDirectMemorySize=256m"
 
-CMD ["sh", "-c", "java $JAVA_OPTS --enable-preview org.springframework.boot.loader.launch.JarLauncher"]
+CMD ["sh", "-c", "java $JAVA_OPTS --enable-preview -jar application.jar"]

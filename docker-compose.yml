@@ -21,7 +21,7 @@ services:
     command: [
         "wait-for-it", "db:7687", "--timeout=300", "--",
         "wait-for-it", "mail:2500", "--timeout=30", "--",
-        "java", "--enable-preview", "org.springframework.boot.loader.launch.JarLauncher" ]
+        "java", "--enable-preview", "-jar", "/application/application.jar" ]
 
   db:
     container_name: "db"

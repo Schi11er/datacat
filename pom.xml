@@ -13,16 +13,16 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.10</version>
+        <version>4.1.2</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
     <properties>
         <commons-text.version>1.15.0</commons-text.version>
         <graphql-spring-boot-starter.version>15.1.0</graphql-spring-boot-starter.version>
-        <java-jwt.version>4.5.0</java-jwt.version>
-        <java.version>21</java.version>
-        <lombok.version>1.18.34</lombok.version>
+        <java-jwt.version>4.6.2</java-jwt.version>
+        <java.version>25</java.version>
+        <lombok.version>1.18.48</lombok.version>
         <mapstruct.version>1.6.3</mapstruct.version>
     </properties>
 
@@ -99,12 +99,7 @@
         <dependency>
             <groupId>com.github.ben-manes.caffeine</groupId>
             <artifactId>caffeine</artifactId>
-            <version>3.2.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-aop</artifactId>
+            <version>3.3.1</version>
         </dependency>
 
         <dependency>
@@ -208,7 +203,7 @@
                         <configuration>
                             <rules>
                                 <requireMavenVersion>
-                                    <version>3.6.3</version>
+                                    <version>3.9.0</version>
                                 </requireMavenVersion>
                             </rules>
                         </configuration>
