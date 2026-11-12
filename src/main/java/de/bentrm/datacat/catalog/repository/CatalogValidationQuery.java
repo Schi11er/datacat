@@ -82,9 +82,9 @@ public interface CatalogValidationQuery extends EntityRepository<XtdRoot> {
 
         /* Finde Elemente ohne Wörterbuch */
         @Query("""
-                        MATCH(x:XtdObject)
+                        MATCH(x:XtdObject)-[:TAGGED]->(tag:Tag)
                         WHERE NOT (x)-[:DICTIONARY]->()
-                        AND ANY(label IN labels(x) WHERE label IN ["XtdSubject", "XtdProperty", "XtdValueList", "XtdValue", "XtdExternalDocument"])
+                        AND tag.name IN ['Thema','Klasse', 'Merkmal', 'Merkmalsgruppe', 'Werteliste', 'Wert', 'Maßeinheit']
                         ORDER BY x.`labels.de`
                         RETURN x.id as paths
                             """)
@@ -136,19 +136,20 @@ public interface CatalogValidationQuery extends EntityRepository<XtdRoot> {
         /* Finde Elemente mit identischer Bezeichnung innerhalb eines Types */
         @Query("""
                 MATCH (x)-[:TAGGED]->(tag:Tag)
-                WHERE x.`labels.de` IS NOT NULL
-                WITH tag, x.`labels.de` AS labelDe, collect(x.id) AS ids
+                WHERE tag.name IN ['Dictionary', 'Thema','Klasse', 'Merkmal', 'Merkmalsgruppe', 'Werteliste', 'Wert', 'Maßeinheit']
+                AND x.`labels.de` IS NOT NULL
+                WITH tag, x.`labels.de` AS label, collect(DISTINCT x.id) AS ids
                 WHERE size(ids) > 1
                 UNWIND ids AS paths
-                RETURN paths
-                ORDER BY labelDe ASC
+                RETURN DISTINCT paths
                 UNION
                 MATCH (x)-[:TAGGED]->(tag:Tag)
-                WHERE x.`labels.en` IS NOT NULL
-                WITH tag, x.`labels.en` AS labelEn, collect(x.id) AS ids
+                WHERE tag.name IN ['Dictionary', 'Thema','Klasse', 'Merkmal', 'Merkmalsgruppe', 'Werteliste', 'Wert', 'Maßeinheit']
+                AND x.`labels.en` IS NOT NULL
+                WITH tag, x.`labels.en` AS label, collect(DISTINCT x.id) AS ids
                 WHERE size(ids) > 1
                 UNWIND ids AS paths
-                RETURN DISTINCT paths;
+                RETURN DISTINCT paths
                 """)
         List<String> findMultipleNames();
 
