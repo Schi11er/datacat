@@ -20,27 +20,26 @@ import de.bentrm.datacat.graphql.input.DeleteCatalogEntryInput;
 import de.bentrm.datacat.graphql.payload.CreateEntryPayload;
 import de.bentrm.datacat.graphql.payload.DeleteCatalogEntryPayload;
 import de.bentrm.datacat.graphql.payload.PayloadMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor 
 public class CatalogRecordMutationController {
 
     private final PayloadMapper PAYLOAD_MAPPER = PayloadMapper.INSTANCE;
 
-    @Autowired
-    private CatalogService catalogService;
+    private final CatalogService catalogService;
 
-    @Autowired
-    private SimpleRecordServiceFactory simpleRecordServiceFactory;
+    private final SimpleRecordServiceFactory simpleRecordServiceFactory;
 
     @MutationMapping
     public CreateEntryPayload createCatalogEntry(@Argument CreateEntryInput input) {

@@ -6,9 +6,7 @@ import de.bentrm.datacat.catalog.domain.XtdMultiLanguageText;
 import java.util.List;
 
 import org.springframework.data.neo4j.repository.query.Query;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface MultiLanguageTextRepository extends EntityRepository<XtdMultiLanguageText> {
         
     @Query("""

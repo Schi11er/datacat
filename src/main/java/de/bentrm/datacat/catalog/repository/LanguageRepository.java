@@ -7,9 +7,7 @@ import java.util.Optional;
 
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface LanguageRepository extends EntityRepository<XtdLanguage> {
 
         @Query("MATCH (n:XtdLanguage) WHERE n.code = $languageCode RETURN n")

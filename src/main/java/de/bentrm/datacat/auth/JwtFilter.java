@@ -1,9 +1,8 @@
 package de.bentrm.datacat.auth;
 
 import de.bentrm.datacat.auth.service.AuthenticationService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -11,7 +10,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -31,9 +29,12 @@ public class JwtFilter extends OncePerRequestFilter {
 
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final Pattern BEARER_PATTERN = Pattern.compile("^Bearer (.+?)$");
+ 
+    private final AuthenticationService authenticationService;
 
-    @Autowired @Lazy
-    private AuthenticationService authenticationService;
+    public JwtFilter(@Lazy AuthenticationService authenticationService) {
+        this.authenticationService = authenticationService;
+    }
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {

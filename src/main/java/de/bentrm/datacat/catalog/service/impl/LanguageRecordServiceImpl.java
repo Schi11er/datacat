@@ -4,6 +4,7 @@ import de.bentrm.datacat.catalog.domain.CatalogRecordType;
 import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdLanguage;
 import de.bentrm.datacat.catalog.repository.LanguageRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.LanguageRecordService;
 
@@ -28,8 +29,9 @@ public class LanguageRecordServiceImpl
 
     public LanguageRecordServiceImpl(Neo4jTemplate neo4jTemplate,
                                      LanguageRepository repository,
-                                     CatalogCleanupService cleanupService) {
-        super(XtdLanguage.class, neo4jTemplate, repository, cleanupService);
+                                     CatalogCleanupService cleanupService,
+                                     RecordRepositories repos) {
+        super(XtdLanguage.class, neo4jTemplate, repository, cleanupService, repos);
     }
 
     @Override

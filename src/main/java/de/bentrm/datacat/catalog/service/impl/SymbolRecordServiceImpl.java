@@ -5,16 +5,15 @@ import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdSymbol;
 import de.bentrm.datacat.catalog.domain.XtdText;
 import de.bentrm.datacat.catalog.domain.XtdSubject;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.repository.SubjectRepository;
 import de.bentrm.datacat.catalog.repository.SymbolRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.SubjectRecordService;
 import de.bentrm.datacat.catalog.service.SymbolRecordService;
 import de.bentrm.datacat.catalog.service.TextRecordService;
-import de.bentrm.datacat.catalog.service.dto.Relationships.SubjectDtoProjection;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -41,19 +40,23 @@ public class SymbolRecordServiceImpl
         extends AbstractSimpleRecordServiceImpl<XtdSymbol, SymbolRepository>
         implements SymbolRecordService {
 
-            @Autowired
-            private SubjectRecordService subjectRecordService;
+            private final SubjectRecordService subjectRecordService;
 
-            @Autowired
-            private TextRecordService textRecordService;
+            private final TextRecordService textRecordService;
 
-            @Autowired
-            private SubjectRepository subjectRepository;
+            private final SubjectRepository subjectRepository;
 
     public SymbolRecordServiceImpl(Neo4jTemplate neo4jTemplate,
                                      SymbolRepository repository,
-                                     CatalogCleanupService cleanupService) {
-        super(XtdSymbol.class, neo4jTemplate, repository, cleanupService);
+                                        SubjectRecordService subjectRecordService,
+                                        TextRecordService textRecordService,
+                                        SubjectRepository subjectRepository,
+                                     CatalogCleanupService cleanupService,
+                                     RecordRepositories repos) {
+        super(XtdSymbol.class, neo4jTemplate, repository, cleanupService, repos);
+        this.subjectRecordService = subjectRecordService;
+        this.textRecordService = textRecordService;
+        this.subjectRepository = subjectRepository;
     }
 
     @Override

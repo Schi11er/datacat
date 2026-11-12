@@ -4,14 +4,13 @@ import de.bentrm.datacat.catalog.domain.CatalogRecordType;
 import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdCountry;
 import de.bentrm.datacat.catalog.repository.CountryRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.CountryRecordService;
 import de.bentrm.datacat.catalog.service.SubdivisionRecordService;
-import de.bentrm.datacat.catalog.service.dto.Relationships.SubdivisionsDtoProjection;
 import de.bentrm.datacat.catalog.service.ConceptRecordService;
 import lombok.extern.slf4j.Slf4j;
 import de.bentrm.datacat.catalog.domain.XtdSubdivision;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,16 +33,18 @@ public class CountryRecordServiceImpl
         extends AbstractSimpleRecordServiceImpl<XtdCountry, CountryRepository>
         implements CountryRecordService {
 
-            @Autowired
-            private SubdivisionRecordService subdivisionRecordService;
+            private final SubdivisionRecordService subdivisionRecordService;
 
-            @Autowired
-            private ConceptRecordService conceptRecordService;
+            private final ConceptRecordService conceptRecordService;
 
     public CountryRecordServiceImpl(Neo4jTemplate neo4jTemplate,
-                                     CountryRepository repository,
-                                     CatalogCleanupService cleanupService) {
-        super(XtdCountry.class, neo4jTemplate, repository, cleanupService);
+                                     CountryRepository repository, SubdivisionRecordService subdivisionRecordService,
+                                     ConceptRecordService conceptRecordService,
+                                     CatalogCleanupService cleanupService,
+                                     RecordRepositories repos) {
+        super(XtdCountry.class, neo4jTemplate, repository, cleanupService, repos);
+        this.subdivisionRecordService = subdivisionRecordService;
+        this.conceptRecordService = conceptRecordService;
     }
 
     @Override

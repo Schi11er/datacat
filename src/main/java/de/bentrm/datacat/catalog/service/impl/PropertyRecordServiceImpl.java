@@ -15,6 +15,7 @@ import de.bentrm.datacat.catalog.domain.XtdSymbol;
 import de.bentrm.datacat.catalog.domain.XtdQuantityKind;
 import de.bentrm.datacat.catalog.repository.DimensionRepository;
 import de.bentrm.datacat.catalog.repository.PropertyRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.PropertyRecordService;
 import de.bentrm.datacat.catalog.service.QuantityKindRecordService;
@@ -24,18 +25,11 @@ import de.bentrm.datacat.catalog.service.SymbolRecordService;
 import de.bentrm.datacat.catalog.service.UnitRecordService;
 import de.bentrm.datacat.catalog.service.ValueListRecordService;
 import de.bentrm.datacat.catalog.service.dto.PropertyDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.BoundaryValuesDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.DimensionDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.PossibleValuesDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.QuantityKindsDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.SymbolsDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.UnitsDtoProjection;
 import de.bentrm.datacat.catalog.service.ConceptRecordService;
 import de.bentrm.datacat.catalog.service.DimensionRecordService;
 import de.bentrm.datacat.catalog.service.IntervalRecordService;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -66,45 +60,44 @@ import java.util.stream.StreamSupport;
 public class PropertyRecordServiceImpl extends AbstractSimpleRecordServiceImpl<XtdProperty, PropertyRepository>
                 implements PropertyRecordService {
 
-        @Autowired
-        @Lazy
-        private SubjectRecordService subjectRecordService;
+        private final SubjectRecordService subjectRecordService;
 
-        @Autowired
-        @Lazy
-        private ValueListRecordService valueListRecordService;
+        private final ValueListRecordService valueListRecordService;
 
-        @Autowired
-        @Lazy
-        private UnitRecordService unitRecordService;
+        private final UnitRecordService unitRecordService;
 
-        @Autowired
-        private RelationshipToPropertyRecordService relationshipToPropertyRecordService;
+        private final RelationshipToPropertyRecordService relationshipToPropertyRecordService;
 
-        @Autowired
-        private DimensionRecordService dimensionRecordService;
+        private final DimensionRecordService dimensionRecordService;
 
-        @Autowired
-        @Lazy
-        private SymbolRecordService symbolRecordService;
+        private final SymbolRecordService symbolRecordService;
 
-        @Autowired
-        @Lazy
-        private IntervalRecordService intervalRecordService;
+        private final IntervalRecordService intervalRecordService;
 
-        @Autowired
-        @Lazy
-        private QuantityKindRecordService quantityKindRecordService;
+        private final QuantityKindRecordService quantityKindRecordService;
 
-        @Autowired
-        private ConceptRecordService conceptRecordService;
+        private final ConceptRecordService conceptRecordService;
 
-        @Autowired
-        private DimensionRepository dimensionRepository;
+        private final DimensionRepository dimensionRepository;
 
         public PropertyRecordServiceImpl(Neo4jTemplate neo4jTemplate, PropertyRepository repository,
-                        CatalogCleanupService cleanupService) {
-                super(XtdProperty.class, neo4jTemplate, repository, cleanupService);
+                @Lazy SubjectRecordService subjectRecordService, @Lazy ValueListRecordService valueListRecordService,
+                @Lazy UnitRecordService unitRecordService, RelationshipToPropertyRecordService relationshipToPropertyRecordService,
+                DimensionRecordService dimensionRecordService, @Lazy SymbolRecordService symbolRecordService,
+                @Lazy IntervalRecordService intervalRecordService, @Lazy QuantityKindRecordService quantityKindRecordService,
+                ConceptRecordService conceptRecordService, DimensionRepository dimensionRepository,
+                        CatalogCleanupService cleanupService, RecordRepositories repos) {
+                super(XtdProperty.class, neo4jTemplate, repository, cleanupService, repos);
+                this.subjectRecordService = subjectRecordService;
+                this.valueListRecordService = valueListRecordService;
+                this.unitRecordService = unitRecordService;
+                this.relationshipToPropertyRecordService = relationshipToPropertyRecordService;
+                this.dimensionRecordService = dimensionRecordService;
+                this.symbolRecordService = symbolRecordService;
+                this.intervalRecordService = intervalRecordService;
+                this.quantityKindRecordService = quantityKindRecordService;
+                this.conceptRecordService = conceptRecordService;
+                this.dimensionRepository = dimensionRepository;
         }
 
         @Override

@@ -7,11 +7,8 @@ import de.bentrm.datacat.graphql.dto.CatalogRecordStatistics;
 
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
-@Repository
 public interface CatalogRecordRepository extends EntityRepository<CatalogRecord> {
 
     // Counts, how many of each concepts are in the database.

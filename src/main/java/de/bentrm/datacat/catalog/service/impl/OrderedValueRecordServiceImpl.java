@@ -6,6 +6,7 @@ import de.bentrm.datacat.catalog.domain.XtdOrderedValue;
 import de.bentrm.datacat.catalog.domain.XtdValueList;
 import de.bentrm.datacat.catalog.domain.XtdValue;
 import de.bentrm.datacat.catalog.repository.OrderedValueRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.ObjectRecordService;
 import de.bentrm.datacat.catalog.service.OrderedValueRecordService;
@@ -13,7 +14,6 @@ import de.bentrm.datacat.catalog.service.ValueListRecordService;
 import de.bentrm.datacat.catalog.service.ValueRecordService;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Service;
@@ -37,20 +37,20 @@ import java.util.stream.StreamSupport;
 public class OrderedValueRecordServiceImpl extends
         AbstractSimpleRecordServiceImpl<XtdOrderedValue, OrderedValueRepository> implements OrderedValueRecordService {
 
-    @Autowired
-    private ValueRecordService valueRecordService;
+    private final ValueRecordService valueRecordService;
 
-    @Autowired
-    @Lazy
-    private ValueListRecordService valueListRecordService;
+    private final ValueListRecordService valueListRecordService;
 
-    @Autowired
-    @Lazy
-    private ObjectRecordService objectRecordService;
+    private final ObjectRecordService objectRecordService;
 
     public OrderedValueRecordServiceImpl(Neo4jTemplate neo4jTemplate, OrderedValueRepository repository,
-            CatalogCleanupService cleanupService) {
-        super(XtdOrderedValue.class, neo4jTemplate, repository, cleanupService);
+            ValueRecordService valueRecordService, @Lazy ValueListRecordService valueListRecordService,
+            @Lazy ObjectRecordService objectRecordService,
+            CatalogCleanupService cleanupService, RecordRepositories repos) {
+        super(XtdOrderedValue.class, neo4jTemplate, repository, cleanupService, repos);
+        this.valueRecordService = valueRecordService;
+        this.valueListRecordService = valueListRecordService;
+        this.objectRecordService = objectRecordService;
     }
 
     @Override

@@ -5,12 +5,12 @@ import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdMultiLanguageText;
 import de.bentrm.datacat.catalog.domain.XtdText;
 import de.bentrm.datacat.catalog.repository.MultiLanguageTextRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.MultiLanguageTextRecordService;
 import de.bentrm.datacat.catalog.service.TextRecordService;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,13 +33,15 @@ public class MultiLanguageTextRecordServiceImpl
         extends AbstractSimpleRecordServiceImpl<XtdMultiLanguageText, MultiLanguageTextRepository>
         implements MultiLanguageTextRecordService {
 
-    @Autowired
-    private TextRecordService textRecordService;
+    private final TextRecordService textRecordService;
 
     public MultiLanguageTextRecordServiceImpl(Neo4jTemplate neo4jTemplate,
             MultiLanguageTextRepository repository,
-            CatalogCleanupService cleanupService) {
-        super(XtdMultiLanguageText.class, neo4jTemplate, repository, cleanupService);
+            TextRecordService textRecordService,
+            CatalogCleanupService cleanupService,
+            RecordRepositories repos) {
+        super(XtdMultiLanguageText.class, neo4jTemplate, repository, cleanupService, repos);
+        this.textRecordService = textRecordService;
     }
 
     @Override

@@ -5,11 +5,8 @@ import de.bentrm.datacat.catalog.domain.XtdRoot;
 import de.bentrm.datacat.catalog.domain.ExportItemResult;
 import de.bentrm.datacat.catalog.domain.ExportRelationshipResult;
 import org.springframework.data.neo4j.repository.query.Query;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
-@Repository
 public interface CatalogExportQuery extends EntityRepository<XtdRoot> {
     
     // gives important catalog records with some properties

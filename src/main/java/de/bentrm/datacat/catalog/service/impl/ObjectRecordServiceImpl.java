@@ -9,9 +9,8 @@ import de.bentrm.datacat.catalog.domain.XtdText;
 import de.bentrm.datacat.catalog.domain.Enums.XtdStatusOfActivationEnum;
 import de.bentrm.datacat.catalog.domain.XtdMultiLanguageText;
 import de.bentrm.datacat.catalog.repository.DictionaryRepository;
-import de.bentrm.datacat.catalog.repository.MultiLanguageTextRepository;
 import de.bentrm.datacat.catalog.repository.ObjectRepository;
-import de.bentrm.datacat.catalog.repository.TextRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.DictionaryRecordService;
 import de.bentrm.datacat.catalog.service.LanguageRecordService;
@@ -20,15 +19,12 @@ import de.bentrm.datacat.catalog.service.ObjectRecordService;
 import de.bentrm.datacat.catalog.service.dto.ObjectDtoProjection;
 import de.bentrm.datacat.catalog.service.dto.Relationships.CommentsDtoProjection;
 import de.bentrm.datacat.catalog.service.dto.Relationships.DeprecationExplanationDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.DictionaryDtoProjection;
 import de.bentrm.datacat.catalog.service.dto.Relationships.NamesDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.ReplacedObjectsDtoProjection;
 import de.bentrm.datacat.catalog.service.dto.Relationships.TextsDtoProjection;
 import de.bentrm.datacat.graphql.input.AddTextInput;
 import de.bentrm.datacat.graphql.input.TranslationInput;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,27 +52,22 @@ import jakarta.validation.constraints.NotNull;
 public class ObjectRecordServiceImpl extends AbstractSimpleRecordServiceImpl<XtdObject, ObjectRepository>
         implements ObjectRecordService {
 
-    @Autowired
-    private DictionaryRecordService dictionaryRecordService;
+    private final DictionaryRecordService dictionaryRecordService;
 
-    @Autowired
-    private MultiLanguageTextRecordService multiLanguageTextRecordService;
+    private final MultiLanguageTextRecordService multiLanguageTextRecordService;
 
-    @Autowired
-    private LanguageRecordService languageRecordService;
+    private final LanguageRecordService languageRecordService;
 
-    @Autowired
-    private TextRepository textRepository;
+    private final DictionaryRepository dictionaryRepository;
 
-    @Autowired
-    private MultiLanguageTextRepository multiLanguageTextRepository;
-
-    @Autowired
-    private DictionaryRepository dictionaryRepository;
-
-    public ObjectRecordServiceImpl(Neo4jTemplate neo4jTemplate, ObjectRepository repository,
-            CatalogCleanupService cleanupService) {
-        super(XtdObject.class, neo4jTemplate, repository, cleanupService);
+    public ObjectRecordServiceImpl(Neo4jTemplate neo4jTemplate, ObjectRepository repository, 
+CatalogCleanupService cleanupService,
+RecordRepositories repos, DictionaryRecordService dictionaryRecordService, DictionaryRepository dictionaryRepository, LanguageRecordService languageRecordService, MultiLanguageTextRecordService multiLanguageTextRecordService) {
+        super(XtdObject.class, neo4jTemplate, repository, cleanupService, repos);
+        this.dictionaryRecordService = dictionaryRecordService;
+        this.multiLanguageTextRecordService = multiLanguageTextRecordService;
+        this.languageRecordService = languageRecordService;
+        this.dictionaryRepository = dictionaryRepository;
     }
 
     @Override

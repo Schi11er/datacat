@@ -6,9 +6,7 @@ import de.bentrm.datacat.graphql.dto.TextCountResult;
 
 
 import org.springframework.data.neo4j.repository.query.Query;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface TextRepository extends EntityRepository<XtdText> {
 
     @Query("""

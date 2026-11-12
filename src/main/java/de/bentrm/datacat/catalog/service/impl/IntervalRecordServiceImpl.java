@@ -5,14 +5,13 @@ import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdInterval;
 import de.bentrm.datacat.catalog.domain.XtdValueList;
 import de.bentrm.datacat.catalog.repository.IntervalRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.repository.ValueListRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.IntervalRecordService;
 import de.bentrm.datacat.catalog.service.ValueListRecordService;
-import de.bentrm.datacat.catalog.service.dto.Relationships.IntervallMaxMinDtoProjection;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -39,16 +38,19 @@ public class IntervalRecordServiceImpl
         extends AbstractSimpleRecordServiceImpl<XtdInterval, IntervalRepository>
         implements IntervalRecordService {
 
-            @Autowired
-            private ValueListRecordService valueListRecordService;
+            private final ValueListRecordService valueListRecordService;
 
-    @Autowired
-    private ValueListRepository valueListRepository;        
+    private final ValueListRepository valueListRepository;        
 
     public IntervalRecordServiceImpl(Neo4jTemplate neo4jTemplate,
                                      IntervalRepository repository,
-                                     CatalogCleanupService cleanupService) {
-        super(XtdInterval.class, neo4jTemplate, repository, cleanupService);
+                                        ValueListRecordService valueListRecordService,
+                                        ValueListRepository valueListRepository,
+                                     CatalogCleanupService cleanupService,
+                                     RecordRepositories repos) {
+        super(XtdInterval.class, neo4jTemplate, repository, cleanupService, repos);
+        this.valueListRecordService = valueListRecordService;
+        this.valueListRepository = valueListRepository;
     }
 
     @Override

@@ -1,7 +1,7 @@
 package de.bentrm.datacat.graphql;
 
 import org.springframework.graphql.execution.DataFetcherExceptionResolverAdapter;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 
 import graphql.ErrorType;

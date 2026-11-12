@@ -1,7 +1,7 @@
 package de.bentrm.datacat.catalog.domain;
 
 import org.springframework.data.neo4j.core.mapping.callback.BeforeBindCallback;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 import lombok.extern.slf4j.Slf4j;
 

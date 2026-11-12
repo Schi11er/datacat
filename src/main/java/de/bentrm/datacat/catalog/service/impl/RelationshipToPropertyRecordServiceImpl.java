@@ -5,17 +5,16 @@ import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdRelationshipToProperty;
 import de.bentrm.datacat.catalog.domain.Enums.XtdPropertyRelationshipTypeEnum;
 import de.bentrm.datacat.catalog.domain.XtdProperty;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.repository.RelationshipToPropertyRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.RelationshipToPropertyRecordService;
 import de.bentrm.datacat.catalog.service.dto.RelationshipToPropertyDtoProjection;
 import de.bentrm.datacat.catalog.service.dto.Relationships.ConnectingPropertyDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.TargetPropertiesDtoProjection;
 import de.bentrm.datacat.catalog.service.PropertyRecordService;
 import de.bentrm.datacat.catalog.service.ObjectRecordService;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Service;
@@ -39,17 +38,19 @@ public class RelationshipToPropertyRecordServiceImpl
         extends AbstractSimpleRecordServiceImpl<XtdRelationshipToProperty, RelationshipToPropertyRepository>
         implements RelationshipToPropertyRecordService {
 
-@Autowired
-@Lazy
-private PropertyRecordService propertyRecordService;
+private final PropertyRecordService propertyRecordService;
 
-@Autowired
-private ObjectRecordService objectRecordService;
+private final ObjectRecordService objectRecordService;
 
     public RelationshipToPropertyRecordServiceImpl(Neo4jTemplate neo4jTemplate,
                                      RelationshipToPropertyRepository repository,
-                                     CatalogCleanupService cleanupService) {
-        super(XtdRelationshipToProperty.class, neo4jTemplate, repository, cleanupService);
+                                        @Lazy PropertyRecordService propertyRecordService,
+                                        ObjectRecordService objectRecordService,
+                                     CatalogCleanupService cleanupService,
+                                     RecordRepositories repos) {
+        super(XtdRelationshipToProperty.class, neo4jTemplate, repository, cleanupService, repos);
+        this.propertyRecordService = propertyRecordService;
+        this.objectRecordService = objectRecordService;
     }
 
     @Transactional

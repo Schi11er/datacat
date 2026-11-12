@@ -10,9 +10,9 @@ import de.bentrm.datacat.catalog.service.value.HierarchyValue;
 import de.bentrm.datacat.catalog.specification.CatalogRecordSpecification;
 import de.bentrm.datacat.graphql.dto.CatalogRecordStatistics;
 import de.bentrm.datacat.graphql.dto.CatalogStatistics;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.neo4j.core.Neo4jClient;
@@ -30,37 +30,29 @@ import java.util.stream.Collectors;
 @Validated
 @Transactional(readOnly = true)
 @Service
+@RequiredArgsConstructor
 public class CatalogServiceImpl implements CatalogService {
 
-    @Autowired
-    Neo4jTemplate neo4jTemplate;
+    private final Neo4jTemplate neo4jTemplate;
 
-    @Autowired
-    Neo4jClient neo4jClient;
+    private final Neo4jClient neo4jClient;
 
     // Cache for entity classes to avoid repeated reflection lookups
     private static final Map<String, Class<? extends XtdRoot>> ENTITY_CLASS_CACHE = new HashMap<>();
 
-    @Autowired
-    private TagRepository tagRepository;
+    private final TagRepository tagRepository;
 
-    @Autowired
-    private CatalogRecordRepository catalogRecordRepository;
+    private final CatalogRecordRepository catalogRecordRepository;
 
-    @Autowired
-    private RootRepository rootRepository;
+    private final RootRepository rootRepository;
 
-    @Autowired
-    private ObjectRepository objectRepository;
+    private final ObjectRepository objectRepository;
 
-    @Autowired
-    private ConceptRepository conceptRepository;
+    private final ConceptRepository conceptRepository;
 
-    @Autowired
-    private TextRepository textRepository;
+    private final TextRepository textRepository;
 
-    @Autowired
-    private ExternalDocumentRepository externalDocumentRepository;
+    private final ExternalDocumentRepository externalDocumentRepository;
 
     @Override
     public CatalogStatistics getStatistics() {

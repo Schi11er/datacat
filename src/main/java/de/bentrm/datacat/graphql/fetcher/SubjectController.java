@@ -11,8 +11,8 @@ import de.bentrm.datacat.graphql.Connection;
 import de.bentrm.datacat.graphql.dto.FilterInput;
 import de.bentrm.datacat.graphql.dto.SpecificationMapper;
 import de.bentrm.datacat.graphql.input.RelationshipToSubjectFilterInput;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.graphql.data.method.annotation.Argument;
@@ -29,19 +29,16 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor 
 public class SubjectController {
 
-    @Autowired
-    private SubjectRecordService service;
-    
-    @Autowired
-    private RelationshipToSubjectRecordService relationshipService;
-    
-    @Autowired
-    private Neo4jTemplate neo4jTemplate;
+    private final SubjectRecordService service;
 
-    @Autowired
-    private SpecificationMapper specificationMapper;
+    private final RelationshipToSubjectRecordService relationshipService;
+
+    private final Neo4jTemplate neo4jTemplate;
+
+    private final SpecificationMapper specificationMapper;
 
     @QueryMapping
     public Optional<XtdSubject> getSubject(@Argument String id) {

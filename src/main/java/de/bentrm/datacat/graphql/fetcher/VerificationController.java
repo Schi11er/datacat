@@ -1,6 +1,5 @@
 package de.bentrm.datacat.graphql.fetcher;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -8,12 +7,13 @@ import org.springframework.stereotype.Controller;
 
 import de.bentrm.datacat.catalog.service.CatalogVerificationService;
 import de.bentrm.datacat.catalog.service.value.VerificationConnection;
+import lombok.RequiredArgsConstructor;
 
 @Controller
+@RequiredArgsConstructor 
 public class VerificationController {
-    
-    @Autowired
-    private CatalogVerificationService service;
+
+    private final CatalogVerificationService service;
 
     @QueryMapping
     public VerificationConnection findSubjectWithoutProp(@Argument int pageNumber, @Argument int pageSize) {

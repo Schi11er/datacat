@@ -2,7 +2,7 @@ package de.bentrm.datacat.auth;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

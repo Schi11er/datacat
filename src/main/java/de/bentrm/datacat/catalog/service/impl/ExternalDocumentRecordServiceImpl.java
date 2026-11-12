@@ -6,13 +6,13 @@ import de.bentrm.datacat.catalog.domain.XtdExternalDocument;
 import de.bentrm.datacat.catalog.domain.XtdConcept;
 import de.bentrm.datacat.catalog.domain.XtdLanguage;
 import de.bentrm.datacat.catalog.repository.ExternalDocumentRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.ExternalDocumentRecordService;
 import de.bentrm.datacat.catalog.service.LanguageRecordService;
 import lombok.extern.slf4j.Slf4j;
 import de.bentrm.datacat.catalog.service.ConceptRecordService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,16 +35,19 @@ public class ExternalDocumentRecordServiceImpl
         extends AbstractSimpleRecordServiceImpl<XtdExternalDocument, ExternalDocumentRepository>
         implements ExternalDocumentRecordService {
 
-        @Autowired
-        private ConceptRecordService conceptRecordService;
+        private final ConceptRecordService conceptRecordService;
 
-        @Autowired
-        private LanguageRecordService languageRecordService;
+        private final LanguageRecordService languageRecordService;
 
     public ExternalDocumentRecordServiceImpl(Neo4jTemplate neo4jTemplate,
                                              ExternalDocumentRepository repository,
-                                             CatalogCleanupService cleanupService) {
-        super(XtdExternalDocument.class, neo4jTemplate, repository, cleanupService);
+                                                ConceptRecordService conceptRecordService, 
+                                                LanguageRecordService languageRecordService,
+                                             CatalogCleanupService cleanupService,
+                                             RecordRepositories repos) {
+        super(XtdExternalDocument.class, neo4jTemplate, repository, cleanupService, repos);
+        this.conceptRecordService = conceptRecordService;
+        this.languageRecordService = languageRecordService;
     }
 
     @Override

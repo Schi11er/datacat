@@ -3,8 +3,8 @@ package de.bentrm.datacat.graphql.fetcher;
 import de.bentrm.datacat.catalog.domain.CatalogRecord;
 import de.bentrm.datacat.catalog.service.CatalogService;
 import de.bentrm.datacat.graphql.dto.CatalogStatistics;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.stereotype.Controller;
@@ -13,10 +13,10 @@ import java.util.Optional;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor 
 public class BaseController {
 
-    @Autowired
-    private CatalogService catalogService;
+    private final CatalogService catalogService;
 
     @QueryMapping
     public CatalogStatistics statistics() {

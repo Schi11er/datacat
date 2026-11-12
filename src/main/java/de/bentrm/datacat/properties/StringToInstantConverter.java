@@ -2,7 +2,7 @@ package de.bentrm.datacat.properties;
 
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.data.convert.ReadingConverter;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.neo4j.driver.Value;
 import java.time.Instant;
 

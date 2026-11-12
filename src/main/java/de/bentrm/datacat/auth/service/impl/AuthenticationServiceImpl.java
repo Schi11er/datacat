@@ -14,8 +14,8 @@ import de.bentrm.datacat.base.repository.EmailConfirmationRepository;
 import de.bentrm.datacat.base.repository.UserRepository;
 import de.bentrm.datacat.graphql.dto.SignupInput;
 import de.bentrm.datacat.properties.AppProperties;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -47,6 +47,7 @@ import java.util.Optional;
 @Service
 @Validated
 @Transactional
+@RequiredArgsConstructor 
 public class AuthenticationServiceImpl implements AuthenticationService {
 
     private static final String GENERIC_AUTHENTICATION_ERROR_MSG = "Bad username or password.";
@@ -54,29 +55,21 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public static final String AUTHENTICATION_SUCCESS = "AUTHENTICATION_SUCCESS";
     public static final String AUTHENTICATION_FAILURE = "AUTHENTICATION_FAILURE";
 
-    @Autowired
-    private AppProperties properties;
+    private final AppProperties properties;
 
-    @Autowired
-    private JWTVerifier jwtVerifier;
+    private final JWTVerifier jwtVerifier;
 
-    @Autowired
-    private Algorithm algorithm;
+    private final Algorithm algorithm;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private EmailConfirmationRepository emailConfirmationRepository;
+    private final EmailConfirmationRepository emailConfirmationRepository;
 
-    @Autowired
-    private EmailService emailService;
+    private final EmailService emailService;
 
-    @Autowired
-    private ApplicationEventPublisher applicationEventPublisher;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     public void signup(SignupInput signupInput) {

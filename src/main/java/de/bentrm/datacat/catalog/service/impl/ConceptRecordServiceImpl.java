@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -19,10 +18,7 @@ import org.springframework.validation.annotation.Validated;
 
 import de.bentrm.datacat.catalog.domain.*;
 import de.bentrm.datacat.catalog.repository.ConceptRepository;
-import de.bentrm.datacat.catalog.repository.CountryRepository;
-import de.bentrm.datacat.catalog.repository.MultiLanguageTextRepository;
-import de.bentrm.datacat.catalog.repository.RootRepository;
-import de.bentrm.datacat.catalog.repository.TextRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.*;
 import de.bentrm.datacat.catalog.service.dto.Relationships.*;
 import de.bentrm.datacat.graphql.input.AddCountryInput;
@@ -41,45 +37,28 @@ import lombok.extern.slf4j.Slf4j;
 public class ConceptRecordServiceImpl extends AbstractSimpleRecordServiceImpl<XtdConcept, ConceptRepository>
         implements ConceptRecordService {
 
-    @Autowired
-    @Lazy
-    private ExternalDocumentRecordService externalDocumentRecordService;
+    private final ExternalDocumentRecordService externalDocumentRecordService;
 
-    @Autowired
-    @Lazy
-    private MultiLanguageTextRecordService multiLanguageTextRecordService;
+    private final MultiLanguageTextRecordService multiLanguageTextRecordService;
 
-    @Autowired
-    @Lazy
-    private CountryRecordService countryRecordService;
+    private final CountryRecordService countryRecordService;
 
-    @Autowired
-    @Lazy
-    private LanguageRecordService languageRecordService;
+    private final LanguageRecordService languageRecordService;
 
-    @Autowired
-    @Lazy
-    private ObjectRecordService objectRecordService;
-
-    @Autowired
-    @Lazy
-    private TextRepository textRepository;
-
-    @Autowired
-    @Lazy
-    private MultiLanguageTextRepository multiLanguageTextRepository;
-
-    @Autowired
-    @Lazy
-    private CountryRepository countryRepository;
-
-    @Autowired
-    @Lazy
-    private RootRepository rootRepository;
+    private final ObjectRecordService objectRecordService;
 
     public ConceptRecordServiceImpl(Neo4jTemplate neo4jTemplate, ConceptRepository repository,
-            CatalogCleanupService cleanupService) {
-        super(XtdConcept.class, neo4jTemplate, repository, cleanupService);
+            CatalogCleanupService cleanupService, 
+            RecordRepositories repos,
+            @Lazy ExternalDocumentRecordService externalDocumentRecordService,
+            @Lazy MultiLanguageTextRecordService multiLanguageTextRecordService, @Lazy CountryRecordService countryRecordService,
+            @Lazy LanguageRecordService languageRecordService, @Lazy ObjectRecordService objectRecordService) {
+        super(XtdConcept.class, neo4jTemplate, repository, cleanupService, repos);
+        this.externalDocumentRecordService = externalDocumentRecordService;
+        this.multiLanguageTextRecordService = multiLanguageTextRecordService;
+        this.countryRecordService = countryRecordService;
+        this.languageRecordService = languageRecordService;
+        this.objectRecordService = objectRecordService;
     }
 
     @Override

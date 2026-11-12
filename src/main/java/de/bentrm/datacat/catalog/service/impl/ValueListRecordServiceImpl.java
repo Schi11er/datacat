@@ -9,14 +9,13 @@ import de.bentrm.datacat.catalog.domain.XtdProperty;
 import de.bentrm.datacat.catalog.domain.XtdUnit;
 import de.bentrm.datacat.catalog.domain.XtdValue;
 import de.bentrm.datacat.catalog.repository.OrderedValueRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.repository.UnitRepository;
 import de.bentrm.datacat.catalog.repository.ValueListRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.ValueListRecordService;
 import de.bentrm.datacat.catalog.service.ValueRecordService;
-import de.bentrm.datacat.catalog.service.dto.Relationships.UnitDtoProjection;
 import de.bentrm.datacat.catalog.service.dto.Relationships.ValueDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.ValuesDtoProjection;
 import de.bentrm.datacat.catalog.service.ConceptRecordService;
 import de.bentrm.datacat.catalog.service.LanguageRecordService;
 import de.bentrm.datacat.catalog.service.OrderedValueRecordService;
@@ -33,14 +32,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -54,33 +51,37 @@ import org.springframework.data.support.PageableExecutionUtils;
 public class ValueListRecordServiceImpl extends AbstractSimpleRecordServiceImpl<XtdValueList, ValueListRepository>
         implements ValueListRecordService {
 
-    @Autowired
-    private OrderedValueRecordService orderedValueRecordService;
+    private final OrderedValueRecordService orderedValueRecordService;
 
-    @Autowired
-    private LanguageRecordService languageRecordService;
+    private final LanguageRecordService languageRecordService;
 
-    @Autowired
-    private UnitRecordService unitRecordService;
+    private final UnitRecordService unitRecordService;
 
-    @Autowired
-    private PropertyRecordService propertyRecordService;
+    private final PropertyRecordService propertyRecordService;
 
-    @Autowired
-    private ConceptRecordService conceptRecordService;
+    private final ConceptRecordService conceptRecordService;
 
-    @Autowired
-    private ValueRecordService valueRecordService;
+    private final ValueRecordService valueRecordService;
 
-    @Autowired
-    private OrderedValueRepository orderedValueRepository;
+    private final OrderedValueRepository orderedValueRepository;
 
-    @Autowired
-    private UnitRepository unitRepository;
+    private final UnitRepository unitRepository;
 
     public ValueListRecordServiceImpl(Neo4jTemplate neo4jTemplate, ValueListRepository repository,
-            CatalogCleanupService cleanupService) {
-        super(XtdValueList.class, neo4jTemplate, repository, cleanupService);
+            OrderedValueRecordService orderedValueRecordService, LanguageRecordService languageRecordService,
+            UnitRecordService unitRecordService, PropertyRecordService propertyRecordService,
+            ConceptRecordService conceptRecordService, ValueRecordService valueRecordService,
+            OrderedValueRepository orderedValueRepository, UnitRepository unitRepository,
+            CatalogCleanupService cleanupService, RecordRepositories repos) {
+        super(XtdValueList.class, neo4jTemplate, repository, cleanupService, repos);
+        this.orderedValueRecordService = orderedValueRecordService;
+        this.languageRecordService = languageRecordService;
+        this.unitRecordService = unitRecordService;
+        this.propertyRecordService = propertyRecordService;
+        this.conceptRecordService = conceptRecordService;
+        this.valueRecordService = valueRecordService;
+        this.orderedValueRepository = orderedValueRepository;
+        this.unitRepository = unitRepository;
     }
 
     @Override

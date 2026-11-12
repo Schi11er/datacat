@@ -6,9 +6,7 @@ import de.bentrm.datacat.catalog.domain.XtdQuantityKind;
 import java.util.List;
 
 import org.springframework.data.neo4j.repository.query.Query;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface QuantityKindRepository extends EntityRepository<XtdQuantityKind> {
 
         @Query("""

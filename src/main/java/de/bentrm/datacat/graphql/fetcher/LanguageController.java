@@ -6,9 +6,9 @@ import de.bentrm.datacat.catalog.service.LanguageRecordService;
 import de.bentrm.datacat.graphql.Connection;
 import de.bentrm.datacat.graphql.dto.FilterInput;
 import de.bentrm.datacat.graphql.dto.SpecificationMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -18,13 +18,12 @@ import java.util.Optional;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor 
 public class LanguageController {
 
-    @Autowired
-    private LanguageRecordService languageRecordService;
+    private final LanguageRecordService languageRecordService;
 
-    @Autowired
-    private SpecificationMapper specificationMapper;
+    private final SpecificationMapper specificationMapper;
 
     @QueryMapping
     public Optional<XtdLanguage> getLanguage(@Argument String id) {

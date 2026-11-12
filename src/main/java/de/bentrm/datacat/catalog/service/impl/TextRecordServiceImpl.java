@@ -5,6 +5,7 @@ import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdLanguage;
 import de.bentrm.datacat.catalog.domain.XtdText;
 import de.bentrm.datacat.catalog.repository.LanguageRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.repository.TextRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.TextRecordService;
@@ -19,7 +20,6 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 
 import jakarta.validation.constraints.NotBlank;
@@ -34,13 +34,15 @@ public class TextRecordServiceImpl
         extends AbstractSimpleRecordServiceImpl<XtdText, TextRepository>
         implements TextRecordService {
 
-            @Autowired
-            private LanguageRepository languageRepository;
+            private final LanguageRepository languageRepository;
 
     public TextRecordServiceImpl(Neo4jTemplate neo4jTemplate,
                                      TextRepository repository,
-                                     CatalogCleanupService cleanupService) {
-        super(XtdText.class, neo4jTemplate, repository, cleanupService);
+                                        LanguageRepository languageRepository,
+                                     CatalogCleanupService cleanupService,
+                                     RecordRepositories repos) {
+        super(XtdText.class, neo4jTemplate, repository, cleanupService, repos);
+        this.languageRepository = languageRepository;
     }
 
     @Override

@@ -5,13 +5,13 @@ import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdDimension;
 import de.bentrm.datacat.catalog.domain.XtdRational;
 import de.bentrm.datacat.catalog.repository.DimensionRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.ConceptRecordService;
 import de.bentrm.datacat.catalog.service.DimensionRecordService;
 import de.bentrm.datacat.catalog.service.RationalRecordService;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -37,16 +37,15 @@ public class DimensionRecordServiceImpl
         extends AbstractSimpleRecordServiceImpl<XtdDimension, DimensionRepository>
         implements DimensionRecordService {
 
-    @Autowired
-    private RationalRecordService rationalRecordService;
+    private  RationalRecordService rationalRecordService;
 
-    @Autowired
     private ConceptRecordService conceptRecordService;
 
     public DimensionRecordServiceImpl(Neo4jTemplate neo4jTemplate,
             DimensionRepository repository,
-            CatalogCleanupService cleanupService) {
-        super(XtdDimension.class, neo4jTemplate, repository, cleanupService);
+            CatalogCleanupService cleanupService,
+            RecordRepositories repos) {
+        super(XtdDimension.class, neo4jTemplate, repository, cleanupService, repos);
     }
 
     @Override

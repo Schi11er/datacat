@@ -1,6 +1,7 @@
 package de.bentrm.datacat.catalog.service.impl;
 
 import de.bentrm.datacat.catalog.domain.*;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.repository.ValueRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.ObjectRecordService;
@@ -22,7 +23,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 
@@ -32,16 +32,17 @@ import org.springframework.data.neo4j.core.Neo4jTemplate;
 public class ValueRecordServiceImpl extends AbstractSimpleRecordServiceImpl<XtdValue, ValueRepository>
         implements ValueRecordService {
 
-    @Autowired
-    private ObjectRecordService objectRecordService;
+    private final ObjectRecordService objectRecordService;
 
-    @Autowired
-    @Lazy
-    private OrderedValueRecordService orderedValueRecordService;
+    private final OrderedValueRecordService orderedValueRecordService;
 
     public ValueRecordServiceImpl(ValueRepository repository, Neo4jTemplate neo4jTemplate,
-            CatalogCleanupService cleanupService) {
-        super(XtdValue.class, neo4jTemplate, repository, cleanupService);
+        ObjectRecordService objectRecordService,
+        @Lazy OrderedValueRecordService orderedValueRecordService,
+            CatalogCleanupService cleanupService, RecordRepositories repos) {
+        super(XtdValue.class, neo4jTemplate, repository, cleanupService, repos);
+        this.objectRecordService = objectRecordService;
+        this.orderedValueRecordService = orderedValueRecordService;
     }
 
     @Override

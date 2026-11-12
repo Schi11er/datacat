@@ -8,18 +8,18 @@ import de.bentrm.datacat.catalog.service.CatalogService;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
 import org.springframework.stereotype.Controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor 
 public class RootController {
 
-    @Autowired
-    private CatalogService service;
+    private final CatalogService service;
 
     @BatchMapping(typeName = "XtdRoot", field = "recordType")
     public Map<CatalogRecord, CatalogRecordType> getRecordTypes(List<CatalogRecord> sources) {

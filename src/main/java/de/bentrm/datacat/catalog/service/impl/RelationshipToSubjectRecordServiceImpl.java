@@ -6,6 +6,7 @@ import de.bentrm.datacat.catalog.domain.XtdRelationshipToSubject;
 import de.bentrm.datacat.catalog.domain.XtdRelationshipType;
 import de.bentrm.datacat.catalog.domain.XtdSubject;
 import de.bentrm.datacat.catalog.domain.Enums.XtdRelationshipKindEnum;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.repository.RelationshipToSubjectRepository;
 import de.bentrm.datacat.catalog.repository.RelationshipTypeRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
@@ -14,8 +15,6 @@ import de.bentrm.datacat.catalog.service.RelationshipTypeRecordService;
 import de.bentrm.datacat.catalog.service.SubjectRecordService;
 import de.bentrm.datacat.catalog.service.dto.Relationships.ConnectingSubjectDtoProjection;
 import de.bentrm.datacat.catalog.service.dto.Relationships.RelationshipTypeDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.ScopeSubjectsDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.TargetSubjectsDtoProjection;
 import de.bentrm.datacat.catalog.service.ObjectRecordService;
 import lombok.extern.slf4j.Slf4j;
 
@@ -28,7 +27,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 
@@ -44,32 +42,27 @@ public class RelationshipToSubjectRecordServiceImpl
         extends AbstractSimpleRecordServiceImpl<XtdRelationshipToSubject, RelationshipToSubjectRepository>
         implements RelationshipToSubjectRecordService {
 
-            @Autowired
-            @Lazy
-            private SubjectRecordService subjectRecordService;
+            private final SubjectRecordService subjectRecordService;
 
-            @Autowired
-            private ObjectRecordService objectRecordService;
+            private final ObjectRecordService objectRecordService;
 
-            @Autowired
-            private RelationshipTypeRecordService relationshipTypeRecordService;
+            private final RelationshipTypeRecordService relationshipTypeRecordService;
 
-            @Autowired
-            private RelationshipTypeRepository relationshipTypeRepository;
-
-            @Autowired
-            private de.bentrm.datacat.catalog.repository.LanguageRepository languageRepository;
-
-            @Autowired
-            private de.bentrm.datacat.catalog.repository.TextRepository textRepository;
-
-            @Autowired
-            private de.bentrm.datacat.catalog.repository.MultiLanguageTextRepository multiLanguageTextRepository;
+            private final RelationshipTypeRepository relationshipTypeRepository;
 
     public RelationshipToSubjectRecordServiceImpl(Neo4jTemplate neo4jTemplate,
                                      RelationshipToSubjectRepository repository,
-                                     CatalogCleanupService cleanupService) {
-        super(XtdRelationshipToSubject.class, neo4jTemplate, repository, cleanupService);
+                                        @Lazy SubjectRecordService subjectRecordService,
+                                        ObjectRecordService objectRecordService,
+                                        RelationshipTypeRecordService relationshipTypeRecordService,
+                                        RelationshipTypeRepository relationshipTypeRepository,
+                                        CatalogCleanupService cleanupService,
+                                        RecordRepositories repos) {
+        super(XtdRelationshipToSubject.class, neo4jTemplate, repository, cleanupService, repos);
+        this.subjectRecordService = subjectRecordService;
+        this.objectRecordService = objectRecordService;
+        this.relationshipTypeRecordService = relationshipTypeRecordService;
+        this.relationshipTypeRepository = relationshipTypeRepository;
     }
 
     @Transactional

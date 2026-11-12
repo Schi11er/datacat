@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,11 +13,11 @@ import org.springframework.validation.annotation.Validated;
 import de.bentrm.datacat.catalog.domain.CatalogRecordType;
 import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdSubdivision;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.repository.SubdivisionRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.ConceptRecordService;
 import de.bentrm.datacat.catalog.service.SubdivisionRecordService;
-import de.bentrm.datacat.catalog.service.dto.Relationships.SubdivisionsDtoProjection;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -31,12 +30,14 @@ import lombok.extern.slf4j.Slf4j;
 public class SubdivisionRecordServiceImpl extends AbstractSimpleRecordServiceImpl<XtdSubdivision, SubdivisionRepository>
         implements SubdivisionRecordService {
 
-    @Autowired
-    private ConceptRecordService conceptRecordService;
+    private final ConceptRecordService conceptRecordService;
 
     public SubdivisionRecordServiceImpl(Neo4jTemplate neo4jTemplate, SubdivisionRepository repository,
-            CatalogCleanupService cleanupService) {
-        super(XtdSubdivision.class, neo4jTemplate, repository, cleanupService);
+        ConceptRecordService conceptRecordService,
+            CatalogCleanupService cleanupService,
+            RecordRepositories repos) {
+        super(XtdSubdivision.class, neo4jTemplate, repository, cleanupService, repos);
+        this.conceptRecordService = conceptRecordService;
     }
 
     @Override

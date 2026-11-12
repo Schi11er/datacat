@@ -4,11 +4,8 @@ import de.bentrm.datacat.base.repository.EntityRepository;
 import de.bentrm.datacat.catalog.domain.XtdConcept;
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
-@Repository
 public interface ConceptRepository extends EntityRepository<XtdConcept> {
 
     @Query("""

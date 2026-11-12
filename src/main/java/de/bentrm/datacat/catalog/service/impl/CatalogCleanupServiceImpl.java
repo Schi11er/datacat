@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
+import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,6 +15,7 @@ import jakarta.validation.constraints.NotNull;
 @Slf4j
 @Service
 @Transactional
+@Validated
 public class CatalogCleanupServiceImpl implements CatalogCleanupService {
 
     private final RootRepository rootRepository;

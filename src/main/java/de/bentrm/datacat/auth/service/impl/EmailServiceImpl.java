@@ -11,11 +11,13 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 
 import jakarta.validation.constraints.NotNull;
 import java.util.Map;
 
 @Slf4j
+@Validated
 @Component
 public class EmailServiceImpl implements EmailService {
 

@@ -7,6 +7,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SimpleRecordResolver extends XtdRootResolver {
 
+    public SimpleRecordResolver(XtdObjectResolver objectTypeResolver) {
+        super(objectTypeResolver);
+        //TODO Auto-generated constructor stub
+    }
+
     @Override
     public String getTypeName() {
         return "SimpleRecord";

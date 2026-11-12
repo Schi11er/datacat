@@ -9,7 +9,8 @@ import de.bentrm.datacat.graphql.Connection;
 import de.bentrm.datacat.graphql.dto.FilterInput;
 import de.bentrm.datacat.graphql.dto.SpecificationMapper;
 import de.bentrm.datacat.graphql.input.AttachConceptsToDictionaryInput;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -26,13 +27,12 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Controller
+@RequiredArgsConstructor 
 public class DictionaryController {
 
-    @Autowired
-    private DictionaryRecordService service;
+    private final DictionaryRecordService service;
 
-    @Autowired
-    private SpecificationMapper specificationMapper;
+    private final SpecificationMapper specificationMapper;
 
     @QueryMapping
     public Optional<XtdDictionary> getDictionary(@Argument String id) {

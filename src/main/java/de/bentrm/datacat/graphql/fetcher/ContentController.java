@@ -18,9 +18,9 @@ import de.bentrm.datacat.catalog.service.PropertyRecordService;
 import de.bentrm.datacat.graphql.dto.TextCountResult;
 import de.bentrm.datacat.graphql.input.*;
 import de.bentrm.datacat.graphql.payload.*;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
@@ -29,34 +29,26 @@ import org.springframework.validation.annotation.Validated;
 @Slf4j
 @Controller
 @Validated
+@RequiredArgsConstructor 
 public class ContentController {
 
-    @Autowired
-    private PayloadMapper payloadMapper;
+    private final PayloadMapper payloadMapper;
 
-    @Autowired
-    private CatalogService catalogService;
+    private final CatalogService catalogService;
 
-    @Autowired
-    private TagService tagService;
+    private final TagService tagService;
 
-    @Autowired
-    private ObjectRecordService objectRecordService;
+    private final ObjectRecordService objectRecordService;
 
-    @Autowired
-    private TextRecordService textRecordService;
+    private final TextRecordService textRecordService;
 
-    @Autowired
-    private ConceptRecordService conceptRecordService;
+    private final ConceptRecordService conceptRecordService;
 
-    @Autowired
-    private CatalogCleanupService catalogCleanupService;
+    private final CatalogCleanupService catalogCleanupService;
 
-    @Autowired
-    private PropertyRecordService propertyRecordService;
+    private final PropertyRecordService propertyRecordService;
 
-    @Autowired
-    private ValueRecordService valueRecordService;
+    private final ValueRecordService valueRecordService;
 
     @MutationMapping
     protected AddTextPayload addName(@Argument AddTextInput input) {

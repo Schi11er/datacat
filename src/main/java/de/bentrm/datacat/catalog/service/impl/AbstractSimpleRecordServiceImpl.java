@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +14,7 @@ import de.bentrm.datacat.base.repository.EntityRepository;
 import de.bentrm.datacat.catalog.repository.CountryRepository;
 import de.bentrm.datacat.catalog.repository.LanguageRepository;
 import de.bentrm.datacat.catalog.repository.MultiLanguageTextRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.repository.TextRepository;
 import de.bentrm.datacat.catalog.domain.CatalogRecord;
 import de.bentrm.datacat.catalog.domain.SimpleRelationType;
@@ -55,27 +55,27 @@ public abstract class AbstractSimpleRecordServiceImpl<T extends CatalogRecord, R
         extends AbstractQueryServiceImpl<T, R> implements SimpleRecordService<T> {
 
     protected final ValueMapper VALUE_MAPPER = ValueMapper.INSTANCE;
-    private final CatalogCleanupService cleanupService;
+    protected final CatalogCleanupService cleanupService;
     private static final Map<String, XtdLanguage> LANGUAGE_CACHE = new ConcurrentHashMap<>();
     private static final Map<String, XtdCountry> COUNTRY_CACHE = new ConcurrentHashMap<>();
 
+    protected final LanguageRepository languageRepository;
 
-    @Autowired
-    private LanguageRepository languageRepository;
+    protected final TextRepository textRepository;
 
-    @Autowired
-    private TextRepository textRepository;
+    protected final CountryRepository countryRepository;
 
-    @Autowired
-    private CountryRepository countryRepository;
+    protected final MultiLanguageTextRepository multiLanguageTextRepository;
 
-    @Autowired
-    private MultiLanguageTextRepository multiLanguageTextRepository;
 
     public AbstractSimpleRecordServiceImpl(Class<T> domainClass, Neo4jTemplate neo4jTemplate, R repository,
-            CatalogCleanupService cleanupService) {
+            CatalogCleanupService cleanupService, RecordRepositories repos) {
         super(domainClass, neo4jTemplate, repository);
         this.cleanupService = cleanupService;
+        this.languageRepository = repos.languageRepository();
+        this.textRepository = repos.textRepository();
+        this.countryRepository = repos.countryRepository();
+        this.multiLanguageTextRepository = repos.multiLanguageTextRepository();
     }
 
     @Transactional

@@ -6,9 +6,9 @@ import de.bentrm.datacat.catalog.repository.CatalogExportQuery;
 import de.bentrm.datacat.catalog.service.CatalogExportService;
 import de.bentrm.datacat.catalog.service.value.ExportCatalogRecordsValue;
 import de.bentrm.datacat.catalog.service.value.ExportRelationshipsValue;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -19,9 +19,9 @@ import java.util.*;
 @Validated
 @Transactional(readOnly = true)
 @Service
+@RequiredArgsConstructor 
 public class CatalogExportServiceImpl implements CatalogExportService {
 
-    @Autowired
     private CatalogExportQuery catalogExportQuery;
 
     @Override

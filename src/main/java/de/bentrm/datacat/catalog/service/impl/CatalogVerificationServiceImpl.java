@@ -5,9 +5,9 @@ import de.bentrm.datacat.catalog.repository.CatalogValidationQuery;
 import de.bentrm.datacat.catalog.repository.ObjectRepository;
 import de.bentrm.datacat.catalog.service.CatalogVerificationService;
 import de.bentrm.datacat.catalog.service.value.VerificationConnection;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,13 +21,12 @@ import java.util.stream.StreamSupport;
 @Validated
 @Transactional(readOnly = true)
 @Service
+@RequiredArgsConstructor 
 public class CatalogVerificationServiceImpl implements CatalogVerificationService {
 
-    @Autowired
-    private CatalogValidationQuery catalogValidationQuery;
+    private final CatalogValidationQuery catalogValidationQuery;
 
-    @Autowired
-    private ObjectRepository repository;
+    private final ObjectRepository repository;
 
 
     @Override

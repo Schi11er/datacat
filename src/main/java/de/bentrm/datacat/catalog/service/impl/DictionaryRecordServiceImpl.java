@@ -6,6 +6,7 @@ import de.bentrm.datacat.catalog.domain.XtdDictionary;
 import de.bentrm.datacat.catalog.domain.XtdMultiLanguageText;
 import de.bentrm.datacat.catalog.domain.XtdObject;
 import de.bentrm.datacat.catalog.repository.DictionaryRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.DictionaryRecordService;
 import de.bentrm.datacat.catalog.service.MultiLanguageTextRecordService;
@@ -40,17 +41,18 @@ public class DictionaryRecordServiceImpl
         extends AbstractSimpleRecordServiceImpl<XtdDictionary, DictionaryRepository>
         implements DictionaryRecordService {
 
-    @Autowired
-    private MultiLanguageTextRecordService multiLanguageTextRecordService;
+    private final MultiLanguageTextRecordService multiLanguageTextRecordService;
 
-    @Autowired 
-    @Lazy
-    private ObjectRecordService objectRecordService;
+    private final ObjectRecordService objectRecordService;
 
     public DictionaryRecordServiceImpl(Neo4jTemplate neo4jTemplate,
-                                     DictionaryRepository repository,
-                                     CatalogCleanupService cleanupService) {
-        super(XtdDictionary.class, neo4jTemplate, repository, cleanupService);
+                                     DictionaryRepository repository, MultiLanguageTextRecordService multiLanguageTextRecordService,
+                                     @Lazy ObjectRecordService objectRecordService,
+                                     CatalogCleanupService cleanupService,
+                                     RecordRepositories repos) {
+        super(XtdDictionary.class, neo4jTemplate, repository, cleanupService, repos);
+        this.multiLanguageTextRecordService = multiLanguageTextRecordService;
+        this.objectRecordService = objectRecordService;
     }
 
     @Override

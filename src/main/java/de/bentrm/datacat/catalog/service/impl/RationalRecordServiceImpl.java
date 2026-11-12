@@ -4,6 +4,7 @@ import de.bentrm.datacat.catalog.domain.CatalogRecordType;
 import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdRational;
 import de.bentrm.datacat.catalog.repository.RationalRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.RationalRecordService;
 
@@ -27,8 +28,9 @@ public class RationalRecordServiceImpl
 
     public RationalRecordServiceImpl(Neo4jTemplate neo4jTemplate,
                                      RationalRepository repository,
-                                     CatalogCleanupService cleanupService) {
-        super(XtdRational.class, neo4jTemplate, repository, cleanupService);
+                                     CatalogCleanupService cleanupService,
+                                     RecordRepositories repos) {
+        super(XtdRational.class, neo4jTemplate, repository, cleanupService, repos);
     }
 
     @Override

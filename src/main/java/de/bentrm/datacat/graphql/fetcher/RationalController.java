@@ -6,7 +6,8 @@ import de.bentrm.datacat.catalog.specification.CatalogRecordSpecification;
 import de.bentrm.datacat.graphql.Connection;
 import de.bentrm.datacat.graphql.dto.FilterInput;
 import de.bentrm.datacat.graphql.dto.SpecificationMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -15,13 +16,12 @@ import org.springframework.stereotype.Controller;
 import java.util.Optional;
 
 @Controller
+@RequiredArgsConstructor 
 public class RationalController {
 
-    @Autowired
-    private RationalRecordService service;
+    private final RationalRecordService service;
 
-    @Autowired
-    private SpecificationMapper specificationMapper;
+    private final SpecificationMapper specificationMapper;
 
     @QueryMapping
     public Optional<XtdRational> getRational(@Argument String id) {

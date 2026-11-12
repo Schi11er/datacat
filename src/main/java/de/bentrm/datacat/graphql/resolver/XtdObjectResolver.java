@@ -4,11 +4,13 @@ import de.bentrm.datacat.catalog.domain.*;
 import graphql.TypeResolutionEnvironment;
 import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLSchema;
+import lombok.RequiredArgsConstructor;
+
 import org.apache.commons.lang3.NotImplementedException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor 
 public class XtdObjectResolver implements CustomResolver {
 
     @Override
@@ -16,8 +18,7 @@ public class XtdObjectResolver implements CustomResolver {
         return "XtdObject";
     }
 
-    @Autowired
-    private XtdConceptResolver conceptTypeResolver;
+    private final XtdConceptResolver conceptTypeResolver;
     
     @Override
     public GraphQLObjectType getType(TypeResolutionEnvironment env) {

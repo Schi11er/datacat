@@ -1,11 +1,11 @@
 package de.bentrm.datacat.base.domain;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.neo4j.core.mapping.callback.BeforeBindCallback;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
@@ -15,10 +15,10 @@ import java.time.Instant;
  */
 @Slf4j
 @Component
+@RequiredArgsConstructor 
 public class PreSaveEventListener implements BeforeBindCallback<Entity> {
 
-    @Autowired
-    private AuditorAware<String> auditorAware;
+    private final AuditorAware<String> auditorAware;
 
     /**
      * Called before save of any database entity.

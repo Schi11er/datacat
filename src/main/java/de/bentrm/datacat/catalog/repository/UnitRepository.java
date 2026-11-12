@@ -7,9 +7,7 @@ import java.util.List;
 
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface UnitRepository extends EntityRepository<XtdUnit> {
 
         @Query("""

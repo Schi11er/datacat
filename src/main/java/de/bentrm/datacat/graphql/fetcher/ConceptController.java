@@ -13,9 +13,9 @@ import de.bentrm.datacat.graphql.dto.FilterInput;
 import de.bentrm.datacat.graphql.dto.SpecificationMapper;
 import de.bentrm.datacat.graphql.input.LocalizationInput;
 import de.bentrm.datacat.util.LocalizationUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
@@ -31,13 +31,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class ConceptController {
 
-    @Autowired
-    private ConceptRecordService service;
+    private final ConceptRecordService service;
 
-    @Autowired
-    private SpecificationMapper specificationMapper;
+    private final SpecificationMapper specificationMapper;
 
     @QueryMapping
     public Optional<XtdConcept> getConcept(@Argument String id) {

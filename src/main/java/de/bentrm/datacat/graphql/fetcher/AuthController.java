@@ -7,8 +7,8 @@ import de.bentrm.datacat.graphql.dto.ProfileUpdateInput;
 import de.bentrm.datacat.graphql.dto.SignupInput;
 import de.bentrm.datacat.graphql.dto.SpecificationMapper;
 import graphql.GraphQLError;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -19,16 +19,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor
 public class AuthController {
 
-    @Autowired
-    private AuthenticationService authenticationService;
+    private final AuthenticationService authenticationService;
 
-    @Autowired
-    private ProfileService profileService;
+    private final ProfileService profileService;
 
-    @Autowired
-    private SpecificationMapper specificationMapper;
+    private final SpecificationMapper specificationMapper;
 
     @ExceptionHandler({
             UsernameTakenException.class,

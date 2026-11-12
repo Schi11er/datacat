@@ -9,11 +9,11 @@ import de.bentrm.datacat.catalog.domain.XtdRational;
 import de.bentrm.datacat.catalog.domain.XtdDimension;
 import de.bentrm.datacat.catalog.domain.XtdMultiLanguageText;
 import de.bentrm.datacat.catalog.repository.DimensionRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.repository.UnitRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.UnitRecordService;
 import de.bentrm.datacat.catalog.service.ValueListRecordService;
-import de.bentrm.datacat.catalog.service.dto.Relationships.DimensionDtoProjection;
 import de.bentrm.datacat.catalog.service.ConceptRecordService;
 import de.bentrm.datacat.catalog.service.DimensionRecordService;
 import de.bentrm.datacat.catalog.service.MultiLanguageTextRecordService;
@@ -35,7 +35,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,31 +49,38 @@ import org.springframework.data.support.PageableExecutionUtils;
 public class UnitRecordServiceImpl extends AbstractSimpleRecordServiceImpl<XtdUnit, UnitRepository>
         implements UnitRecordService {
 
-    @Autowired
-    private PropertyRecordService propertyRecordService;
+    private final PropertyRecordService propertyRecordService;
 
-    @Autowired
-    private DimensionRecordService dimensionRecordService;
+    private final DimensionRecordService dimensionRecordService;
 
-    @Autowired
-    private MultiLanguageTextRecordService multiLanguageTextRecordService;
+    private final MultiLanguageTextRecordService multiLanguageTextRecordService;
 
-    @Autowired
-    private RationalRecordService rationalRecordService;
+    private final RationalRecordService rationalRecordService;
 
-    @Autowired
-    private ConceptRecordService conceptRecordService;
+    private final ConceptRecordService conceptRecordService;
 
-    @Autowired
-    @Lazy
-    private ValueListRecordService valueListRecordService;
+    private final ValueListRecordService valueListRecordService;
 
-    @Autowired
-    private DimensionRepository dimensionRepository;
+    private final DimensionRepository dimensionRepository;
 
     public UnitRecordServiceImpl(Neo4jTemplate neo4jTemplate, UnitRepository repository,
-            CatalogCleanupService cleanupService) {
-        super(XtdUnit.class, neo4jTemplate, repository, cleanupService);
+        PropertyRecordService propertyRecordService,
+        DimensionRecordService dimensionRecordService,
+        MultiLanguageTextRecordService multiLanguageTextRecordService,
+        RationalRecordService rationalRecordService,
+        ConceptRecordService conceptRecordService,
+        @Lazy ValueListRecordService valueListRecordService,
+        DimensionRepository dimensionRepository,
+            CatalogCleanupService cleanupService,
+            RecordRepositories repos) {
+        super(XtdUnit.class, neo4jTemplate, repository, cleanupService, repos);
+        this.propertyRecordService = propertyRecordService;
+        this.dimensionRecordService = dimensionRecordService;
+        this.multiLanguageTextRecordService = multiLanguageTextRecordService;
+        this.rationalRecordService = rationalRecordService;
+        this.conceptRecordService = conceptRecordService;
+        this.valueListRecordService = valueListRecordService;
+        this.dimensionRepository = dimensionRepository;
     }
 
     @Override

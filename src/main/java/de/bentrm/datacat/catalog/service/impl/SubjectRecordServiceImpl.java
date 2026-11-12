@@ -6,10 +6,10 @@ import de.bentrm.datacat.catalog.domain.SimpleRelationType;
 import de.bentrm.datacat.catalog.domain.XtdProperty;
 import de.bentrm.datacat.catalog.domain.XtdRelationshipToSubject;
 import de.bentrm.datacat.catalog.domain.XtdSubject;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.repository.SubjectRepository;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.SubjectRecordService;
-import de.bentrm.datacat.catalog.service.dto.Relationships.PropertiesDtoProjection;
 import de.bentrm.datacat.catalog.service.ConceptRecordService;
 import de.bentrm.datacat.catalog.service.PropertyRecordService;
 import de.bentrm.datacat.catalog.service.RelationshipToSubjectRecordService;
@@ -29,12 +29,8 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
-import org.springframework.data.support.PageableExecutionUtils;
 
 @Slf4j
 @Service
@@ -44,19 +40,21 @@ public class SubjectRecordServiceImpl
         extends AbstractSimpleRecordServiceImpl<XtdSubject, SubjectRepository>
         implements SubjectRecordService {
 
-    @Autowired
-    private PropertyRecordService propertyRecordService;
+    private final PropertyRecordService propertyRecordService;
 
-    @Autowired
-    private RelationshipToSubjectRecordService relationshipToSubjectRecordService;
+    private final RelationshipToSubjectRecordService relationshipToSubjectRecordService;
 
-    @Autowired
-    private ConceptRecordService conceptRecordService;
+    private final ConceptRecordService conceptRecordService;
 
     public SubjectRecordServiceImpl(Neo4jTemplate neo4jTemplate,
             SubjectRepository repository,
-            CatalogCleanupService cleanupService) {
-        super(XtdSubject.class, neo4jTemplate, repository, cleanupService);
+            CatalogCleanupService cleanupService, 
+            RecordRepositories repos,
+            ConceptRecordService conceptRecordService, PropertyRecordService propertyRecordService, RelationshipToSubjectRecordService relationshipToSubjectRecordService) {
+        super(XtdSubject.class, neo4jTemplate, repository, cleanupService, repos);
+        this.propertyRecordService = propertyRecordService;
+        this.relationshipToSubjectRecordService = relationshipToSubjectRecordService;
+        this.conceptRecordService = conceptRecordService;
     }
 
     @Override
@@ -120,30 +118,6 @@ public class SubjectRecordServiceImpl
         return getRepository().findByIdWithIncomingAndOutgoingRelations(id);
     }
 
-    // @Transactional
-    // @Override
-    // public @NotNull XtdSubject setRelatedRecords(@NotBlank String recordId,
-    //         @NotEmpty List<@NotBlank String> relatedRecordIds, @NotNull SimpleRelationType relationType) {
-
-    //     final XtdSubject subject = getRepository().findByIdWithDirectRelations(recordId).orElseThrow(() -> new IllegalArgumentException("No record with id " + recordId + " found."));
-
-    //     switch (relationType) {
-    //         case Properties -> {
-    //             final Iterable<XtdProperty> items = propertyRecordService.findAllEntitiesById(relatedRecordIds);
-    //             final List<XtdProperty> related = StreamSupport
-    //                     .stream(items.spliterator(), false)
-    //                     .collect(Collectors.toList());
-
-    //             subject.getProperties().clear();
-    //             subject.getProperties().addAll(related);
-    //         }
-    //         default -> conceptRecordService.setRelatedRecords(recordId, relatedRecordIds, relationType);
-    //     }
-
-    //     neo4jTemplate.saveAs(subject, PropertiesDtoProjection.class);
-    //     log.trace("Updated relationship: {}", subject);
-    //     return subject;
-    // }
     @Transactional
     @Override
     public @NotNull XtdSubject setRelatedRecords(@NotBlank String recordId,

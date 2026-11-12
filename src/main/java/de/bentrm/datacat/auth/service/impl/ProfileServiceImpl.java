@@ -6,8 +6,8 @@ import de.bentrm.datacat.auth.service.dto.ProfileDto;
 import de.bentrm.datacat.auth.service.dto.ProfileUpdateDto;
 import de.bentrm.datacat.base.repository.UserRepository;
 import de.bentrm.datacat.catalog.service.value.ValueMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.stereotype.Service;
@@ -20,13 +20,12 @@ import jakarta.validation.Valid;
 @Service
 @Validated
 @Transactional(readOnly = true)
+@RequiredArgsConstructor 
 public class ProfileServiceImpl implements ProfileService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
-    @Autowired
-    private ValueMapper valueMapper;
+    private final ValueMapper valueMapper;
 
     @Override
     public ProfileDto getProfile() {

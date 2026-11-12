@@ -10,9 +10,9 @@ import de.bentrm.datacat.catalog.specification.CatalogRecordSpecification;
 import de.bentrm.datacat.graphql.Connection;
 import de.bentrm.datacat.graphql.dto.FilterInput;
 import de.bentrm.datacat.graphql.dto.SpecificationMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -31,13 +31,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor 
 public class ValueListController {
 
-    @Autowired
-    private ValueListRecordService valueListRecordService;
+    private final ValueListRecordService valueListRecordService;
 
-    @Autowired
-    private SpecificationMapper specificationMapper;
+    private final SpecificationMapper specificationMapper;
 
     @QueryMapping
     public Optional<XtdValueList> getValueList(@Argument String id) {

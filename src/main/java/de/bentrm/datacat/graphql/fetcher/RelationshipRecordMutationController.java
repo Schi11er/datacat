@@ -18,8 +18,8 @@ import de.bentrm.datacat.graphql.input.RelationshipPropertiesInput;
 import de.bentrm.datacat.graphql.payload.CreateRelationshipPayload;
 import de.bentrm.datacat.graphql.payload.DeleteRelationshipPayload;
 import de.bentrm.datacat.graphql.payload.PayloadMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.MutationMapping;
 import org.springframework.stereotype.Controller;
@@ -30,24 +30,20 @@ import java.util.UUID;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor 
 public class RelationshipRecordMutationController {
 
     private final PayloadMapper PAYLOAD_MAPPER = PayloadMapper.INSTANCE;
 
-    @Autowired
-    private CatalogService catalogService;
+    private final CatalogService catalogService;
 
-    @Autowired
-    private CatalogCleanupService catalogCleanupService;
+    private final CatalogCleanupService catalogCleanupService;
 
-    @Autowired
-    private SimpleRecordServiceFactory simpleRecordServiceFactory;
+    private final SimpleRecordServiceFactory simpleRecordServiceFactory;
 
-    @Autowired
-    private RelationshipToPropertyRecordService relationshipToPropertyRecordService;
+    private final RelationshipToPropertyRecordService relationshipToPropertyRecordService;
 
-    @Autowired
-    private RelationshipToSubjectRecordService relationshipToSubjectRecordService;
+    private final RelationshipToSubjectRecordService relationshipToSubjectRecordService;
 
     public CatalogRecord createObjectRelationship(CreateRelationshipInput input) {
         final RelationshipPropertiesInput inputProperties = input.getProperties();

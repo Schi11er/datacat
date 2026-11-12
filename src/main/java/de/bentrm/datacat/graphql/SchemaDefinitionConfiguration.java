@@ -7,8 +7,8 @@ import graphql.schema.idl.RuntimeWiring;
 import graphql.schema.idl.SchemaGenerator;
 import graphql.schema.idl.SchemaParser;
 import graphql.schema.idl.TypeDefinitionRegistry;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ResourceLoaderAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,7 +17,7 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.graphql.execution.ErrorType;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -26,6 +26,7 @@ import java.util.List;
 
 @Slf4j
 @Configuration
+@RequiredArgsConstructor 
 public class SchemaDefinitionConfiguration implements ResourceLoaderAware {
 
     private final static String[] schemaFiles = { "classpath:graphql/xtd.graphqls", "classpath:graphql/auth.graphqls",
@@ -33,8 +34,7 @@ public class SchemaDefinitionConfiguration implements ResourceLoaderAware {
 
     private ResourceLoader resourceLoader;
 
-    @Autowired
-    private List<CustomResolver> customResolvers;
+    private final List<CustomResolver> customResolvers;
 
     final SchemaParser schemaParser = new SchemaParser();
     final SchemaGenerator schemaGenerator = new SchemaGenerator();

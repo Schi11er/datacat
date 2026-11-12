@@ -7,9 +7,11 @@ import de.bentrm.datacat.catalog.specification.TagSpecification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import jakarta.validation.constraints.NotNull;
 
 @Service
+@Validated
 public class TagServiceImpl extends AbstractQueryServiceImpl<Tag, TagRepository> implements TagService {
 
     public TagServiceImpl(Neo4jTemplate neo4jTemplate, TagRepository repository) {

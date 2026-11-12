@@ -11,9 +11,9 @@ import de.bentrm.datacat.graphql.input.HierarchyFilterInput;
 import de.bentrm.datacat.graphql.input.HierarchyRootNodeFilterInput;
 import de.bentrm.datacat.graphql.input.SearchInput;
 import graphql.schema.DataFetchingFieldSelectionSet;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -21,16 +21,14 @@ import org.springframework.stereotype.Controller;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor 
 public class SearchController {
 
-    @Autowired
-    private SpecificationMapper specificationMapper;
+    private final SpecificationMapper specificationMapper;
 
-    @Autowired
-    private CatalogService catalogService;
+    private final CatalogService catalogService;
 
-    @Autowired
-    private CatalogSearchService catalogSearchService;
+    private final CatalogSearchService catalogSearchService;
 
     @QueryMapping
     public Connection<XtdRoot> search(@Argument SearchInput input, @Argument Integer pageSize, @Argument Integer pageNumber, DataFetchingFieldSelectionSet selectionSet) {

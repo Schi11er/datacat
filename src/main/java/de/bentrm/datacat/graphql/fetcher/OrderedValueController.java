@@ -8,9 +8,9 @@ import de.bentrm.datacat.catalog.specification.CatalogRecordSpecification;
 import de.bentrm.datacat.graphql.Connection;
 import de.bentrm.datacat.graphql.dto.FilterInput;
 import de.bentrm.datacat.graphql.dto.SpecificationMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.graphql.data.method.annotation.Argument;
 import org.springframework.graphql.data.method.annotation.BatchMapping;
@@ -25,13 +25,12 @@ import java.util.stream.Collectors;
 
 @Slf4j
 @Controller
+@RequiredArgsConstructor 
 public class OrderedValueController {
 
-    @Autowired
-    private OrderedValueRecordService orderedValueRecordService;
+    private final OrderedValueRecordService orderedValueRecordService;
 
-    @Autowired
-    private SpecificationMapper specificationMapper;
+    private final SpecificationMapper specificationMapper;
 
     @QueryMapping
     public Optional<XtdOrderedValue> getOrderedValue(@Argument String id) {

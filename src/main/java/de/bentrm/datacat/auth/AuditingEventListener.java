@@ -5,11 +5,13 @@ import org.springframework.boot.actuate.audit.listener.AuditApplicationEvent;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.AuditorAware;
 import org.springframework.data.neo4j.core.mapping.callback.BeforeBindCallback;
-import org.springframework.lang.NonNull;
+import org.jspecify.annotations.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.annotation.Validated;
 import de.bentrm.datacat.base.domain.Entity;
 
 @Component
+@Validated
 public class AuditingEventListener implements BeforeBindCallback<Entity> {
 
     private final ApplicationEventPublisher publisher;

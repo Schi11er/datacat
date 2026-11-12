@@ -12,16 +12,16 @@ import de.bentrm.datacat.catalog.domain.XtdText;
 import graphql.TypeResolutionEnvironment;
 import graphql.schema.GraphQLObjectType;
 import graphql.schema.GraphQLSchema;
+import lombok.RequiredArgsConstructor;
 
 import org.apache.commons.lang3.NotImplementedException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component("xtdRootResolver")
+@RequiredArgsConstructor
 public class XtdRootResolver implements CustomResolver {
 
-    @Autowired
-    private XtdObjectResolver objectTypeResolver;
+    private final XtdObjectResolver objectTypeResolver;
 
     @Override
     public String getTypeName() {

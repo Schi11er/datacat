@@ -5,6 +5,7 @@ import de.bentrm.datacat.catalog.domain.XtdText;
 import de.bentrm.datacat.catalog.service.MultiLanguageTextRecordService;
 import de.bentrm.datacat.catalog.service.TextRecordService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.validation.annotation.Validated;
 import jakarta.annotation.Nullable;
 
 import org.springframework.stereotype.Component;
@@ -14,8 +15,9 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Slf4j
+@Validated
 @Component
-public final class LocalizationUtils {
+public class LocalizationUtils {
 
     public static final List<Locale.LanguageRange> DEFAULT_LANGUAGE_RANGE = Locale.LanguageRange
             .parse("de,en-US;q=0.7,en;q=0.3");

@@ -7,16 +7,14 @@ import de.bentrm.datacat.catalog.domain.XtdUnit;
 import de.bentrm.datacat.catalog.domain.XtdQuantityKind;
 import de.bentrm.datacat.catalog.repository.DimensionRepository;
 import de.bentrm.datacat.catalog.repository.QuantityKindRepository;
+import de.bentrm.datacat.catalog.repository.RecordRepositories;
 import de.bentrm.datacat.catalog.service.CatalogCleanupService;
 import de.bentrm.datacat.catalog.service.ConceptRecordService;
 import de.bentrm.datacat.catalog.service.DimensionRecordService;
 import de.bentrm.datacat.catalog.service.QuantityKindRecordService;
 import de.bentrm.datacat.catalog.service.UnitRecordService;
-import de.bentrm.datacat.catalog.service.dto.Relationships.DimensionDtoProjection;
-import de.bentrm.datacat.catalog.service.dto.Relationships.UnitsDtoProjection;
 import lombok.extern.slf4j.Slf4j;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -43,21 +41,23 @@ import java.util.stream.StreamSupport;
 public class QuantityKindRecordServiceImpl extends
         AbstractSimpleRecordServiceImpl<XtdQuantityKind, QuantityKindRepository> implements QuantityKindRecordService {
 
-    @Autowired
-    private UnitRecordService unitRecordService;
+    private final UnitRecordService unitRecordService;
 
-    @Autowired
-    private DimensionRecordService dimensionRecordService;
+    private final DimensionRecordService dimensionRecordService;
 
-    @Autowired
-    private ConceptRecordService conceptRecordService;
+    private final ConceptRecordService conceptRecordService;
 
-    @Autowired
-    private DimensionRepository dimensionRepository;
+    private final DimensionRepository dimensionRepository;
 
     public QuantityKindRecordServiceImpl(Neo4jTemplate neo4jTemplate, QuantityKindRepository repository,
-            CatalogCleanupService cleanupService) {
-        super(XtdQuantityKind.class, neo4jTemplate, repository, cleanupService);
+            UnitRecordService unitRecordService, DimensionRecordService dimensionRecordService,
+            ConceptRecordService conceptRecordService, DimensionRepository dimensionRepository,
+            CatalogCleanupService cleanupService, RecordRepositories repos) {
+        super(XtdQuantityKind.class, neo4jTemplate, repository, cleanupService, repos);
+        this.unitRecordService = unitRecordService;
+        this.dimensionRecordService = dimensionRecordService;
+        this.conceptRecordService = conceptRecordService;
+        this.dimensionRepository = dimensionRepository;
     }
 
     @Override
